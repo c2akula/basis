@@ -53,6 +53,7 @@ func Iter(array Array) Iterator {
 		inc:   1,
 	}
 	it.strides = ComputeStrides(it.array.Shape())
+	it.ndims = array.Ndims()
 	it.beg = 0
 	it.end = array.Size() - 1
 	it.ind = 0
@@ -116,6 +117,8 @@ func (it *iterator) Upk() *float64 {
 
 // Subs creates a non-array iterator between begin and end, inclusive.
 // Note: It cannot be used to iterate over an array.
+// FIXME: shape of the iterator should be computed
+// relative to beg = 0.
 func Subs(beg, end Index) Iterator {
 	it := &iterator{len: 1, inc: 1}
 	it.strides = make(Shape, len(end))
@@ -123,6 +126,7 @@ func Subs(beg, end Index) Iterator {
 		it.strides[i] = end[i] - beg[i] + 1 // shape
 		it.len *= it.strides[i]
 	}
+	it.ndims = len(end)
 	it.strides = ComputeStrides(it.strides)
 	it.beg = 0
 	it.end = sub2ind(it.strides, end)
@@ -151,9 +155,9 @@ func (it *iterator) WithStep(inc int) Iterator {
 
 func (it *iterator) createInd2submap() {
 	it.ind2submap = make([]Index, it.len)
-	subs := make([]int, it.len*len(it.strides))
-	for i := 0; i < it.len; i++ {
-		it.ind2submap[i], subs = subs[:len(it.strides)], subs[len(it.strides):]
+	subs := make(Index, it.len*it.ndims)
+	for i := range it.ind2submap {
+		it.ind2submap[i], subs = subs[:it.ndims], subs[it.ndims:]
 		ind2sub(it.strides, i, it.ind2submap[i])
 	}
 }

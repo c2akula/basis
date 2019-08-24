@@ -22,14 +22,22 @@ func TestNdarray_String(t *testing.T) {
 	// 	9, 7, 8,
 	// 	1, 0, 2,
 	// })
-	// fmt.Println("a: ", a)
 	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
-	a.String()
+	// _ = a.String()
+	fmt.Println("a: ", a)
+	exp := []float64{5, 6, 7, 25, 26, 27}
 	b := a.View(
 		Index{0, 1, 0},
 		Shape{2, 1, 3},
 	)
 	fmt.Println("b: ", b)
+	it := Iter(b)
+	for _, v := range exp {
+		if b.Get(it.I()) != v {
+			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
+		}
+		it.Next()
+	}
 }
 
 func TestNdarray_View(t *testing.T) {
@@ -180,10 +188,10 @@ func TestNdarray_Iterator(t *testing.T) {
 func TestArange(t *testing.T) {
 	got := Arange(0, 11)
 	exp := []float64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	fmt.Println(got)
+	// fmt.Println(got)
 	it := got.Take()
 	for _, v := range exp {
-		if got.Get(it.I()) != v {
+		if *it.Upk() != v {
 			t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 			t.Fail()
 		}
@@ -245,16 +253,13 @@ func BenchmarkNdarray_Get(b *testing.B) {
 	a := Rand(Shape{4, 35, 15})
 	it := a.Take()
 	// ind := Index{2, 14, 3}
-	// v := 0.0
+	v := 0.0
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		for it.Reset(); !it.Done(); it.Next() {
-			// v = a.Get(it.I())
-			_ = it.Len()
-		}
+		v = a.Get(it.I())
 	}
-	_ = it.Len()
+	_ = v * v
 }
 
 func TestAdd(t *testing.T) {

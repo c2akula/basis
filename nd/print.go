@@ -21,6 +21,7 @@ func print2d(array Array) string {
 		}
 		sb.WriteString("]\n")
 	}
+	it.Reset()
 	return sb.String()
 }
 
@@ -34,7 +35,9 @@ func (array *Ndarray) String() string {
 	shape := array.Shape()
 
 	ind := make(Index, array.Ndims())
-	for it := Subs(ind[:ndims-2], array.End()[:ndims-2]); !it.Done(); it.Next() {
+	end := make(Index, array.Ndims())
+	computeEnd(array.Shape(), end)
+	for it := Subs(ind[:ndims-2], end[:ndims-2]); !it.Done(); it.Next() {
 		copy(ind[:ndims-2], it.I())
 		sb.WriteByte('[')
 		for _, i := range ind[:ndims-2] {
