@@ -56,7 +56,7 @@ func Iter(array Array) Iterator {
 	it.ndims = array.Ndims()
 	it.beg = 0
 	it.end = array.Size() - 1
-	it.ind = 0
+	it.ind = it.beg
 	it.createInd2submap()
 	return it
 }
@@ -70,6 +70,7 @@ func (it *iterator) Done() bool {
 }
 
 func (it *iterator) I() Index {
+	// fmt.Println("it.ind2submap: ", it.ind2submap)
 	return it.ind2submap[it.ind]
 }
 
@@ -108,48 +109,35 @@ func (it *iterator) Reset() {
 	// but, now since the take function overwrites the iterator's
 	// parameters, we set it to the end of the array or view
 	it.end = it.array.Size() - 1
+	it.inc = 1
+	it.len = it.array.Size()
 }
 
 func (it *iterator) Upk() *float64 {
-	data := it.array.Data()
-	return &data[sub2ind(it.array.Strides(), it.I())]
-}
-
-// Subs creates a non-array iterator between begin and end, inclusive.
-// Note: It cannot be used to iterate over an array.
-// FIXME: shape of the iterator should be computed
-// relative to beg = 0.
-func Subs(beg, end Index) Iterator {
-	it := &iterator{len: 1, inc: 1}
-	it.strides = make(Shape, len(end))
-	for i := range it.strides {
-		it.strides[i] = end[i] - beg[i] + 1 // shape
-		it.len *= it.strides[i]
-	}
-	it.ndims = len(end)
-	it.strides = ComputeStrides(it.strides)
-	it.beg = 0
-	it.end = sub2ind(it.strides, end)
-	it.ind = sub2ind(it.strides, beg)
-	it.createInd2submap()
-	return it
+	array := it.array.(*Ndarray)
+	return &array.data[sub2ind(array.strides, it.I())]
 }
 
 func (it *iterator) From(beg int) Iterator {
 	it.beg = beg
 	it.ind = beg
 	it.inc = 1
+	it.len = it.end - it.beg + 1
 	return it
 }
 
 func (it *iterator) To(end int) Iterator {
 	it.inc = 1
 	it.end = end
+	it.len = it.end - it.beg + 1
 	return it
 }
 
 func (it *iterator) WithStep(inc int) Iterator {
 	it.inc = inc
+	q := (it.end - it.beg + 1) / it.inc
+	r := (it.end - it.beg + 1) % it.inc
+	it.len = q + r
 	return it
 }
 

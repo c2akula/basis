@@ -8,37 +8,39 @@ import (
 
 func print2d(array Array) string {
 	var sb strings.Builder
-	it := array.Take()
-	if it == nil {
-		it = Iter(array)
-	}
-	nc := array.Shape()[1]
-
-	for i := 0; i < array.Size(); i += nc {
+	shape := array.Shape()
+	ind := make(Index, 2)
+	for i := 0; i < shape[0]; i++ {
+		ind[0] = i
 		sb.WriteByte('[')
-		for row := it.From(i).To(i + nc - 1); !row.Done(); row.Next() {
-			sb.WriteString(fmt.Sprintf(" %8.4f ", *row.Upk()))
+		for j := 0; j < shape[1]; j++ {
+			ind[1] = j
+			sb.WriteString(fmt.Sprintf(" %8.4f ", array.Get(ind)))
 		}
 		sb.WriteString("]\n")
 	}
-	it.Reset()
 	return sb.String()
 }
 
 func (array *Ndarray) String() string {
-	if array.Ndims() < 3 {
+	if array.ndims < 3 {
 		return print2d(array)
 	}
 
-	var sb strings.Builder
 	ndims := array.Ndims()
-	shape := array.Shape()
+	shape := make(Shape, ndims)
+	copy(shape, array.Shape()[:ndims-2])
+	for i := ndims - 2; i < ndims; i++ {
+		shape[i] = 1
+	}
 
-	ind := make(Index, array.Ndims())
-	end := make(Index, array.Ndims())
-	computeEnd(array.Shape(), end)
-	for it := Subs(ind[:ndims-2], end[:ndims-2]); !it.Done(); it.Next() {
-		copy(ind[:ndims-2], it.I())
+	ind := make(Index, ndims)
+	b := array.View(ind, shape)
+
+	var sb strings.Builder
+	shape = array.Shape()
+	for it := Iter(b); !it.Done(); it.Next() {
+		copy(ind[:ndims-2], it.I()[:ndims-2])
 		sb.WriteByte('[')
 		for _, i := range ind[:ndims-2] {
 			sb.WriteString(strconv.Itoa(i) + ",")

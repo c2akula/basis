@@ -57,7 +57,7 @@ func BenchmarkIterator_Get(b *testing.B) {
 func TestNdarray_Take(t *testing.T) {
 	array := Reshape(Arange(0, 12), Shape{3, 4})
 	fmt.Println(array)
-
+	// _ = array.String()
 	// 5,7,9,11
 	exp := []float64{5, 7, 9, 11}
 	got := make([]float64, 0, len(exp))
@@ -103,7 +103,7 @@ func TestIterator_Upk(t *testing.T) {
 		v := it.Upk()
 		*v *= 2
 	}
-	fmt.Println("a*: ", a)
+	fmt.Println("a: ", a)
 }
 
 func BenchmarkIter(b *testing.B) {
