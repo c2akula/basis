@@ -106,9 +106,6 @@ func (res *Ndarray) View(start Index, shape Shape) Array {
 		strides: res.strides[res.ndims-len(shape):],
 		size:    computeSize(shape),
 	}
-	be := make(Index, arr.ndims*2)
-	arr.beg, arr.end = be[:arr.ndims], be[arr.ndims:]
-	computeEnd(arr.shape, arr.end)
 	return arr
 }
 
