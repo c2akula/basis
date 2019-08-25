@@ -123,31 +123,6 @@ func Exp(it Iterator) Iterator {
 	return it
 }
 
-func Dot(x, y Iterator) (f float64) {
-	if x.Len() != y.Len() {
-		panic("lengths of iterators must be equal")
-	}
-
-	if y == x {
-		for !x.Done() {
-			v := *x.Upk()
-			f += v * v
-			x.Next()
-		}
-		x.Reset()
-		return
-	}
-
-	for !y.Done() {
-		f += *x.Upk() * *y.Upk()
-		x.Next()
-		y.Next()
-	}
-	x.Reset()
-	y.Reset()
-	return
-}
-
 func Axpy(a float64, x, y Iterator) Iterator {
 	if x.Len() != y.Len() {
 		panic("lengths of iterators must be equal")
@@ -356,17 +331,8 @@ func Mul(y Iterator, x ...Iterator) Iterator {
 	return y
 }
 
-// Norm computes the Euclidean norm of the elements referenced by the
-// iterator, it. Equivalent to math.Sqrt(Dot(it,it)).
-func Norm(it Iterator) (n float64) {
-	for ; !it.Done(); it.Next() {
-		v := *it.Upk()
-		n += v * v
-	}
-	n = math.Sqrt(n)
-	it.Reset()
-	return
-}
+// Norm computes the Euclidean norm of the array, x.
+func Norm(x Array) (n float64) { return math.Sqrt(Dot(x, x)) }
 
 // Max returns the value and location of the largest element
 // in the data referenced by the iterator.

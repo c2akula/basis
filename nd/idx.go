@@ -17,7 +17,7 @@ func sub2ind(strides Shape, n Index) (k int) {
 func ind2sub(strides Shape, k int, ind Index) Index {
 	_ = ind[len(strides)-1]
 	for j, s := range strides {
-		l := k / s
+		l := int(float64(k) * (1.0 / float64(s)))
 		k -= l * s
 		ind[j] = l
 	}

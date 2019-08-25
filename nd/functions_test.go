@@ -129,27 +129,6 @@ func TestLlh(t *testing.T) {
 	}
 }
 
-func TestDot(t *testing.T) {
-	x := Arange(0, 15)
-	// y := Arange(0, 15)
-	exp := 1015.0
-	// got := Dot(x.Take(), y.Take())
-	got := Dot(x.Take(), x.Take())
-	if exp != got {
-		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
-		t.Fail()
-	}
-}
-
-func TestNorm(t *testing.T) {
-	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
-	exp := "264.9717"
-	got := strconv.FormatFloat(Norm(a.Take()), 'f', 4, 64)
-	if got != exp {
-		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
-		t.Fail()
-	}
-}
 
 func TestMax(t *testing.T) {
 	a := New(Shape{5, 3}, []float64{
@@ -334,26 +313,3 @@ func BenchmarkApply(b *testing.B) {
 	}
 }
 
-func BenchmarkDot(b *testing.B) {
-	b.ReportAllocs()
-	x := Rand(TestArrayShape)
-	// y := Rand(TestArrayShape)
-	f := 0.0
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		// f = Dot(x.Take(), y.Take())
-		f = Dot(x.Take(), x.Take())
-	}
-	_ = f * f
-}
-
-func BenchmarkNorm(b *testing.B) {
-	a := Rand(TestArrayShape)
-	b.ResetTimer()
-	b.ReportAllocs()
-	n := 0.0
-	for i := 0; i < b.N; i++ {
-		n = Norm(a.Take())
-	}
-	_ = n * n
-}

@@ -162,3 +162,9 @@ func (it *iterator) String() string {
 	}
 	return sb.String()
 }
+
+func subs(size int, strides Shape) {
+	for i := 0; i < size; i++ {
+
+	}
+}

@@ -5,7 +5,9 @@ import (
 	"testing"
 )
 
-var TestArrayShape = Shape{3, 45, 15}
+// var TestArrayShape = Shape{3, 45, 15}
+// var TestArrayShape = Shape{10, 45, 30} // 13,500
+var TestArrayShape = Shape{300, 45} // 13,500
 
 func TestNdarray_String(t *testing.T) {
 	// a := New(Shape{2, 2, 2, 3}, []float64{
