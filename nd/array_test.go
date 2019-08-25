@@ -6,8 +6,8 @@ import (
 )
 
 // var TestArrayShape = Shape{3, 45, 15}
-// var TestArrayShape = Shape{10, 45, 30} // 13,500
-var TestArrayShape = Shape{300, 45} // 13,500
+var TestArrayShape = Shape{10, 45, 30} // 13,500
+// var TestArrayShape = Shape{300, 45} // 13,500
 
 func TestNdarray_String(t *testing.T) {
 	// a := New(Shape{2, 2, 2, 3}, []float64{
@@ -262,59 +262,59 @@ func BenchmarkNdarray_Get(b *testing.B) {
 	_ = v * v
 }
 
-func TestAdd(t *testing.T) {
-	a := Reshape(Arange(0, 15), Shape{3, 5})
-	b := Reshape(Arange(0, 15), Shape{3, 5})
-	exp := Reshape(Arange(0, 15), Shape{3, 5})
-
-	add := func(x, y Iterator) {
-		for !y.Done() {
-			*y.Upk() += *x.Upk()
-			x.Next()
-			y.Next()
-		}
-		x.Reset()
-		y.Reset()
-	}
-	add(a.Take(), exp.Take())
-	Add(b.Take(), a.Take())
-
-	bit := b.Take()
-	for eit := exp.Take(); !eit.Done(); eit.Next() {
-		if *bit.Upk() != *eit.Upk() {
-			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
-			t.Fail()
-		}
-		bit.Next()
-	}
-}
-
-func TestSub(t *testing.T) {
-	a := Reshape(Arange(0, 15), Shape{3, 5})
-	b := Reshape(Arange(0, 15), Shape{3, 5})
-	exp := Reshape(Arange(0, 15), Shape{3, 5})
-
-	sub := func(x, y Iterator) {
-		for !y.Done() {
-			*y.Upk() -= *x.Upk()
-			x.Next()
-			y.Next()
-		}
-		x.Reset()
-		y.Reset()
-	}
-	sub(a.Take(), exp.Take())
-	Sub(b.Take(), a.Take())
-
-	bit := b.Take()
-	for eit := exp.Take(); !eit.Done(); eit.Next() {
-		if *bit.Upk() != *eit.Upk() {
-			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
-			t.Fail()
-		}
-		bit.Next()
-	}
-}
+// func TestAdd(t *testing.T) {
+// 	a := Reshape(Arange(0, 15), Shape{3, 5})
+// 	b := Reshape(Arange(0, 15), Shape{3, 5})
+// 	exp := Reshape(Arange(0, 15), Shape{3, 5})
+//
+// 	add := func(x, y Iterator) {
+// 		for !y.Done() {
+// 			*y.Upk() += *x.Upk()
+// 			x.Next()
+// 			y.Next()
+// 		}
+// 		x.Reset()
+// 		y.Reset()
+// 	}
+// 	add(a.Take(), exp.Take())
+// 	Add(b.Take(), a.Take())
+//
+// 	bit := b.Take()
+// 	for eit := exp.Take(); !eit.Done(); eit.Next() {
+// 		if *bit.Upk() != *eit.Upk() {
+// 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
+// 			t.Fail()
+// 		}
+// 		bit.Next()
+// 	}
+// }
+//
+// func TestSub(t *testing.T) {
+// 	a := Reshape(Arange(0, 15), Shape{3, 5})
+// 	b := Reshape(Arange(0, 15), Shape{3, 5})
+// 	exp := Reshape(Arange(0, 15), Shape{3, 5})
+//
+// 	sub := func(x, y Iterator) {
+// 		for !y.Done() {
+// 			*y.Upk() -= *x.Upk()
+// 			x.Next()
+// 			y.Next()
+// 		}
+// 		x.Reset()
+// 		y.Reset()
+// 	}
+// 	sub(a.Take(), exp.Take())
+// 	Sub(b.Take(), a.Take())
+//
+// 	bit := b.Take()
+// 	for eit := exp.Take(); !eit.Done(); eit.Next() {
+// 		if *bit.Upk() != *eit.Upk() {
+// 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
+// 			t.Fail()
+// 		}
+// 		bit.Next()
+// 	}
+// }
 
 func TestView(t *testing.T) {
 	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
@@ -365,20 +365,7 @@ func BenchmarkFunction1(bn *testing.B) {
 	}
 }
 
-func BenchmarkAxpy(bn *testing.B) {
-	// y += x
-	// a := rand.Float64()
-	a := 1.0
-	x := Rand(TestArrayShape).Take()
-	y := Rand(TestArrayShape).Take()
-	bn.ResetTimer()
-	bn.ReportAllocs()
-	for i := 0; i < bn.N; i++ {
-		Axpy(a, x, y)
-	}
-}
-
-func BenchmarkFunction3(bn *testing.B) {
+/*func BenchmarkFunction3(bn *testing.B) {
 	a := rand.Float64()
 	b := rand.Float64()
 	c := rand.Float64()
@@ -407,7 +394,7 @@ func BenchmarkAdd(bn *testing.B) {
 		Add(y, x)
 	}
 }
-
+*/
 func BenchmarkSq(b *testing.B) {
 	x := Rand(TestArrayShape)
 	it := x.Take()
