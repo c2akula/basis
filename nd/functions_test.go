@@ -1,7 +1,6 @@
 package nd
 
 import (
-	"fmt"
 	"math/rand"
 	"strconv"
 	"testing"
@@ -109,7 +108,6 @@ func TestVar(t *testing.T) {
 
 func TestStd(t *testing.T) {
 	a := Reshape(Arange(1, 15), Shape{2, 7})
-	fmt.Println("a: ", a)
 	exp := strconv.FormatFloat(4.18330013267038, 'f', 4, 64)
 	got := strconv.FormatFloat(Std(a.Take()), 'f', 4, 64)
 	if exp != got {
@@ -122,7 +120,6 @@ func TestLlh(t *testing.T) {
 	a := Reshape(Arange(1, 15), Shape{2, 7})
 	mu := Mean(a.Take())
 	s := Var(a.Take())
-	fmt.Println(Llh(a.Take(), mu, s))
 	// fmt.Println("a: ", a)
 	exp := strconv.FormatFloat(-33.2720, 'f', 4, 64)
 	got := strconv.FormatFloat(Llh(a.Take(), mu, s), 'f', 4, 64)
@@ -132,11 +129,141 @@ func TestLlh(t *testing.T) {
 	}
 }
 
+func TestDot(t *testing.T) {
+	x := Arange(0, 15)
+	// y := Arange(0, 15)
+	exp := 1015.0
+	// got := Dot(x.Take(), y.Take())
+	got := Dot(x.Take(), x.Take())
+	if exp != got {
+		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
+		t.Fail()
+	}
+}
+
+func TestNorm(t *testing.T) {
+	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
+	exp := "264.9717"
+	got := strconv.FormatFloat(Norm(a.Take()), 'f', 4, 64)
+	if got != exp {
+		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
+		t.Fail()
+	}
+}
+
+func TestMax(t *testing.T) {
+	a := New(Shape{5, 3}, []float64{
+		8, 5, 10,
+		2, 4, 13,
+		14, 1, 9,
+		12, 3, 7,
+		6, 11, 0,
+	})
+	expMax, expK := 14.0, 6
+	v, k := Max(a.Take())
+	if expMax != v || expK != k {
+		t.Logf("test failed. exp=[max: %v, k: %v], got=[max: %v, k: %v]\n", expMax, expK, v, k)
+		t.Fail()
+	}
+}
+
+func TestMin(t *testing.T) {
+	a := New(Shape{5, 3}, []float64{
+		8, 5, 10,
+		2, 4, 13,
+		14, 1, 9,
+		12, 3, 7,
+		6, 11, 0,
+	})
+	expMin, expK := 0.0, 14
+	v, k := Min(a.Take())
+	if expMin != v || expK != k {
+		t.Logf("test failed. exp=[min: %v, k: %v], got=[min: %v, k: %v]\n", expMin, expK, v, k)
+		t.Fail()
+	}
+}
+
+func TestAllAny(t *testing.T) {
+	a := New(Shape{3, 2}, []float64{
+		0, 1,
+		1, 1,
+		0, 0,
+	})
+
+	exp := Index{1, 2, 3}
+	got := All(a.Take(), func(f float64) bool {
+		return f != 0
+	})
+	for i, v := range exp {
+		if got[i] != v {
+			t.Logf("test 'where' failed. exp: %v, got: %v\n", exp, got)
+			t.Fail()
+		}
+	}
+
+	a = New(Shape{3, 5}, []float64{
+		0.1658, 0.5351, 0.7393, 0.4241, 0.3141,
+		0.9508, 0.9818, 0.2158, 0.2524, 0.2426,
+		0.9861, 0.4012, 0.6704, 0.1580, 0.4448,
+	})
+	expAny := 1
+	_, gotAny := Any(a.Take(), func(f float64) bool {
+		return f > 0.5
+	})
+	if expAny != gotAny {
+		t.Logf("test 'find' failed. exp: %v, got: %v\n", expAny, gotAny)
+		t.Fail()
+	}
+}
+
+func TestTransform(t *testing.T) {
+	a := New(Shape{3, 5}, []float64{
+		0.1658, 0.5351, 0.7393, 0.4241, 0.3141,
+		0.9508, 0.9818, 0.2158, 0.2524, 0.2426,
+		0.9861, 0.4012, 0.6704, 0.1580, 0.4448,
+	})
+	exp := New(Shape{3, 5}, []float64{
+		2.1658, 0.5351, 0.7393, 2.4241, 2.3141,
+		0.9508, 0.9818, 2.2158, 2.2524, 2.2426,
+		0.9861, 2.4012, 0.6704, 2.1580, 2.4448,
+	})
+
+	Transform(a.Take(), func(f float64) bool {
+		return f < 0.5
+	}, func(f float64) float64 {
+		return f + 2
+	})
+	if exp.String() != a.String() {
+		t.Logf("test 'Transform' failed. exp: %v\n, got: %v\n", exp, a)
+		t.Fail()
+	}
+}
+
+func TestDistance(t *testing.T) {
+	a := New(Shape{3, 5}, []float64{
+		5.0000, 11.0000, 14.0000, 1.0000, 3.0000,
+		13.0000, 12.0000, 10.0000, 4.0000, 8.0000,
+		9.0000, 6.0000, 2.0000, 7.0000, 0.0000,
+	})
+	b := New(Shape{3, 5}, []float64{
+		1.0000, 3.0000, 0.0000, 8.0000, 4.0000,
+		7.0000, 11.0000, 13.0000, 12.0000, 6.0000,
+		9.0000, 5.0000, 2.0000, 14.0000, 10.0000,
+	})
+
+	exp := "24.2899"
+	v := Distance(a.Take(), b.Take())
+	if exp != strconv.FormatFloat(v, 'f', 4, 64) {
+		t.Logf("test 'Distance' failed. exp: %v, got: %v\n", exp, v)
+		t.Fail()
+	}
+}
+
 // Benchmarks
 
 func BenchmarkSub2ind(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	ind := Index{3, 34, 14}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -147,7 +274,7 @@ func BenchmarkSub2ind(b *testing.B) {
 
 func BenchmarkSum(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	it := a.Take()
 	b.ResetTimer()
 	var sum float64
@@ -159,8 +286,8 @@ func BenchmarkSum(b *testing.B) {
 
 func BenchmarkCopy(b *testing.B) {
 	b.ReportAllocs()
-	dst := Rand(Shape{4, 35, 15}).Take()
-	src := Rand(Shape{4, 35, 15}).Take()
+	dst := Rand(TestArrayShape).Take()
+	src := Rand(TestArrayShape).Take()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		Copy(dst, src)
@@ -170,7 +297,7 @@ func BenchmarkCopy(b *testing.B) {
 }
 
 func BenchmarkScale(b *testing.B) {
-	array := Rand(Shape{4, 35, 15})
+	array := Rand(TestArrayShape)
 	it := array.Take()
 	v := rand.Float64()
 	b.ReportAllocs()
@@ -181,17 +308,7 @@ func BenchmarkScale(b *testing.B) {
 }
 
 func BenchmarkStd(b *testing.B) {
-	array := Rand(Shape{4, 35, 15})
-	it := array.Take()
-	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		Std(it)
-	}
-}
-
-func BenchmarkLlh(b *testing.B) {
-	array := Rand(Shape{4, 35, 15})
+	array := Rand(TestArrayShape)
 	mean := rand.Float64()
 	sigma := rand.Float64()
 	l := 0.0
@@ -206,7 +323,7 @@ func BenchmarkLlh(b *testing.B) {
 
 func BenchmarkApply(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	s := rand.Float64()
 	fn := func(v float64) float64 {
 		return v * s
@@ -217,25 +334,26 @@ func BenchmarkApply(b *testing.B) {
 	}
 }
 
-func TestDot(t *testing.T) {
-	x := Arange(0, 15)
-	y := Arange(0, 15)
-	exp := 1015.0
-	got := Dot(x.Take(), y.Take())
-	if exp != got {
-		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
-		t.Fail()
-	}
-}
-
 func BenchmarkDot(b *testing.B) {
 	b.ReportAllocs()
-	x := Rand(Shape{4, 35, 15})
-	y := Rand(Shape{4, 35, 15})
+	x := Rand(TestArrayShape)
+	// y := Rand(TestArrayShape)
 	f := 0.0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		f = Dot(x.Take(), y.Take())
+		// f = Dot(x.Take(), y.Take())
+		f = Dot(x.Take(), x.Take())
 	}
 	_ = f * f
+}
+
+func BenchmarkNorm(b *testing.B) {
+	a := Rand(TestArrayShape)
+	b.ResetTimer()
+	b.ReportAllocs()
+	n := 0.0
+	for i := 0; i < b.N; i++ {
+		n = Norm(a.Take())
+	}
+	_ = n * n
 }

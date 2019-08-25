@@ -28,6 +28,9 @@ type Iterator interface {
 	Reset()
 	// I returns the location of the iterator as an n-d index.
 	I() Index
+	// K returns the location of the iterator as a linear index,
+	// relative to start of the iterator.
+	K() int
 	// Upk unpacks the value at the location of the iterator.
 	Upk() *float64
 
@@ -74,6 +77,8 @@ func (it *iterator) I() Index {
 	return it.ind2submap[it.ind]
 }
 
+func (it *iterator) K() int { return it.ind }
+
 func (it *iterator) At(n int) Index {
 	return it.ind2submap[n]
 }
@@ -114,7 +119,7 @@ func (it *iterator) Reset() {
 }
 
 func (it *iterator) Upk() *float64 {
-	array := it.array.(*Ndarray)
+	array := it.array.(*ndarray)
 	return &array.data[sub2ind(array.strides, it.I())]
 }
 

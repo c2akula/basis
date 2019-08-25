@@ -1,10 +1,11 @@
 package nd
 
 import (
-	"fmt"
 	"math/rand"
 	"testing"
 )
+
+var TestArrayShape = Shape{3, 45, 15}
 
 func TestNdarray_String(t *testing.T) {
 	// a := New(Shape{2, 2, 2, 3}, []float64{
@@ -24,13 +25,11 @@ func TestNdarray_String(t *testing.T) {
 	// })
 	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
 	// _ = a.String()
-	fmt.Println("a: ", a)
 	exp := []float64{5, 6, 7, 25, 26, 27}
 	b := a.View(
 		Index{0, 1, 0},
 		Shape{2, 1, 3},
 	)
-	fmt.Println("b: ", b)
 	it := Iter(b)
 	for _, v := range exp {
 		if b.Get(it.I()) != v {
@@ -84,7 +83,6 @@ func TestNdarray_Get(t *testing.T) {
 		7, 8, 9, // r = 0, c = 0:2
 		2, 0, 1, // r = 1, c = 0:2
 	})
-	fmt.Println("a: ", a)
 
 	b := a.View(Index{0, 1, 0}, Shape{2, 1, 3})
 	exp := []float64{4, 5, 6, 2, 0, 1}
@@ -140,7 +138,7 @@ func TestSub2ind(t *testing.T) {
 
 	exp := []int{7, 8, 9, 12, 13, 14, 17, 18, 19, 27, 28, 29, 32, 33, 34, 37, 38, 39, 47, 48, 49, 52, 53, 54, 57, 58, 59}
 
-	a := &Ndarray{ndims: 3, strides: strides}
+	a := &ndarray{ndims: 3, strides: strides}
 
 	for i, ind := range sub {
 		if v := Sub2ind(a, ind); exp[i] != v {
@@ -212,7 +210,7 @@ func TestReshape(t *testing.T) {
 
 func BenchmarkInd2sub2(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	ind := make(Index, a.Ndims())
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -224,7 +222,7 @@ func BenchmarkInd2sub2(b *testing.B) {
 func BenchmarkNdarray_Iterator(b *testing.B) {
 	b.ReportAllocs()
 	a := Rand(Shape{5, 36, 16})
-	m := a.View(Index{0, 0, 0}, Shape{4, 35, 15})
+	m := a.View(Index{0, 0, 0}, TestArrayShape)
 	it := Iter(m)
 	s := 0
 	b.ResetTimer()
@@ -238,7 +236,7 @@ func BenchmarkNdarray_Iterator(b *testing.B) {
 
 func BenchmarkNdarray_View(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	beg := Index{0, 0, 0}
 	shape := Shape{2, 15, 7}
 	var m Array
@@ -250,7 +248,7 @@ func BenchmarkNdarray_View(b *testing.B) {
 }
 
 func BenchmarkNdarray_Get(b *testing.B) {
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	it := a.Take()
 	// ind := Index{2, 14, 3}
 	v := 0.0
@@ -316,6 +314,24 @@ func TestSub(t *testing.T) {
 	}
 }
 
+func TestView(t *testing.T) {
+	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
+	b := a.View(Index{0, 1, 1}, Shape{3, 4})
+	exp := []float64{6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19}
+	got := make([]float64, 0, len(exp))
+
+	for it := Iter(b); !it.Done(); it.Next() {
+		got = append(got, *it.Upk())
+	}
+
+	for i, v := range exp {
+		if got[i] != v {
+			t.Logf("test failed. exp: %v\n, got: %v\n", exp, got)
+			t.Fail()
+		}
+	}
+}
+
 func BenchmarkFunction1(bn *testing.B) {
 	// z = a*x^2 + b*y + c
 	fn := func(a float64, x Iterator, b float64, y Iterator, c float64, z Iterator) {
@@ -337,9 +353,9 @@ func BenchmarkFunction1(bn *testing.B) {
 	a := rand.Float64()
 	b := rand.Float64()
 	c := rand.Float64()
-	x := Rand(Shape{4, 35, 15}).Take()
-	y := Rand(Shape{4, 35, 15}).Take()
-	z := Rand(Shape{4, 35, 15}).Take()
+	x := Rand(TestArrayShape).Take()
+	y := Rand(TestArrayShape).Take()
+	z := Rand(TestArrayShape).Take()
 	bn.ResetTimer()
 	bn.ReportAllocs()
 	for i := 0; i < bn.N; i++ {
@@ -351,8 +367,8 @@ func BenchmarkAxpy(bn *testing.B) {
 	// y += x
 	// a := rand.Float64()
 	a := 1.0
-	x := Rand(Shape{4, 35, 15}).Take()
-	y := Rand(Shape{4, 35, 15}).Take()
+	x := Rand(TestArrayShape).Take()
+	y := Rand(TestArrayShape).Take()
 	bn.ResetTimer()
 	bn.ReportAllocs()
 	for i := 0; i < bn.N; i++ {
@@ -364,9 +380,9 @@ func BenchmarkFunction3(bn *testing.B) {
 	a := rand.Float64()
 	b := rand.Float64()
 	c := rand.Float64()
-	x := Rand(Shape{4, 35, 15}).Take()
-	y := Rand(Shape{4, 35, 15}).Take()
-	z := Rand(Shape{4, 35, 15}).Take()
+	x := Rand(TestArrayShape).Take()
+	y := Rand(TestArrayShape).Take()
+	z := Rand(TestArrayShape).Take()
 	bn.ResetTimer()
 	bn.ReportAllocs()
 
@@ -379,8 +395,8 @@ func BenchmarkFunction3(bn *testing.B) {
 }
 
 func BenchmarkAdd(bn *testing.B) {
-	x := Rand(Shape{4, 35, 15}).Take()
-	y := Rand(Shape{4, 35, 15}).Take()
+	x := Rand(TestArrayShape).Take()
+	y := Rand(TestArrayShape).Take()
 	bn.ResetTimer()
 	bn.ReportAllocs()
 
@@ -391,22 +407,11 @@ func BenchmarkAdd(bn *testing.B) {
 }
 
 func BenchmarkSq(b *testing.B) {
-	x := Rand(Shape{4, 35, 15})
+	x := Rand(TestArrayShape)
 	it := x.Take()
 	b.ResetTimer()
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		Sq(it)
-	}
-}
-
-func TestView(t *testing.T) {
-	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
-	fmt.Println("a: ")
-	fmt.Println(a)
-	b := a.View(Index{0, 1, 1}, Shape{3, 4})
-
-	for it := Iter(b); !it.Done(); it.Next() {
-		fmt.Print(b.Get(it.I()))
 	}
 }

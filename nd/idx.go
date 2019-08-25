@@ -2,7 +2,7 @@ package nd
 
 // Sub2ind converts an array subscript n into a linear index k.
 func Sub2ind(array Array, n Index) (k int) {
-	arr := array.(*Ndarray)
+	arr := array.(*ndarray)
 	_ = n[arr.ndims-1]
 	return sub2ind(arr.strides, n)
 }
@@ -24,8 +24,8 @@ func ind2sub(strides Shape, k int, ind Index) Index {
 	return ind
 }
 
-func (res *Ndarray) sub2ind(n Index) int { return sub2ind(res.strides, n) }
-func (res *Ndarray) ind2sub(k int) []int { return res.it.At(k) }
+func (res *ndarray) sub2ind(n Index) int { return sub2ind(res.strides, n) }
+func (res *ndarray) ind2sub(k int) []int { return res.it.At(k) }
 
 // ComputeStrides computes the offsets along each dimension from shape.
 func ComputeStrides(shape Shape) Shape {

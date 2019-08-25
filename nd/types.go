@@ -10,12 +10,11 @@ type (
 	Index []int
 
 	Array interface {
-		Type
-
 		// Metadata
 		Data() []float64
 		Shape() Shape
 		Strides() Shape
+		Size() int
 		Ndims() int
 
 		// Element and View Access
@@ -23,29 +22,28 @@ type (
 		Set(float64, Index)
 		View(start Index, shape Shape) Array
 
+		// Fancy Indexing
+		TakeAt(index Index) Array
+
 		// Iterator
 		Iterable
-		Begin() Index
-		End() Index
-	}
 
-	Ndarray struct {
-		size     int       // # of elements
-		data     []float64 // shape * dsize
-		ndims    int       // # of dimensions
-		strides  Shape     // strides * dsize
-		shape    Shape     // dimension sizes
-		it       Iterator
-		beg, end Index
-	}
-
-	// A Type is any object that has a size and can be represented through bytes.
-	Type interface {
-		// Size returns the no. of bytes used to represent the underlying type.
-		Size() int
-		io.ReadWriter
+		// String
 		fmt.Stringer
+
+		// Read/Write
+		io.ReadWriter
 	}
+
+	ndarray struct {
+		data    []float64 // shape * dsize
+		size    int       // # of elements
+		ndims   int       // # of dimensions
+		strides Shape     // strides * dsize
+		shape   Shape     // dimension sizes
+		it      Iterator
+	}
+
 	Iterable interface {
 		Take() Iterator
 	}

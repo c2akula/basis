@@ -22,7 +22,7 @@ func print2d(array Array) string {
 	return sb.String()
 }
 
-func (array *Ndarray) String() string {
+func (array *ndarray) String() string {
 	if array.ndims < 3 {
 		return print2d(array)
 	}

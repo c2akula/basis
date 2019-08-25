@@ -40,20 +40,6 @@ func TestIterator_Get(t *testing.T) {
 	}
 }
 
-func BenchmarkIterator_Get(b *testing.B) {
-	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
-	it := a.Take().(*iterator)
-	v := 0.0
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		for it.Reset(); !it.Done(); it.Next() {
-			v = *it.Upk()
-		}
-	}
-	_ = v * v
-}
-
 func TestNdarray_Take(t *testing.T) {
 	array := Reshape(Arange(0, 12), Shape{3, 4})
 	fmt.Println(array)
@@ -106,9 +92,86 @@ func TestIterator_Upk(t *testing.T) {
 	fmt.Println("a: ", a)
 }
 
+// func TestIterator_FromToStep(t *testing.T) {
+// 	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
+// 	fmt.Println(a)
+// 	it := a.Take()
+// 	it.From(Sub2ind(a, Index{1, 0, 1})).To(Sub2ind(a, Index{1, 3, 1})).WithStep(a.Strides()[1])
+//
+// 	dot := func(n int, x, y []float64, incx, incy int) (s float64) {
+// 		for ix, iy := 0, 0; n != 0; ix, iy = ix+incx, iy+incy {
+// 			s += x[ix] * y[iy]
+// 			n--
+// 		}
+// 		return
+// 	}
+//
+// 	dot2d := func(shape, xstrides, ystrides Shape, x, y []float64, ind Index) (s float64) {
+// 		for i := 0; i < shape[0]; i++ {
+// 			ind[0] = i
+// 			xb := sub2ind(xstrides, ind)
+// 			yb := sub2ind(ystrides, ind)
+// 			fmt.Println("xb, yb: ", shape, xstrides, ystrides)
+// 			s += dot(shape[1], x[xb:], y[yb:], xstrides[1], ystrides[1])
+// 		}
+// 		return s
+// 	}
+//
+// 	b := a.View(Index{0, 0, 0}, Shape{1, 4})
+//
+// 	ndot := func(x, y Array) (s float64) {
+// 		if x.Ndims() != y.Ndims() {
+// 			panic("rank mismatch")
+// 		}
+//
+// 		if !isShapeSame(x, y) {
+// 			panic("dimensions mismatch")
+// 		}
+//
+// 		ndims := x.Ndims()
+// 		if ndims < 3 {
+// 			xstrides, ystrides := x.Strides(), y.Strides()
+// 			return dot2d(x.Shape(), xstrides, ystrides, x.Data(), y.Data(), Index{0, 0})
+// 		}
+// 		shape := make(Shape, ndims)
+// 		copy(shape, x.Shape()[:ndims-2])
+// 		for i := ndims - 2; i < ndims; i++ {
+// 			shape[i] = 1
+// 		}
+//
+// 		ind := make(Index, ndims)
+// 		xv := x.View(ind, shape)
+// 		yv := y.View(ind, shape)
+//
+// 		return
+// 	}
+// 	v := ndot(b, b)
+// 	fmt.Println(v)
+//
+// 	for ; !it.Done(); it.Next() {
+// 		fmt.Println(it.I(), it.(*iterator).ind)
+// 	}
+// }
+
+// Benchmarks
+
+func BenchmarkIterator_Get(b *testing.B) {
+	b.ReportAllocs()
+	a := Rand(TestArrayShape)
+	it := a.Take().(*iterator)
+	v := 0.0
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		for it.Reset(); !it.Done(); it.Next() {
+			v = *it.Upk()
+		}
+	}
+	_ = v * v
+}
+
 func BenchmarkIter(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	var it Iterator
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -119,7 +182,7 @@ func BenchmarkIter(b *testing.B) {
 
 func BenchmarkIterator_At(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{4, 35, 15})
+	a := Rand(TestArrayShape)
 	it := a.Take()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {

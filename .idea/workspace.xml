@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de42bc16-0f26-44f6-a972-ef6942d71b81" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/array.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/array.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/array_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/array_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/functions.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/functions.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/functions_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/functions_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/idx.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/idx.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nd/iter.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/iter.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nd/iter_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/iter_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/methods.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/methods.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nd/print.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/print.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,17 +26,20 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/types.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="621">
-                  <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+                <state relative-caret-position="579">
+                  <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+                  <folding>
+                    <element signature="e#12#35#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/iter.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="296">
-                  <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+                <state relative-caret-position="231">
+                  <caret line="79" column="43" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
                   <folding>
                     <element signature="e#12#44#0" expanded="true" />
                     <element signature="n#!!block;n#Iter#0" expanded="true" />
@@ -51,10 +59,10 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/nd/print.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="972">
+                <state relative-caret-position="341">
                   <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
                   <folding>
                     <element signature="n#!!block;n#print2d#0" expanded="true" />
@@ -66,13 +74,16 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/functions.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2430">
-                  <caret line="276" column="13" selection-start-line="276" selection-start-column="13" selection-end-line="276" selection-end-column="13" />
+                <state relative-caret-position="106">
+                  <caret line="463" column="27" lean-forward="true" selection-start-line="463" selection-start-column="27" selection-end-line="463" selection-end-column="27" />
                   <folding>
+                    <element signature="e#12#30#0" expanded="true" />
                     <element signature="n#!!block;n#Fill#0" expanded="true" />
                     <element signature="n#!!block;n#Apply#0" expanded="true" />
                     <element signature="n#!!block;n#Sum#0" expanded="true" />
                     <element signature="n#!!block;n#Copy#0" expanded="true" />
+                    <element signature="n#!!block;n#Scale#0" expanded="true" />
+                    <element signature="n#!!block;n#Shift#0" expanded="true" />
                     <element signature="n#!!block;n#Mean#0" expanded="true" />
                     <element signature="n#!!block;n#Std#0" expanded="true" />
                     <element signature="n#!!block;n#Var#0" expanded="true" />
@@ -80,7 +91,20 @@
                     <element signature="n#!!block;n#Exp#0" expanded="true" />
                     <element signature="n#!!block;n#Dot#0" expanded="true" />
                     <element signature="n#!!block;n#Axpy#0" expanded="true" />
+                    <element signature="n#!!block;n#Axmy#0" expanded="true" />
+                    <element signature="n#!!block;n#Axdy#0" expanded="true" />
                     <element signature="n#!!block;n#Sq#0" expanded="true" />
+                    <element signature="n#!!block;n#Add#0" expanded="true" />
+                    <element signature="n#!!block;n#Sub#0" expanded="true" />
+                    <element signature="n#!!block;n#Mul#0" expanded="true" />
+                    <element signature="n#!!block;n#Norm#0" expanded="true" />
+                    <element signature="e#6119#6319#0" expanded="true" />
+                    <element signature="e#6553#6741#0" expanded="true" />
+                    <element signature="e#6884#7512#0" expanded="true" />
+                    <element signature="e#7212#7425#0" expanded="true" />
+                    <element signature="e#7637#7811#0" expanded="true" />
+                    <element signature="e#7894#7960#0" expanded="true" />
+                    <element signature="e#7958#7960#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -89,11 +113,12 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/idx.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="324">
-                  <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+                <state relative-caret-position="309">
+                  <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
                   <folding>
                     <element signature="n#!!block;n#Sub2ind#0" expanded="true" />
                     <element signature="n#!!block;n#sub2ind#0" expanded="true" />
+                    <element signature="n#!!block;n#ind2sub#0" expanded="true" />
                     <element signature="n#!!block;n#sub2ind#1" expanded="true" />
                     <element signature="n#!!block;n#ComputeStrides#0" expanded="true" />
                   </folding>
@@ -122,15 +147,44 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="104">
-                  <caret line="108" column="33" lean-forward="true" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
+                <state relative-caret-position="249">
+                  <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="154" />
                   <folding>
-                    <element signature="e#12#40#0" expanded="true" />
-                    <element signature="n#!!block;n#TestIterator_Get#0" expanded="true" />
+                    <element signature="e#114#123#0" />
+                    <element signature="e#246#281#0" />
+                    <element signature="e#306#400#0" />
+                    <element signature="e#325#397#0" />
+                    <element signature="e#336#381#0" />
+                    <element signature="e#420#429#0" />
+                    <element signature="e#436#445#0" />
+                    <element signature="e#487#532#0" />
+                    <element signature="e#611#646#0" />
+                    <element signature="e#671#765#0" />
+                    <element signature="e#690#762#0" />
+                    <element signature="e#701#746#0" />
+                    <element signature="e#1097#1103#0" />
+                    <element signature="e#1126#1147#0" />
+                    <element signature="e#1178#1191#0" />
+                    <element signature="e#1302#1336#0" />
+                    <element signature="e#1360#1454#0" />
+                    <element signature="e#1379#1451#0" />
+                    <element signature="e#1390#1435#0" />
+                    <element signature="e#1472#1495#0" />
+                    <element signature="e#1591#1625#0" />
+                    <element signature="e#1649#1743#0" />
+                    <element signature="e#1668#1740#0" />
+                    <element signature="e#1679#1724#0" />
+                    <element signature="e#1761#1784#0" />
+                    <element signature="e#1873#1907#0" />
+                    <element signature="e#1931#2025#0" />
+                    <element signature="e#1950#2022#0" />
+                    <element signature="e#1961#2006#0" />
+                    <element signature="e#2101#2108#0" />
+                    <element signature="e#2165#2195#0" />
                     <element signature="n#!!block;n#BenchmarkIterator_Get#0" expanded="true" />
-                    <element signature="n#!!block;n#TestNdarray_Take#0" expanded="true" />
-                    <element signature="n#!!block;n#TestIterator_Upk#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkIter#0" expanded="true" />
+                    <element signature="e#2363#2382#0" />
+                    <element signature="n#!!block;n#BenchmarkIterator_At#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -139,13 +193,21 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/array_test.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="687">
-                  <caret line="409" column="32" selection-start-line="409" selection-start-column="32" selection-end-line="409" selection-end-column="32" />
+                <state relative-caret-position="295">
+                  <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
                   <folding>
                     <element signature="n#!!block;n#TestNdarray_String#0" expanded="true" />
+                    <element signature="n#!!block;n#TestNdarray_Get#0" expanded="true" />
+                    <element signature="n#!!block;n#BenchmarkInd2sub2#0" expanded="true" />
+                    <element signature="n#!!block;n#BenchmarkNdarray_Iterator#0" expanded="true" />
+                    <element signature="n#!!block;n#BenchmarkNdarray_View#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkNdarray_Get#0" expanded="true" />
+                    <element signature="n#!!block;n#TestSub#0" expanded="true" />
+                    <element signature="n#!!block;n#TestView#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkFunction1#0" expanded="true" />
+                    <element signature="n#!!block;n#BenchmarkAxpy#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkFunction3#0" expanded="true" />
+                    <element signature="n#!!block;n#BenchmarkAdd#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkSq#0" expanded="true" />
                   </folding>
                 </state>
@@ -155,21 +217,60 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/functions_test.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="567">
-                  <caret line="146" selection-start-line="146" selection-end-line="146" />
+                <state relative-caret-position="187">
+                  <caret line="273" lean-forward="true" selection-start-line="273" selection-end-line="273" />
                   <folding>
-                    <element signature="n#!!block;n#TestSum#0" expanded="true" />
+                    <element signature="e#110#122#0" />
+                    <element signature="e#133#370#0" />
+                    <element signature="e#193#210#0" />
+                    <element signature="e#422#480#0" />
+                    <element signature="e#432#477#0" />
+                    <element signature="e#502#514#0" />
+                    <element signature="e#523#535#0" />
+                    <element signature="e#596#665#0" />
+                    <element signature="e#606#651#0" />
                     <element signature="n#!!block;n#TestCopy#0" expanded="true" />
-                    <element signature="n#!!block;n#TestVar#0" expanded="true" />
+                    <element signature="e#744#752#0" />
+                    <element signature="e#885#954#0" />
+                    <element signature="e#895#940#0" />
+                    <element signature="e#1023#1029#0" />
+                    <element signature="e#1043#1085#0" />
+                    <element signature="e#1272#1291#0" />
+                    <element signature="e#1436#1569#0" />
+                    <element signature="e#1468#1540#0" />
+                    <element signature="e#1479#1524#0" />
+                    <element signature="e#1637#1643#0" />
+                    <element signature="e#1761#1830#0" />
+                    <element signature="e#1771#1816#0" />
+                    <element signature="e#1897#1903#0" />
+                    <element signature="e#2021#2090#0" />
+                    <element signature="e#2031#2076#0" />
                     <element signature="n#!!block;n#TestStd#0" expanded="true" />
+                    <element signature="e#2157#2163#0" />
+                    <element signature="e#2316#2385#0" />
+                    <element signature="e#2326#2371#0" />
                     <element signature="n#!!block;n#TestLlh#0" expanded="true" />
+                    <element signature="e#2452#2458#0" />
+                    <element signature="e#2690#2759#0" />
+                    <element signature="e#2700#2745#0" />
+                    <element signature="e#2827#2836#0" />
+                    <element signature="e#2928#2997#0" />
+                    <element signature="e#2938#2983#0" />
+                    <element signature="n#!!block;n#TestMax#0" expanded="true" />
+                    <element signature="n#!!block;n#TestMax#1" expanded="true" />
+                    <element signature="n#!!block;n#TestNonzeros#0" expanded="true" />
+                    <element signature="n#!!block;n#TestTransform#0" expanded="true" />
+                    <element signature="n#!!block;n#TestDistance#0" expanded="true" />
                     <element signature="n#!!block;n#BenchmarkSub2ind#0" expanded="true" />
-                    <element signature="n#!!block;n#BenchmarkSum#0" expanded="true" />
-                    <element signature="n#!!block;n#BenchmarkCopy#0" expanded="true" />
-                    <element signature="n#!!block;n#BenchmarkStd#0" expanded="true" />
-                    <element signature="n#!!block;n#BenchmarkApply#0" expanded="true" />
-                    <element signature="n#!!block;n#TestDot#0" expanded="true" />
-                    <element signature="n#!!block;n#BenchmarkDot#0" expanded="true" />
+                    <element signature="e#2876#2887#0" />
+                    <element signature="e#2930#2952#0" />
+                    <element signature="e#3124#3144#0" />
+                    <element signature="e#3348#3369#0" />
+                    <element signature="e#3573#3592#0" />
+                    <element signature="e#3967#3998#0" />
+                    <element signature="e#4148#4167#0" />
+                    <element signature="e#4210#4236#0" />
+                    <element signature="e#5043#5068#0" />
                   </folding>
                 </state>
               </provider>
@@ -178,8 +279,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/array.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="115" column="57" lean-forward="true" selection-start-line="115" selection-start-column="57" selection-end-line="115" selection-end-column="57" />
+                <state relative-caret-position="-698">
+                  <caret line="133" column="5" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
                   <folding>
                     <element signature="e#12#83#0" expanded="true" />
                     <element signature="n#!!block;n#Zeros#0" expanded="true" />
@@ -187,7 +288,6 @@
                     <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
                     <element signature="n#!!block;n#View#0" expanded="true" />
                     <element signature="n#!!block;n#Arange#0" expanded="true" />
-                    <element signature="n#!!block;n#Reshape#0" expanded="true" />
                     <element signature="n#!!block;n#computeEnd#0" expanded="true" />
                     <element signature="n#!!block;n#computeStrides#0" expanded="true" />
                     <element signature="n#!!block;n#computeSize#0" expanded="true" />
@@ -199,8 +299,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nd/methods.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="258">
-                  <caret line="32" selection-start-line="32" selection-end-line="32" />
+                <state relative-caret-position="150">
+                  <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
                   <folding>
                     <element signature="n#!!block;n#Data#0" expanded="true" />
                     <element signature="n#!!block;n#Shape#0" expanded="true" />
@@ -209,8 +309,7 @@
                     <element signature="n#!!block;n#Ndims#0" expanded="true" />
                     <element signature="n#!!block;n#Read#0" expanded="true" />
                     <element signature="n#!!block;n#Write#0" expanded="true" />
-                    <element signature="n#!!block;n#Begin#0" expanded="true" />
-                    <element signature="n#!!block;n#End#0" expanded="true" />
+                    <element signature="n#!!block;n#Get#0" expanded="true" />
                     <element signature="n#!!block;n#Set#0" expanded="true" />
                     <element signature="n#!!block;n#Take#0" expanded="true" />
                     <element signature="n#!!block;n#TakeAt#0" expanded="true" />
@@ -264,19 +363,19 @@
         <option value="$PROJECT_DIR$/nd/sub2ind_amd64.s" />
         <option value="$PROJECT_DIR$/nd/iterable_test.go" />
         <option value="$PROJECT_DIR$/go.mod" />
-        <option value="$PROJECT_DIR$/nd/methods.go" />
-        <option value="$PROJECT_DIR$/nd/functions_test.go" />
-        <option value="$PROJECT_DIR$/nd/types.go" />
-        <option value="$PROJECT_DIR$/nd/functions.go" />
-        <option value="$PROJECT_DIR$/nd/array.go" />
         <option value="$PROJECT_DIR$/nd/idx.go" />
-        <option value="$PROJECT_DIR$/nd/array_test.go" />
         <option value="$PROJECT_DIR$/go.mod" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/nd/print.go" />
-        <option value="$PROJECT_DIR$/nd/iter_test.go" />
+        <option value="$PROJECT_DIR$/nd/array.go" />
+        <option value="$PROJECT_DIR$/nd/types.go" />
         <option value="$PROJECT_DIR$/nd/iter.go" />
+        <option value="$PROJECT_DIR$/nd/methods.go" />
+        <option value="$PROJECT_DIR$/nd/functions.go" />
+        <option value="$PROJECT_DIR$/nd/functions_test.go" />
+        <option value="$PROJECT_DIR$/nd/array_test.go" />
+        <option value="$PROJECT_DIR$/nd/iter_test.go" />
       </list>
     </option>
   </component>
@@ -362,7 +461,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.gobench iter_test.go">
+  <component name="RunManager" selected="Go Test.TestIterator_FromToStep in github.com/c2akula/go.nd/nd">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -373,18 +472,18 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="TestNdarray_Take in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkNorm in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gotest" />
+      <framework value="gobench" />
       <kind value="PACKAGE" />
       <package value="github.com/c2akula/go.nd/nd" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestNdarray_Take$" />
+      <pattern value="^BenchmarkNorm$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestString in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestDistance in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/nd" />
       <framework value="gotest" />
@@ -392,10 +491,10 @@
       <package value="github.com/c2akula/go.nd/nd" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestString$" />
+      <pattern value="^TestDistance$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestSubs in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/nd" />
       <framework value="gotest" />
@@ -403,7 +502,7 @@
       <package value="github.com/c2akula/go.nd/nd" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSubs$" />
+      <pattern value="^TestIterator_FromToStep$" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
@@ -417,73 +516,73 @@
       <filePath value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="gobench iter_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gobench" />
-      <kind value="FILE" />
-      <package value="local/ndarray" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/nd/iter_test.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="iter_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="array_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/nd" />
       <framework value="gotest" />
       <kind value="FILE" />
       <package value="local/ndarray" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/nd/iter_test.go" />
+      <filePath value="$PROJECT_DIR$/nd/array_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="functions_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go.nd" />
+      <working_directory value="$PROJECT_DIR$/nd" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="local/ndarray" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/nd/functions_test.go" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Test.TestSubs in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.iter_test.go" />
-      <item itemvalue="Go Test.TestNdarray_Take in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.TestString in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.gobench iter_test.go" />
+      <item itemvalue="Go Test.BenchmarkNorm in github.com/c2akula/go.nd/nd" />
+      <item itemvalue="Go Test.TestDistance in github.com/c2akula/go.nd/nd" />
+      <item itemvalue="Go Test.functions_test.go" />
+      <item itemvalue="Go Test.array_test.go" />
+      <item itemvalue="Go Test.TestIterator_FromToStep in github.com/c2akula/go.nd/nd" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.gobench iter_test.go" />
-        <item itemvalue="Go Test.iter_test.go" />
-        <item itemvalue="Go Test.TestString in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.TestSubs in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.TestNdarray_Take in github.com/c2akula/go.nd/nd" />
+        <item itemvalue="Go Test.TestIterator_FromToStep in github.com/c2akula/go.nd/nd" />
+        <item itemvalue="Go Test.array_test.go" />
+        <item itemvalue="Go Test.functions_test.go" />
+        <item itemvalue="Go Test.TestDistance in github.com/c2akula/go.nd/nd" />
+        <item itemvalue="Go Test.BenchmarkNorm in github.com/c2akula/go.nd/nd" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 14m 39s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 01h 49m 35s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 15m 58s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 01h 50m 15s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 16m 43s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 03m 10s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 17m 30s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 03m 35s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 20m 19s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 03m 47s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 21m 13s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 05m 11s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestString_in_github_com_c2akula_go_nd_nd - 2019.08.24 at 18h 21m 25s.xml">
-      <configuration name="TestString in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 05m 27s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="iter_test_go - 2019.08.24 at 18h 21m 29s.xml">
-      <configuration name="iter_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 07m 58s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="gobench_iter_test_go - 2019.08.24 at 18h 22m 38s.xml">
-      <configuration name="gobench iter_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 08m 26s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="gobench_iter_test_go - 2019.08.24 at 18h 24m 34s.xml">
-      <configuration name="gobench iter_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestIterator_FromToStep_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 02h 09m 13s.xml">
+      <configuration name="TestIterator_FromToStep in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -495,7 +594,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3282636" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.54372627" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.54372627" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.495564" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -565,55 +664,6 @@
     <entry file="file://$PROJECT_DIR$/sub2ind_amd64.s" />
     <entry file="file://$PROJECT_DIR$/nd/foo" />
     <entry file="file://$PROJECT_DIR$/nd/sub2ind_amd64.s" />
-    <entry file="file://$PROJECT_DIR$/nd/types.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/functions.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2430">
-          <caret line="276" column="13" selection-start-line="276" selection-start-column="13" selection-end-line="276" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!block;n#Fill#0" expanded="true" />
-            <element signature="n#!!block;n#Apply#0" expanded="true" />
-            <element signature="n#!!block;n#Sum#0" expanded="true" />
-            <element signature="n#!!block;n#Copy#0" expanded="true" />
-            <element signature="n#!!block;n#Mean#0" expanded="true" />
-            <element signature="n#!!block;n#Std#0" expanded="true" />
-            <element signature="n#!!block;n#Var#0" expanded="true" />
-            <element signature="n#!!block;n#Llh#0" expanded="true" />
-            <element signature="n#!!block;n#Exp#0" expanded="true" />
-            <element signature="n#!!block;n#Dot#0" expanded="true" />
-            <element signature="n#!!block;n#Axpy#0" expanded="true" />
-            <element signature="n#!!block;n#Sq#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/functions_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="146" selection-start-line="146" selection-end-line="146" />
-          <folding>
-            <element signature="n#!!block;n#TestSum#0" expanded="true" />
-            <element signature="n#!!block;n#TestCopy#0" expanded="true" />
-            <element signature="n#!!block;n#TestVar#0" expanded="true" />
-            <element signature="n#!!block;n#TestStd#0" expanded="true" />
-            <element signature="n#!!block;n#TestLlh#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkSub2ind#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkSum#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkCopy#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkStd#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkApply#0" expanded="true" />
-            <element signature="n#!!block;n#TestDot#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkDot#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/go.mod">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -629,25 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/array.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="115" column="57" lean-forward="true" selection-start-line="115" selection-start-column="57" selection-end-line="115" selection-end-column="57" />
-          <folding>
-            <element signature="e#12#83#0" expanded="true" />
-            <element signature="n#!!block;n#Zeros#0" expanded="true" />
-            <element signature="n#!!block;n#Ones#0" expanded="true" />
-            <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
-            <element signature="n#!!block;n#View#0" expanded="true" />
-            <element signature="n#!!block;n#Arange#0" expanded="true" />
-            <element signature="n#!!block;n#Reshape#0" expanded="true" />
-            <element signature="n#!!block;n#computeEnd#0" expanded="true" />
-            <element signature="n#!!block;n#computeStrides#0" expanded="true" />
-            <element signature="n#!!block;n#computeSize#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Go/src/testing/testing.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -655,73 +686,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/methods.go">
+    <entry file="file://$PROJECT_DIR$/nd/types.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="579">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
           <folding>
-            <element signature="n#!!block;n#Data#0" expanded="true" />
-            <element signature="n#!!block;n#Shape#0" expanded="true" />
-            <element signature="n#!!block;n#Strides#0" expanded="true" />
-            <element signature="n#!!block;n#Size#0" expanded="true" />
-            <element signature="n#!!block;n#Ndims#0" expanded="true" />
-            <element signature="n#!!block;n#Read#0" expanded="true" />
-            <element signature="n#!!block;n#Write#0" expanded="true" />
-            <element signature="n#!!block;n#Begin#0" expanded="true" />
-            <element signature="n#!!block;n#End#0" expanded="true" />
-            <element signature="n#!!block;n#Set#0" expanded="true" />
-            <element signature="n#!!block;n#Take#0" expanded="true" />
-            <element signature="n#!!block;n#TakeAt#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/array_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="409" column="32" selection-start-line="409" selection-start-column="32" selection-end-line="409" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!block;n#TestNdarray_String#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkNdarray_Get#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkFunction1#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkFunction3#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkSq#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="108" column="33" lean-forward="true" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
-          <folding>
-            <element signature="e#12#40#0" expanded="true" />
-            <element signature="n#!!block;n#TestIterator_Get#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkIterator_Get#0" expanded="true" />
-            <element signature="n#!!block;n#TestNdarray_Take#0" expanded="true" />
-            <element signature="n#!!block;n#TestIterator_Upk#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkIter#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/print.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!block;n#print2d#0" expanded="true" />
+            <element signature="e#12#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nd/idx.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        <state relative-caret-position="309">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding>
             <element signature="n#!!block;n#Sub2ind#0" expanded="true" />
             <element signature="n#!!block;n#sub2ind#0" expanded="true" />
+            <element signature="n#!!block;n#ind2sub#0" expanded="true" />
             <element signature="n#!!block;n#sub2ind#1" expanded="true" />
             <element signature="n#!!block;n#ComputeStrides#0" expanded="true" />
           </folding>
@@ -730,8 +712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nd/iter.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+        <state relative-caret-position="231">
+          <caret line="79" column="43" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
           <folding>
             <element signature="e#12#44#0" expanded="true" />
             <element signature="n#!!block;n#Iter#0" expanded="true" />
@@ -746,6 +728,217 @@
             <element signature="n#!!block;n#WithStep#0" expanded="true" />
             <element signature="n#!!block;n#createInd2submap#0" expanded="true" />
             <element signature="n#!!block;n#String#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/methods.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!block;n#Data#0" expanded="true" />
+            <element signature="n#!!block;n#Shape#0" expanded="true" />
+            <element signature="n#!!block;n#Strides#0" expanded="true" />
+            <element signature="n#!!block;n#Size#0" expanded="true" />
+            <element signature="n#!!block;n#Ndims#0" expanded="true" />
+            <element signature="n#!!block;n#Read#0" expanded="true" />
+            <element signature="n#!!block;n#Write#0" expanded="true" />
+            <element signature="n#!!block;n#Get#0" expanded="true" />
+            <element signature="n#!!block;n#Set#0" expanded="true" />
+            <element signature="n#!!block;n#Take#0" expanded="true" />
+            <element signature="n#!!block;n#TakeAt#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/array.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-698">
+          <caret line="133" column="5" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+          <folding>
+            <element signature="e#12#83#0" expanded="true" />
+            <element signature="n#!!block;n#Zeros#0" expanded="true" />
+            <element signature="n#!!block;n#Ones#0" expanded="true" />
+            <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
+            <element signature="n#!!block;n#View#0" expanded="true" />
+            <element signature="n#!!block;n#Arange#0" expanded="true" />
+            <element signature="n#!!block;n#computeEnd#0" expanded="true" />
+            <element signature="n#!!block;n#computeStrides#0" expanded="true" />
+            <element signature="n#!!block;n#computeSize#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/functions.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="463" column="27" lean-forward="true" selection-start-line="463" selection-start-column="27" selection-end-line="463" selection-end-column="27" />
+          <folding>
+            <element signature="e#12#30#0" expanded="true" />
+            <element signature="n#!!block;n#Fill#0" expanded="true" />
+            <element signature="n#!!block;n#Apply#0" expanded="true" />
+            <element signature="n#!!block;n#Sum#0" expanded="true" />
+            <element signature="n#!!block;n#Copy#0" expanded="true" />
+            <element signature="n#!!block;n#Scale#0" expanded="true" />
+            <element signature="n#!!block;n#Shift#0" expanded="true" />
+            <element signature="n#!!block;n#Mean#0" expanded="true" />
+            <element signature="n#!!block;n#Std#0" expanded="true" />
+            <element signature="n#!!block;n#Var#0" expanded="true" />
+            <element signature="n#!!block;n#Llh#0" expanded="true" />
+            <element signature="n#!!block;n#Exp#0" expanded="true" />
+            <element signature="n#!!block;n#Dot#0" expanded="true" />
+            <element signature="n#!!block;n#Axpy#0" expanded="true" />
+            <element signature="n#!!block;n#Axmy#0" expanded="true" />
+            <element signature="n#!!block;n#Axdy#0" expanded="true" />
+            <element signature="n#!!block;n#Sq#0" expanded="true" />
+            <element signature="n#!!block;n#Add#0" expanded="true" />
+            <element signature="n#!!block;n#Sub#0" expanded="true" />
+            <element signature="n#!!block;n#Mul#0" expanded="true" />
+            <element signature="n#!!block;n#Norm#0" expanded="true" />
+            <element signature="e#6119#6319#0" expanded="true" />
+            <element signature="e#6553#6741#0" expanded="true" />
+            <element signature="e#6884#7512#0" expanded="true" />
+            <element signature="e#7212#7425#0" expanded="true" />
+            <element signature="e#7637#7811#0" expanded="true" />
+            <element signature="e#7894#7960#0" expanded="true" />
+            <element signature="e#7958#7960#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/array_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
+          <folding>
+            <element signature="n#!!block;n#TestNdarray_String#0" expanded="true" />
+            <element signature="n#!!block;n#TestNdarray_Get#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkInd2sub2#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkNdarray_Iterator#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkNdarray_View#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkNdarray_Get#0" expanded="true" />
+            <element signature="n#!!block;n#TestSub#0" expanded="true" />
+            <element signature="n#!!block;n#TestView#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkFunction1#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkAxpy#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkFunction3#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkAdd#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkSq#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/functions_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="273" lean-forward="true" selection-start-line="273" selection-end-line="273" />
+          <folding>
+            <element signature="e#110#122#0" />
+            <element signature="e#133#370#0" />
+            <element signature="e#193#210#0" />
+            <element signature="e#422#480#0" />
+            <element signature="e#432#477#0" />
+            <element signature="e#502#514#0" />
+            <element signature="e#523#535#0" />
+            <element signature="e#596#665#0" />
+            <element signature="e#606#651#0" />
+            <element signature="n#!!block;n#TestCopy#0" expanded="true" />
+            <element signature="e#744#752#0" />
+            <element signature="e#885#954#0" />
+            <element signature="e#895#940#0" />
+            <element signature="e#1023#1029#0" />
+            <element signature="e#1043#1085#0" />
+            <element signature="e#1272#1291#0" />
+            <element signature="e#1436#1569#0" />
+            <element signature="e#1468#1540#0" />
+            <element signature="e#1479#1524#0" />
+            <element signature="e#1637#1643#0" />
+            <element signature="e#1761#1830#0" />
+            <element signature="e#1771#1816#0" />
+            <element signature="e#1897#1903#0" />
+            <element signature="e#2021#2090#0" />
+            <element signature="e#2031#2076#0" />
+            <element signature="n#!!block;n#TestStd#0" expanded="true" />
+            <element signature="e#2157#2163#0" />
+            <element signature="e#2316#2385#0" />
+            <element signature="e#2326#2371#0" />
+            <element signature="n#!!block;n#TestLlh#0" expanded="true" />
+            <element signature="e#2452#2458#0" />
+            <element signature="e#2690#2759#0" />
+            <element signature="e#2700#2745#0" />
+            <element signature="e#2827#2836#0" />
+            <element signature="e#2928#2997#0" />
+            <element signature="e#2938#2983#0" />
+            <element signature="n#!!block;n#TestMax#0" expanded="true" />
+            <element signature="n#!!block;n#TestMax#1" expanded="true" />
+            <element signature="n#!!block;n#TestNonzeros#0" expanded="true" />
+            <element signature="n#!!block;n#TestTransform#0" expanded="true" />
+            <element signature="n#!!block;n#TestDistance#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkSub2ind#0" expanded="true" />
+            <element signature="e#2876#2887#0" />
+            <element signature="e#2930#2952#0" />
+            <element signature="e#3124#3144#0" />
+            <element signature="e#3348#3369#0" />
+            <element signature="e#3573#3592#0" />
+            <element signature="e#3967#3998#0" />
+            <element signature="e#4148#4167#0" />
+            <element signature="e#4210#4236#0" />
+            <element signature="e#5043#5068#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/print.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+          <folding>
+            <element signature="n#!!block;n#print2d#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="154" />
+          <folding>
+            <element signature="e#114#123#0" />
+            <element signature="e#246#281#0" />
+            <element signature="e#306#400#0" />
+            <element signature="e#325#397#0" />
+            <element signature="e#336#381#0" />
+            <element signature="e#420#429#0" />
+            <element signature="e#436#445#0" />
+            <element signature="e#487#532#0" />
+            <element signature="e#611#646#0" />
+            <element signature="e#671#765#0" />
+            <element signature="e#690#762#0" />
+            <element signature="e#701#746#0" />
+            <element signature="e#1097#1103#0" />
+            <element signature="e#1126#1147#0" />
+            <element signature="e#1178#1191#0" />
+            <element signature="e#1302#1336#0" />
+            <element signature="e#1360#1454#0" />
+            <element signature="e#1379#1451#0" />
+            <element signature="e#1390#1435#0" />
+            <element signature="e#1472#1495#0" />
+            <element signature="e#1591#1625#0" />
+            <element signature="e#1649#1743#0" />
+            <element signature="e#1668#1740#0" />
+            <element signature="e#1679#1724#0" />
+            <element signature="e#1761#1784#0" />
+            <element signature="e#1873#1907#0" />
+            <element signature="e#1931#2025#0" />
+            <element signature="e#1950#2022#0" />
+            <element signature="e#1961#2006#0" />
+            <element signature="e#2101#2108#0" />
+            <element signature="e#2165#2195#0" />
+            <element signature="n#!!block;n#BenchmarkIterator_Get#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkIter#0" expanded="true" />
+            <element signature="e#2363#2382#0" />
+            <element signature="n#!!block;n#BenchmarkIterator_At#0" expanded="true" />
           </folding>
         </state>
       </provider>

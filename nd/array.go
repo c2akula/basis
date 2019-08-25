@@ -18,22 +18,16 @@ func init() {
 // New returns an array of dimensions n
 // filled with elements given in v
 func New(n Shape, v []float64) Array {
-	res := Zeros(n).(*Ndarray)
+	res := Zeros(n).(*ndarray)
 	copy(res.data, v)
 	return res
 }
 
 // Zeros returns an ndarray of type dtype and dimensions n
 func Zeros(n Shape) Array {
-	res := &Ndarray{
+	res := &ndarray{
 		ndims: len(n),
 		shape: make(Shape, len(n)),
-		beg:   make(Index, len(n)),
-		end:   make(Index, len(n)),
-	}
-	// compute end coordinate of the array
-	for j, i := range n {
-		res.end[j] = i - 1
 	}
 	// copy the actual shape
 	copy(res.shape, n)
@@ -98,8 +92,8 @@ func RandBool(n Shape) Array {
 // Eg:
 //  m := array.View(start, shape)
 //  it := Iter(m) // create an iterator to iterate through m
-func (res *Ndarray) View(start Index, shape Shape) Array {
-	arr := &Ndarray{
+func (res *ndarray) View(start Index, shape Shape) Array {
+	arr := &ndarray{
 		data:    res.data[sub2ind(res.strides, start):],
 		ndims:   len(shape),
 		shape:   shape,
@@ -124,7 +118,7 @@ func Arange(start, stop float64, step ...float64) Array {
 		m = int(q + r)
 	}
 
-	res := Zeros(Shape{1, m}).(*Ndarray)
+	res := Zeros(Shape{1, m}).(*ndarray)
 	res.data[0] = start
 	for i := 1; i < res.size; i++ {
 		res.data[i] = res.data[i-1] + inc
@@ -136,19 +130,25 @@ func Arange(start, stop float64, step ...float64) Array {
 // The shape should be given such that the no. of elements remains
 // the same as the original.
 func Reshape(array Array, shape Shape) Array {
-	arr := array.(*Ndarray)
+	arr := array.(*ndarray)
 	if arr.size != computeSize(shape) {
 		panic("new shape should compute to the same no. of elements as the original")
 	}
-	arr.shape = make(Shape, len(shape))
-	copy(arr.shape, shape)
+	// we reset the length of the shape and strides slices
+	arr.shape = arr.shape[:0]
+	arr.strides = arr.strides[:0]
+	// then reallocate them
+	arr.shape = append(arr.shape, shape...)
+	arr.strides = append(arr.strides, shape...)
 
-	arr.strides = ComputeStrides(arr.shape)
+	// compute strides for new shape
+	for k := range shape {
+		arr.strides[k] = 1
+		for _, n := range shape[k+1:] {
+			arr.strides[k] *= n
+		}
+	}
 	arr.ndims = len(arr.shape)
-
-	arr.beg = make(Index, arr.ndims)
-	arr.end = make(Index, arr.ndims)
-	computeEnd(arr.shape, arr.end)
 	arr.it = Iter(arr)
 	return arr
 }
@@ -179,7 +179,7 @@ func isShapeSame(a, b Array) bool {
 	return true
 }
 
-func (res *Ndarray) computeStrides() {
+func (res *ndarray) computeStrides() {
 	for k := 0; k < res.ndims; k++ {
 		res.strides[k] = 1
 		for l := k + 1; l < res.ndims; l++ {
