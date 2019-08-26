@@ -1,4 +1,6 @@
-package nd
+package go_nd
+
+import "github.com/c2akula/go.nd/nd"
 
 func isum(n int, x []float64, step int) (s float64) {
 	for i := 0; n != 0; i += step {
@@ -15,7 +17,7 @@ func usum(n int, x []float64) (s float64) {
 	return
 }
 
-func sum2d(shape, strides Shape, x []float64) (s float64) {
+func sum2d(shape, strides nd.Shape, x []float64) (s float64) {
 	n := shape[1]
 	step0, step1 := strides[0], strides[1]
 	if step1 > 1 {
@@ -33,7 +35,7 @@ func sum2d(shape, strides Shape, x []float64) (s float64) {
 	return
 }
 
-func Sum(x Array) (s float64) {
+func Sum(x nd.Array) (s float64) {
 	ndims := x.Ndims()
 	xshape := x.Shape()
 	xstrides := x.Strides()
@@ -43,20 +45,26 @@ func Sum(x Array) (s float64) {
 		return sum2d(xshape, xstrides, xd)
 	}
 
-	shape := make(Shape, ndims)
+	shape := make(nd.Shape, ndims)
 	copy(shape, xshape[:ndims-2])
 	for i := ndims - 2; i < ndims; i++ {
 		shape[i] = 1
 	}
 
-	ind := make(Index, ndims-2)
+	ind := make(nd.Index, ndims-2)
 
 	shape2d := xshape[ndims-2:]
 	strides2d := xstrides[ndims-2:]
-	istrides := ComputeStrides(shape)
-	for i := 0; i < computeSize(shape); i++ {
-		b := sub2ind(xstrides[:ndims-2], ind2sub(istrides[:ndims-2], i, ind))
+	istrides := nd.ComputeStrides(shape)
+	for i := 0; i < nd.ComputeSize(shape); i++ {
+		b := nd.Sub2ind(xstrides[:ndims-2], nd.Ind2sub(istrides[:ndims-2], i, ind))
 		s += sum2d(shape2d, strides2d, xd[b:])
 	}
 	return
+}
+
+// Mean computes the average of the elements pointed to
+// by the iterator it.
+func Mean(x nd.Array) (m float64) {
+	return Sum(x) * (1.0 / float64(x.Size()))
 }

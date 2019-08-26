@@ -13,7 +13,7 @@ func TestIterator_Get(t *testing.T) {
 	got := make([]float64, 0, len(exp))
 
 	for it := Iter(a); !it.Done(); it.Next() {
-		got = append(got, *it.Upk())
+		got = append(got, *it.At())
 	}
 
 	for i, v := range exp {
@@ -29,7 +29,7 @@ func TestIterator_Get(t *testing.T) {
 	exp = []float64{7, 8, 9, 12, 13, 14, 27, 28, 29, 32, 33, 34}
 	got = make([]float64, 0, len(exp))
 	for it := Iter(b); !it.Done(); it.Next() {
-		got = append(got, *it.Upk())
+		got = append(got, *it.At())
 	}
 
 	for i, v := range exp {
@@ -49,7 +49,7 @@ func TestNdarray_Take(t *testing.T) {
 	got := make([]float64, 0, len(exp))
 	p := array.Take().From(5).To(11).WithStep(2)
 	for ; !p.Done(); p.Next() {
-		got = append(got, *p.Upk())
+		got = append(got, *p.At())
 	}
 	for i, v := range exp {
 		if got[i] != v {
@@ -61,7 +61,7 @@ func TestNdarray_Take(t *testing.T) {
 	exp = []float64{5, 6, 7, 8, 9, 10, 11}
 	got = make([]float64, 0, len(exp))
 	for p := array.Take().From(5).To(11); !p.Done(); p.Next() {
-		got = append(got, *p.Upk())
+		got = append(got, *p.At())
 	}
 	for i, v := range exp {
 		if got[i] != v {
@@ -73,7 +73,7 @@ func TestNdarray_Take(t *testing.T) {
 	exp = []float64{5, 6, 7, 8, 9, 10, 11}
 	got = make([]float64, 0, len(exp))
 	for p := array.Take().From(5); !p.Done(); p.Next() {
-		got = append(got, *p.Upk())
+		got = append(got, *p.At())
 	}
 	for i, v := range exp {
 		if got[i] != v {
@@ -83,10 +83,10 @@ func TestNdarray_Take(t *testing.T) {
 	}
 }
 
-func TestIterator_Upk(t *testing.T) {
+func TestIterator_At(t *testing.T) {
 	a := Reshape(Arange(0, 15), Shape{1, 15})
 	for it := a.Take().(*iterator); !it.Done(); it.Next() {
-		v := it.Upk()
+		v := it.At()
 		*v *= 2
 	}
 	fmt.Println("a: ", a)
@@ -96,7 +96,7 @@ func TestIterator_FromToStep(t *testing.T) {
 	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
 	fmt.Println(a)
 	it := a.Take()
-	it.From(Sub2ind(a, Index{1, 0, 1})).To(Sub2ind(a, Index{1, 3, 1})).WithStep(a.Strides()[1])
+	it.From(Sub2ind(a.Strides(), Index{1, 0, 1})).To(Sub2ind(a.Strides(), Index{1, 3, 1})).WithStep(a.Strides()[1])
 
 	for ; !it.Done(); it.Next() {
 		fmt.Println(it.I(), it.(*iterator).ind)
@@ -105,16 +105,14 @@ func TestIterator_FromToStep(t *testing.T) {
 
 // Benchmarks
 
-func BenchmarkIterator_Get(b *testing.B) {
+func BenchmarkIterator_Upk(b *testing.B) {
 	b.ReportAllocs()
 	a := Rand(TestArrayShape)
-	it := a.Take().(*iterator)
+	it := a.Take()
 	v := 0.0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		for it.Reset(); !it.Done(); it.Next() {
-			v = *it.Upk()
-		}
+		v = *it.At()
 	}
 	_ = v * v
 }
@@ -134,10 +132,11 @@ func BenchmarkIterator_At(b *testing.B) {
 	b.ReportAllocs()
 	a := Rand(TestArrayShape)
 	it := a.Take()
+	// k := 45
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		for k := 0; k < a.Size(); k++ {
-			it.At(k)
+		for k := 0; k < it.Len(); k++ {
+			_ = it.At()
 		}
 	}
 }

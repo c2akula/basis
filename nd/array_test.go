@@ -34,7 +34,7 @@ func TestNdarray_String(t *testing.T) {
 	)
 	it := Iter(b)
 	for _, v := range exp {
-		if b.Get(it.I()) != v {
+		if b.Get(it.Cur()) != v {
 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
 		}
 		it.Next()
@@ -65,7 +65,7 @@ func TestNdarray_View(t *testing.T) {
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))
 	for it := Iter(b); !it.Done(); it.Next() {
-		elm = append(elm, b.Get(it.I()))
+		elm = append(elm, b.Get(it.Cur()))
 	}
 
 	for i, v := range exp {
@@ -91,7 +91,7 @@ func TestNdarray_Get(t *testing.T) {
 	elm := make([]float64, len(exp))
 	it := Iter(b)
 	for i := range exp {
-		elm[i] = b.Get(it.I())
+		elm[i] = b.Get(it.Cur())
 		it.Next()
 	}
 
@@ -143,7 +143,7 @@ func TestSub2ind(t *testing.T) {
 	a := &ndarray{ndims: 3, strides: strides}
 
 	for i, ind := range sub {
-		if v := Sub2ind(a, ind); exp[i] != v {
+		if v := Sub2ind(a.strides, ind); exp[i] != v {
 			t.Logf("test failed. exp: %v, got: %v\n", exp[i], v)
 		}
 	}
@@ -174,7 +174,7 @@ func TestNdarray_Iterator(t *testing.T) {
 	elm := make([]float64, 0, len(exp))
 	it := Iter(b)
 	for ; !it.Done(); it.Next() {
-		elm = append(elm, b.Get(it.I()))
+		elm = append(elm, b.Get(it.Cur()))
 	}
 
 	for i, v := range exp {
@@ -191,7 +191,7 @@ func TestArange(t *testing.T) {
 	// fmt.Println(got)
 	it := got.Take()
 	for _, v := range exp {
-		if *it.Upk() != v {
+		if *it.At() != v {
 			t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 			t.Fail()
 		}
@@ -210,13 +210,14 @@ func TestReshape(t *testing.T) {
 
 // Benchmarks
 
-func BenchmarkInd2sub2(b *testing.B) {
+func BenchmarkInd2sub(b *testing.B) {
 	b.ReportAllocs()
 	a := Rand(TestArrayShape)
+	strides := a.Strides()
 	ind := make(Index, a.Ndims())
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		ind2sub(a.Strides(), 1999, ind)
+		Ind2sub(strides, 1999, ind)
 	}
 	_ = ind[0]
 }
@@ -257,7 +258,7 @@ func BenchmarkNdarray_Get(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v = a.Get(it.I())
+		v = a.Get(it.Cur())
 	}
 	_ = v * v
 }
@@ -269,7 +270,7 @@ func BenchmarkNdarray_Get(b *testing.B) {
 //
 // 	add := func(x, y Iterator) {
 // 		for !y.Done() {
-// 			*y.Upk() += *x.Upk()
+// 			*y.At() += *x.At()
 // 			x.Next()
 // 			y.Next()
 // 		}
@@ -281,7 +282,7 @@ func BenchmarkNdarray_Get(b *testing.B) {
 //
 // 	bit := b.Take()
 // 	for eit := exp.Take(); !eit.Done(); eit.Next() {
-// 		if *bit.Upk() != *eit.Upk() {
+// 		if *bit.At() != *eit.At() {
 // 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
 // 			t.Fail()
 // 		}
@@ -296,7 +297,7 @@ func BenchmarkNdarray_Get(b *testing.B) {
 //
 // 	sub := func(x, y Iterator) {
 // 		for !y.Done() {
-// 			*y.Upk() -= *x.Upk()
+// 			*y.At() -= *x.At()
 // 			x.Next()
 // 			y.Next()
 // 		}
@@ -308,7 +309,7 @@ func BenchmarkNdarray_Get(b *testing.B) {
 //
 // 	bit := b.Take()
 // 	for eit := exp.Take(); !eit.Done(); eit.Next() {
-// 		if *bit.Upk() != *eit.Upk() {
+// 		if *bit.At() != *eit.At() {
 // 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
 // 			t.Fail()
 // 		}
@@ -323,7 +324,7 @@ func TestView(t *testing.T) {
 	got := make([]float64, 0, len(exp))
 
 	for it := Iter(b); !it.Done(); it.Next() {
-		got = append(got, *it.Upk())
+		got = append(got, *it.At())
 	}
 
 	for i, v := range exp {
@@ -339,9 +340,9 @@ func BenchmarkFunction1(bn *testing.B) {
 	fn := func(a float64, x Iterator, b float64, y Iterator, c float64, z Iterator) {
 		_x, _y := 0.0, 0.0
 		for !z.Done() {
-			_x = *x.Upk()
-			_y = *y.Upk()
-			*z.Upk() += a*_x*_x + b*_y + c
+			_x = *x.At()
+			_y = *y.At()
+			*z.At() += a*_x*_x + b*_y + c
 
 			x.Next()
 			y.Next()
@@ -395,12 +396,3 @@ func BenchmarkAdd(bn *testing.B) {
 	}
 }
 */
-func BenchmarkSq(b *testing.B) {
-	x := Rand(TestArrayShape)
-	it := x.Take()
-	b.ResetTimer()
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		Sq(it)
-	}
-}

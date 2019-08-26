@@ -2,28 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de42bc16-0f26-44f6-a972-ef6942d71b81" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nd/blas/axpy.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/axpy_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/copy.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/copy_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/fill.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/fill_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/scale.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/scale_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/sum.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/blas/sum_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/dist.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/dist_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/var.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nd/var_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/minmax.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/minmax_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nd/iter/iter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nd/iter/iter_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nd_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/norm.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/array.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/array.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nd/array_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/array_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/axpy_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/dist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/dot.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/blas/dot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/dot_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/blas/dot_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/functions.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/functions.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/functions_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/functions_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nd/nd.test.exe" beforeDir="false" afterPath="$PROJECT_DIR$/nd/nd.test.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/axpy.go" beforeDir="false" afterPath="$PROJECT_DIR$/axpy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/axpy_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/axpy_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/copy.go" beforeDir="false" afterPath="$PROJECT_DIR$/copy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/copy_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/copy_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/dist.go" beforeDir="false" afterPath="$PROJECT_DIR$/dist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/dist_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/dist_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/dot.go" beforeDir="false" afterPath="$PROJECT_DIR$/dot.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/dot_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/dot_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/fill.go" beforeDir="false" afterPath="$PROJECT_DIR$/fill.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/fill_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/fill_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/functions.go" beforeDir="false" afterPath="$PROJECT_DIR$/functions.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/functions_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/functions_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/idx.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/idx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/iter.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/iter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/iter_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/iter_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/methods.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/methods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/norm_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/norm_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/print.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/print.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/scale.go" beforeDir="false" afterPath="$PROJECT_DIR$/scale.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/scale_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/scale_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/sum.go" beforeDir="false" afterPath="$PROJECT_DIR$/sum.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/sum_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/sum_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/nd/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/var.go" beforeDir="false" afterPath="$PROJECT_DIR$/var.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nd/var_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/var_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,255 +45,48 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="94" column="43" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
-              <folding>
-                <element signature="e#114#123#0" />
-                <element signature="e#246#281#0" />
-                <element signature="e#306#400#0" />
-                <element signature="e#325#397#0" />
-                <element signature="e#336#381#0" />
-                <element signature="e#420#429#0" />
-                <element signature="e#436#445#0" />
-                <element signature="e#487#532#0" />
-                <element signature="e#611#646#0" />
-                <element signature="e#671#765#0" />
-                <element signature="e#690#762#0" />
-                <element signature="e#701#746#0" />
-                <element signature="e#1097#1103#0" />
-                <element signature="e#1126#1147#0" />
-                <element signature="e#1178#1191#0" />
-                <element signature="e#1302#1336#0" />
-                <element signature="e#1360#1454#0" />
-                <element signature="e#1379#1451#0" />
-                <element signature="e#1390#1435#0" />
-                <element signature="e#1472#1495#0" />
-                <element signature="e#1591#1625#0" />
-                <element signature="e#1649#1743#0" />
-                <element signature="e#1668#1740#0" />
-                <element signature="e#1679#1724#0" />
-                <element signature="e#1761#1784#0" />
-                <element signature="e#1873#1907#0" />
-                <element signature="e#1931#2025#0" />
-                <element signature="e#1950#2022#0" />
-                <element signature="e#1961#2006#0" />
-                <element signature="e#2101#2108#0" />
-                <element signature="e#2165#2195#0" />
-                <element signature="e#2363#2382#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nd/array_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1824">
-              <caret line="209" selection-start-line="209" selection-end-line="209" />
-              <folding>
-                <element signature="e#96#137#0" />
-                <element signature="e#451#460#0" />
-                <element signature="e#521#542#0" />
-                <element signature="e#564#573#0" />
-                <element signature="e#582#591#0" />
-                <element signature="e#657#758#0" />
-                <element signature="e#683#743#0" />
-                <element signature="e#694#739#0" />
-                <element signature="e#815#827#0" />
-                <element signature="e#838#1075#0" />
-                <element signature="e#898#915#0" />
-                <element signature="e#1098#1110#0" />
-                <element signature="e#1119#1128#0" />
-                <element signature="e#1151#1169#0" />
-                <element signature="e#1249#1288#0" />
-                <element signature="e#1313#1407#0" />
-                <element signature="e#1332#1404#0" />
-                <element signature="e#1343#1388#0" />
-                <element signature="e#1463#1472#0" />
-                <element signature="e#1483#1625#0" />
-                <element signature="e#1536#1553#0" />
-                <element signature="e#1669#1678#0" />
-                <element signature="e#1685#1694#0" />
-                <element signature="e#1713#1731#0" />
-                <element signature="e#1801#1842#0" />
-                <element signature="e#1867#1961#0" />
-                <element signature="e#1886#1958#0" />
-                <element signature="e#1897#1942#0" />
-                <element signature="e#2013#2022#0" />
-                <element signature="e#2072#2429#0" />
-                <element signature="e#2444#2549#0" />
-                <element signature="e#2565#2593#0" />
-                <element signature="e#2620#2725#0" />
-                <element signature="e#2661#2722#0" />
-                <element signature="e#2672#2718#0" />
-                <element signature="e#2786#2798#0" />
-                <element signature="e#2809#3046#0" />
-                <element signature="e#2869#2886#0" />
-                <element signature="e#3069#3081#0" />
-                <element signature="e#3090#3102#0" />
-                <element signature="e#3125#3143#0" />
-                <element signature="e#3225#3264#0" />
-                <element signature="e#3289#3383#0" />
-                <element signature="e#3308#3380#0" />
-                <element signature="e#3319#3364#0" />
-                <element signature="e#3458#3492#0" />
-                <element signature="e#3555#3664#0" />
-                <element signature="e#3577#3649#0" />
-                <element signature="e#3588#3633#0" />
-                <element signature="e#3726#3732#0" />
-                <element signature="e#3743#3761#0" />
-                <element signature="e#3769#3775#0" />
-                <element signature="e#3794#3800#0" />
-                <element signature="e#3811#3829#0" />
-                <element signature="e#3864#3933#0" />
-                <element signature="e#3874#3919#0" />
-                <element signature="e#4111#4149#0" />
-                <element signature="e#4246#4257#0" />
-                <element signature="e#4277#4286#0" />
-                <element signature="e#4371#4437#0" />
-                <element signature="e#4413#4434#0" />
-                <element signature="e#4555#4564#0" />
-                <element signature="e#4580#4590#0" />
-                <element signature="e#4646#4675#0" />
-                <element signature="e#4870#4894#0" />
-                <element signature="e#4972#4978#0" />
-                <element signature="e#5014#5020#0" />
-                <element signature="e#5058#5064#0" />
-                <element signature="e#5355#5400#0" />
-                <element signature="e#5499#5505#0" />
-                <element signature="e#5541#5547#0" />
-                <element signature="e#5585#5591#0" />
-                <element signature="e#5882#5927#0" />
-                <element signature="e#6027#6036#0" />
-                <element signature="e#6092#6101#0" />
-                <element signature="e#6108#6114#0" />
-                <element signature="e#6133#6177#0" />
-                <element signature="e#6258#6293#0" />
-                <element signature="e#6318#6414#0" />
-                <element signature="e#6337#6411#0" />
-                <element signature="e#6348#6395#0" />
-                <element signature="e#6109#6297#0" />
-                <element signature="e#6148#6258#0" />
-                <element signature="e#6533#6560#0" />
-                <element signature="e#7054#7076#0" />
-                <element signature="e#7404#7420#0" />
-                <element signature="e#7562#7575#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nd/functions_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
-              <folding>
-                <element signature="e#12#64#0" expanded="true" />
-                <element signature="e#2452#2458#0" />
-                <element signature="e#2690#2759#0" />
-                <element signature="e#2700#2745#0" />
-                <element signature="e#3535#3540#0" />
-                <element signature="e#3549#3560#0" />
-                <element signature="e#3699#3701#0" />
-                <element signature="e#3709#3790#0" />
-                <element signature="e#3618#3624#0" />
-                <element signature="e#3635#3699#0" />
-                <element signature="e#3797#3902#0" />
-                <element signature="e#3808#3889#0" />
-                <element signature="e#4128#4133#0" />
-                <element signature="e#4144#4162#0" />
-                <element signature="e#4500#4505#0" />
-                <element signature="e#4466#4473#0" />
-                <element signature="e#4598#4605#0" />
-                <element signature="e#4620#4629#0" />
-                <element signature="e#4614#4667#0" />
-                <element signature="e#5178#5183#0" />
-                <element signature="e#5195#5358#0" />
-                <element signature="e#5174#5181#0" />
-                <element signature="e#5395#5402#0" />
-                <element signature="e#5499#5557#0" />
-                <element signature="e#4745#4751#0" />
-                <element signature="e#4762#4892#0" />
-                <element signature="e#4933#4939#0" />
-                <element signature="e#4950#5080#0" />
-                <element signature="e#4796#4803#0" />
-                <element signature="e#4836#4843#0" />
-                <element signature="e#5219#5226#0" />
-                <element signature="e#5229#5286#0" />
-                <element signature="e#2876#2887#0" />
-                <element signature="e#2930#2952#0" />
-                <element signature="e#4148#4167#0" />
-                <element signature="e#4210#4236#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/nd/blas/axpy.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-              <folding>
-                <element signature="n#!!block;n#ixpy#0" expanded="true" />
-                <element signature="n#!!block;n#uaxpy#0" expanded="true" />
-                <element signature="n#!!block;n#uxpy#0" expanded="true" />
-                <element signature="n#!!block;n#axpy2d#0" expanded="true" />
-                <element signature="n#!!block;n#Axpy#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nd/array.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-192">
-              <caret line="164" column="35" selection-start-line="164" selection-start-column="35" selection-end-line="164" selection-end-column="35" />
-              <folding>
-                <element signature="e#12#83#0" expanded="true" />
-                <element signature="n#!!block;n#Zeros#0" expanded="true" />
-                <element signature="n#!!block;n#Ones#0" expanded="true" />
-                <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
-                <element signature="n#!!block;n#View#0" expanded="true" />
-                <element signature="n#!!block;n#Arange#0" expanded="true" />
-                <element signature="n#!!block;n#Reshape#0" expanded="true" />
-                <element signature="n#!!block;n#computeEnd#0" expanded="true" />
-                <element signature="n#!!block;n#computeStrides#0" expanded="true" />
-                <element signature="n#!!block;n#computeSize#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nd/methods.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-              <folding>
-                <element signature="n#!!block;n#Data#0" expanded="true" />
-                <element signature="n#!!block;n#Shape#0" expanded="true" />
-                <element signature="n#!!block;n#Strides#0" expanded="true" />
-                <element signature="n#!!block;n#Size#0" expanded="true" />
-                <element signature="n#!!block;n#Ndims#0" expanded="true" />
-                <element signature="n#!!block;n#Read#0" expanded="true" />
-                <element signature="n#!!block;n#Write#0" expanded="true" />
-                <element signature="n#!!block;n#Get#0" expanded="true" />
-                <element signature="n#!!block;n#Set#0" expanded="true" />
-                <element signature="n#!!block;n#Take#0" expanded="true" />
-                <element signature="n#!!block;n#TakeAt#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="vertical" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/axpy.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1638">
+                  <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+                  <folding>
+                    <element signature="e#15#92#0" expanded="true" />
+                    <element signature="n#!!block;n#Axpy#1" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/functions.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
+                  <folding>
+                    <element signature="n#!!block;n#Apply#0" expanded="true" />
+                    <element signature="n#!!block;n#Shift#0" expanded="true" />
+                    <element signature="n#!!block;n#Llh#0" expanded="true" />
+                    <element signature="n#!!block;n#Exp#0" expanded="true" />
+                    <element signature="n#!!block;n#Sq#0" expanded="true" />
+                    <element signature="n#!!block;n#Shuffle#0" expanded="true" />
+                    <element signature="n#!!block;n#All#0" expanded="true" />
+                    <element signature="n#!!block;n#Any#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -300,46 +106,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/types/types.go" />
-        <option value="$PROJECT_DIR$/array/ndarray.go" />
-        <option value="$PROJECT_DIR$/array/array.go" />
-        <option value="$PROJECT_DIR$/nd/tests_test.go" />
-        <option value="$PROJECT_DIR$/nd/scalars_tes.go" />
-        <option value="$PROJECT_DIR$/nd/scalarops.go" />
-        <option value="$PROJECT_DIR$/nd/slices.go" />
-        <option value="$PROJECT_DIR$/nd/scalars_test.go" />
-        <option value="$PROJECT_DIR$/nd/expressions_test.go" />
-        <option value="$PROJECT_DIR$/nd/scalars.go" />
-        <option value="$PROJECT_DIR$/nd/iterable.go" />
-        <option value="$PROJECT_DIR$/nd/iterator.go" />
-        <option value="$PROJECT_DIR$/nd/iter/iterator_test.go" />
-        <option value="$PROJECT_DIR$/nd/iter/iterator.go" />
-        <option value="$PROJECT_DIR$/nd/iter/randiter.go" />
-        <option value="$PROJECT_DIR$/nd/randiter.go" />
-        <option value="$PROJECT_DIR$/nd/foo" />
-        <option value="$PROJECT_DIR$/nd/sub2ind_amd64.s" />
-        <option value="$PROJECT_DIR$/nd/iterable_test.go" />
-        <option value="$PROJECT_DIR$/go.mod" />
-        <option value="$PROJECT_DIR$/go.mod" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/nd/print.go" />
-        <option value="$PROJECT_DIR$/nd/array.go" />
-        <option value="$PROJECT_DIR$/nd/types.go" />
-        <option value="$PROJECT_DIR$/nd/methods.go" />
-        <option value="$PROJECT_DIR$/nd/iter.go" />
-        <option value="$PROJECT_DIR$/nd/idx.go" />
-        <option value="$PROJECT_DIR$/nd/iter_test.go" />
-        <option value="$PROJECT_DIR$/nd/dot.go" />
-        <option value="$PROJECT_DIR$/nd/dot_test.go" />
-        <option value="$PROJECT_DIR$/nd/norm_test.go" />
-        <option value="$PROJECT_DIR$/nd/copy_test.go" />
-        <option value="$PROJECT_DIR$/nd/copy.go" />
-        <option value="$PROJECT_DIR$/nd/fill_test.go" />
-        <option value="$PROJECT_DIR$/nd/fill.go" />
-        <option value="$PROJECT_DIR$/nd/axpy.go" />
-        <option value="$PROJECT_DIR$/nd/array_test.go" />
-        <option value="$PROJECT_DIR$/nd/axpy_test.go" />
         <option value="$PROJECT_DIR$/nd/scale_test.go" />
         <option value="$PROJECT_DIR$/nd/scale.go" />
         <option value="$PROJECT_DIR$/nd/sum_test.go" />
@@ -350,18 +116,62 @@
         <option value="$PROJECT_DIR$/nd/dist.go" />
         <option value="$PROJECT_DIR$/nd/dist_test.go" />
         <option value="$PROJECT_DIR$/nd/functions_test.go" />
+        <option value="$PROJECT_DIR$/array.go" />
+        <option value="$PROJECT_DIR$/types.go" />
+        <option value="$PROJECT_DIR$/iter.go" />
+        <option value="$PROJECT_DIR$/idx.go" />
+        <option value="$PROJECT_DIR$/methods.go" />
         <option value="$PROJECT_DIR$/nd/functions.go" />
+        <option value="$PROJECT_DIR$/cmd/main.go" />
+        <option value="$PROJECT_DIR$/array/array.go" />
+        <option value="$PROJECT_DIR$/nd/array.go" />
+        <option value="$PROJECT_DIR$/dist_test.go" />
+        <option value="$PROJECT_DIR$/dist.go" />
+        <option value="$PROJECT_DIR$/sum_test.go" />
+        <option value="$PROJECT_DIR$/var.go" />
+        <option value="$PROJECT_DIR$/var_test.go" />
+        <option value="$PROJECT_DIR$/sum.go" />
+        <option value="$PROJECT_DIR$/functions_test.go" />
+        <option value="$PROJECT_DIR$/nd_test.go" />
+        <option value="$PROJECT_DIR$/nd/idx.go" />
+        <option value="$PROJECT_DIR$/nd/methods.go" />
+        <option value="$PROJECT_DIR$/minmax.go" />
+        <option value="$PROJECT_DIR$/nd/iter.go" />
+        <option value="$PROJECT_DIR$/nd/array_test.go" />
+        <option value="$PROJECT_DIR$/nd/print.go" />
+        <option value="$PROJECT_DIR$/minmax_test.go" />
+        <option value="$PROJECT_DIR$/iter/iter.go" />
+        <option value="$PROJECT_DIR$/nd/iter_test.go" />
+        <option value="$PROJECT_DIR$/norm.go" />
+        <option value="$PROJECT_DIR$/fill.go" />
+        <option value="$PROJECT_DIR$/scale.go" />
+        <option value="$PROJECT_DIR$/dot.go" />
+        <option value="$PROJECT_DIR$/copy.go" />
+        <option value="$PROJECT_DIR$/nd/iter/iter.go" />
+        <option value="$PROJECT_DIR$/nd/iter/iter_test.go" />
+        <option value="$PROJECT_DIR$/copy_test.go" />
+        <option value="$PROJECT_DIR$/dot_test.go" />
+        <option value="$PROJECT_DIR$/norm_test.go" />
+        <option value="$PROJECT_DIR$/scale_test.go" />
+        <option value="$PROJECT_DIR$/fill_test.go" />
+        <option value="$PROJECT_DIR$/axpy.go" />
+        <option value="$PROJECT_DIR$/axpy_test.go" />
+        <option value="$PROJECT_DIR$/functions.go" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="105" />
-    <option name="y" value="75" />
-    <option name="width" value="2190" />
-    <option name="height" value="1245" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="x" value="84" />
+    <option name="y" value="60" />
+    <option name="width" value="1752" />
+    <option name="height" value="996" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+      <showMembers Scope="true" />
+      <compactDirectories Scope="true" />
+      <autoscrollToSource Scope="true" />
+      <sortByType Scope="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -372,32 +182,54 @@
               <item name="go.nd" type="b2602c69:ProjectViewProjectNode" />
               <item name="go.nd" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="go.nd" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go.nd" type="462c0819:PsiDirectoryNode" />
-              <item name="nd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="go.nd" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go.nd" type="462c0819:PsiDirectoryNode" />
-              <item name="nd" type="462c0819:PsiDirectoryNode" />
-              <item name="blas" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope">
+        <subPane subId="Scope 'Tests'; set:Tests; class com.intellij.psi.search.scope.TestsScope">
+          <expand>
+            <path>
+              <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="nd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="nd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="iter" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\CAkula\Workspace\Go\src\local\go.nd" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
             <path>
               <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\CAkula\Workspace\Go\src\local\go.nd" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="nd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="nd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="iter" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="go.nd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="nd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="iter" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="iter.go" type="e9541c9c:GoTreeStructureProvider$GoFileNode" />
             </path>
           </expand>
           <select />
@@ -407,27 +239,28 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Module.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
-    <property name="full.screen.before.presentation.mode" value="true" />
+    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoProjectSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd\nd\blas" />
-      <recent name="C:\Users\CAkula\Workspace\Go\src\local\ndgo" />
-      <recent name="C:\Users\CAkula\Workspace\Go\src\local\ndgo\nd" />
-      <recent name="C:\Users\CAkula\Workspace\Go\src\local\ndgo\nd\iter" />
-      <recent name="C:\Users\CAkula\Workspace\Go\src\local\ndgo\array" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\CAkula\Workspace\Go\src\local\ndgo\nd" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd\nd" />
+      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd\" />
+      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd" />
+      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd\array" />
+      <recent name="C:\Users\CAkula\Workspace\Go\src\github.com\c2akula\go.nd\cmd" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -442,7 +275,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestDist in github.com/c2akula/go.nd/nd">
+  <component name="RunManager" selected="Go Test.axpy_test.go">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go.nd" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -453,59 +286,26 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="BenchmarkScale in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkAxpy in github.com/c2akula/go.nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
+      <working_directory value="$PROJECT_DIR$" />
       <framework value="gobench" />
       <kind value="PACKAGE" />
-      <package value="github.com/c2akula/go.nd/nd" />
+      <package value="github.com/c2akula/go.nd" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^BenchmarkScale$" />
+      <pattern value="^BenchmarkAxpy$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestDist in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkAxpy2 in github.com/c2akula/go.nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gotest" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gobench" />
       <kind value="PACKAGE" />
-      <package value="github.com/c2akula/go.nd/nd" />
+      <package value="github.com/c2akula/go.nd" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestDist$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestScale in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/c2akula/go.nd/nd" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestScale$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestSum in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/c2akula/go.nd/nd" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSum$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestVar in github.com/c2akula/go.nd/nd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="go.nd" />
-      <working_directory value="$PROJECT_DIR$/nd" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/c2akula/go.nd/nd" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestVar$" />
+      <pattern value="^BenchmarkAxpy2$" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
@@ -519,79 +319,130 @@
       <filePath value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="axpy_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go.nd" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="local/ndarray" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/axpy_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="fill_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go.nd" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="local/ndarray" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/fill_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scale_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go.nd" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="local/ndarray" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/scale_test.go" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Go Test.TestScale in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.BenchmarkScale in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.TestSum in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.TestVar in github.com/c2akula/go.nd/nd" />
-      <item itemvalue="Go Test.TestDist in github.com/c2akula/go.nd/nd" />
+      <item itemvalue="Go Test.fill_test.go" />
+      <item itemvalue="Go Test.BenchmarkAxpy in github.com/c2akula/go.nd" />
+      <item itemvalue="Go Test.scale_test.go" />
+      <item itemvalue="Go Test.BenchmarkAxpy2 in github.com/c2akula/go.nd" />
+      <item itemvalue="Go Test.axpy_test.go" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestDist in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.TestVar in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.TestSum in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.BenchmarkScale in github.com/c2akula/go.nd/nd" />
-        <item itemvalue="Go Test.TestScale in github.com/c2akula/go.nd/nd" />
+        <item itemvalue="Go Test.axpy_test.go" />
+        <item itemvalue="Go Test.BenchmarkAxpy2 in github.com/c2akula/go.nd" />
+        <item itemvalue="Go Test.BenchmarkAxpy in github.com/c2akula/go.nd" />
+        <item itemvalue="Go Test.fill_test.go" />
+        <item itemvalue="Go Test.scale_test.go" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestVar_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 01m 37s.xml">
-      <configuration name="TestVar in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 16h 58m 38s.xml">
+      <configuration name="BenchmarkCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVar_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 02m 45s.xml">
-      <configuration name="TestVar in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 11m 07s.xml">
+      <configuration name="TestCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVar_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 15m 53s.xml">
-      <configuration name="TestVar in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 11m 14s.xml">
+      <configuration name="BenchmarkCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 43m 46s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 13m 11s.xml">
+      <configuration name="BenchmarkCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 44m 13s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 16m 24s.xml">
+      <configuration name="BenchmarkCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 44m 31s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCopy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 17m 24s.xml">
+      <configuration name="TestCopy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 45m 36s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="fill_test_go - 2019.08.26 at 17h 39m 53s.xml">
+      <configuration name="fill_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 46m 13s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkAxpy_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 40m 03s.xml">
+      <configuration name="BenchmarkAxpy in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 48m 19s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkAxpy2_in_github_com_c2akula_go_nd - 2019.08.26 at 17h 40m 12s.xml">
+      <configuration name="BenchmarkAxpy2 in github.com/c2akula/go.nd" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDist_in_github_com_c2akula_go_nd_nd - 2019.08.25 at 19h 48m 57s.xml">
-      <configuration name="TestDist in github.com/c2akula/go.nd/nd" configurationId="GoTestRunConfiguration" />
+    <history-entry file="axpy_test_go - 2019.08.26 at 17h 51m 12s.xml">
+      <configuration name="axpy_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27408853" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3282636" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.54372627" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.495564" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3287037" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.5483871" />
-      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3277512" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.495564" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="Database Changes" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3287037" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50067115" side_tool="true" weight="0.5483871" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" content_ui="combo" id="Project" order="4" visible="true" weight="0.21927084" />
+      <window_info active="true" anchor="right" x="-1920" y="23" width="1536" height="811" id="Run" maximized="true" order="5" sideWeight="0.49932885" type="WINDOWED" visible="true" weight="0.38541666" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3277512" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.495564" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="Database Changes" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3287037" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50067115" side_tool="true" weight="0.5483871" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" content_ui="combo" id="Project" order="4" weight="0.21927084" />
+      <window_info active="true" anchor="right" x="-1919" y="447" width="1534" height="386" id="Run" order="5" sideWeight="0.49932885" type="WINDOWED" visible="true" weight="0.38541666" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -610,57 +461,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nd/tests_test.go" />
-    <entry file="file://$PROJECT_DIR$/nd/slices.go" />
-    <entry file="file://$PROJECT_DIR$/nd/scalarops.go" />
-    <entry file="file://$PROJECT_DIR$/nd/expressions_test.go" />
-    <entry file="file://$PROJECT_DIR$/nd/scalars_test.go" />
-    <entry file="file://C:/Go/src/fmt/print.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="274" selection-start-line="274" selection-end-line="274" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/iterable.go" />
-    <entry file="file://C:/Go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="690" column="23" lean-forward="true" selection-start-line="690" selection-start-column="23" selection-end-line="690" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/encoding/binary/binary.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-          <folding>
-            <element signature="e#1627#1740#0" expanded="true" />
-            <element signature="e#1946#2097#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/scalars.go" />
-    <entry file="file://$PROJECT_DIR$/nd/iter/iterator.go" />
-    <entry file="file://$PROJECT_DIR$/nd/iter/iterator_test.go" />
-    <entry file="file://$PROJECT_DIR$/sub2ind_amd64.s" />
     <entry file="file://$PROJECT_DIR$/nd/foo" />
     <entry file="file://$PROJECT_DIR$/nd/sub2ind_amd64.s" />
     <entry file="file://$PROJECT_DIR$/go.mod">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#14#58#0" expanded="true" />
-            <element signature="n#!!block;n#sub2ind#0" expanded="true" />
-            <element signature="n#!!block;n#main#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://C:/Go/src/testing/testing.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -669,20 +473,161 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/types.go">
+    <entry file="file://$PROJECT_DIR$/nd/blas/sum_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/sum.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/copy.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/copy_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/dot.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/fill.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/fill_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/scale.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/scale_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/dot_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/axpy_test.go" />
+    <entry file="file://$PROJECT_DIR$/nd/blas/axpy.go" />
+    <entry file="file://$PROJECT_DIR$/cmd/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
           <folding>
-            <element signature="e#12#35#0" expanded="true" />
+            <element signature="e#14#71#0" expanded="true" />
+            <element signature="n#!!block;n#sub2ind#0" expanded="true" />
+            <element signature="n#!!block;n#main#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="57" column="18" lean-forward="true" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+          <folding>
+            <element signature="e#15#65#0" expanded="true" />
+            <element signature="n#!!block;n#idist#0" expanded="true" />
+            <element signature="n#!!block;n#udist#0" expanded="true" />
+            <element signature="n#!!block;n#dist2d#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!block;n#TestDist#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sum_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1161">
+          <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+          <folding>
+            <element signature="e#15#68#0" expanded="true" />
+            <element signature="n#!!block;n#TestSum#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/var.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding>
+            <element signature="e#15#65#0" expanded="true" />
+            <element signature="n#!!block;n#ivar#0" expanded="true" />
+            <element signature="n#!!block;n#uvar#0" expanded="true" />
+            <element signature="n#!!block;n#Var#0" expanded="true" />
+            <element signature="n#!!block;n#Std#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/var_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+          <folding>
+            <element signature="e#15#68#0" expanded="true" />
+            <element signature="n#!!block;n#TestVar#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkVar#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sum.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="n#!!block;n#Sum#0" expanded="true" />
+            <element signature="n#!!block;n#Mean#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!block;n#TestTransform#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkSub2ind#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkApply#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/math/floor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!block;n#trunc#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/array.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+          <folding>
+            <element signature="n#!!block;n#Ones#0" expanded="true" />
+            <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
+            <element signature="n#!!block;n#View#0" expanded="true" />
+            <element signature="n#!!block;n#Arange#0" expanded="true" />
+            <element signature="n#!!block;n#Reshape#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/idx.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="n#!!block;n#Sub2ind#0" expanded="true" />
+            <element signature="n#!!block;n#Ind2sub#0" expanded="true" />
+            <element signature="n#!!block;n#sub2ind#0" expanded="true" />
+            <element signature="n#!!block;n#ComputeStrides#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nd/methods.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+        <state relative-caret-position="109">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
           <folding>
             <element signature="n#!!block;n#Data#0" expanded="true" />
             <element signature="n#!!block;n#Shape#0" expanded="true" />
@@ -694,475 +639,259 @@
             <element signature="n#!!block;n#Get#0" expanded="true" />
             <element signature="n#!!block;n#Set#0" expanded="true" />
             <element signature="n#!!block;n#Take#0" expanded="true" />
-            <element signature="n#!!block;n#TakeAt#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/print.go">
+    <entry file="file://$PROJECT_DIR$/nd/types.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="119">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
           <folding>
-            <element signature="n#!!block;n#print2d#0" expanded="true" />
-            <element signature="n#!!block;n#String#0" expanded="true" />
+            <element signature="e#12#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/minmax.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="n#!!block;n#Min#0" expanded="true" />
+            <element signature="n#!!block;n#Max#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nd/iter.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="165" column="33" selection-start-line="165" selection-start-column="33" selection-end-line="165" selection-end-column="33" />
+        <state relative-caret-position="270">
+          <caret line="102" column="45" lean-forward="true" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
           <folding>
-            <element signature="e#12#44#0" expanded="true" />
             <element signature="n#!!block;n#Iter#0" expanded="true" />
+            <element signature="n#!!block;n#Next#0" expanded="true" />
             <element signature="n#!!block;n#Done#0" expanded="true" />
             <element signature="n#!!block;n#I#0" expanded="true" />
-            <element signature="n#!!block;n#K#0" expanded="true" />
-            <element signature="n#!!block;n#At#0" expanded="true" />
-            <element signature="n#!!block;n#End#0" expanded="true" />
+            <element signature="n#!!block;n#Seek#0" expanded="true" />
+            <element signature="n#!!block;n#Data#0" expanded="true" />
+            <element signature="n#!!block;n#Advance#0" expanded="true" />
+            <element signature="n#!!block;n#Len#0" expanded="true" />
             <element signature="n#!!block;n#Reset#0" expanded="true" />
-            <element signature="n#!!block;n#Upk#0" expanded="true" />
+            <element signature="n#!!block;n#Indices#0" expanded="true" />
+            <element signature="n#!!block;n#Cur#0" expanded="true" />
             <element signature="n#!!block;n#From#0" expanded="true" />
             <element signature="n#!!block;n#To#0" expanded="true" />
             <element signature="n#!!block;n#WithStep#0" expanded="true" />
             <element signature="n#!!block;n#createInd2submap#0" expanded="true" />
-            <element signature="n#!!block;n#String#0" expanded="true" />
-            <element signature="n#!!block;n#subs#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/idx.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="n#!!block;n#Sub2ind#0" expanded="true" />
-            <element signature="n#!!block;n#sub2ind#0" expanded="true" />
-            <element signature="n#!!block;n#sub2ind#1" expanded="true" />
-            <element signature="n#!!block;n#ComputeStrides#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="94" column="43" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
-          <folding>
-            <element signature="e#114#123#0" />
-            <element signature="e#246#281#0" />
-            <element signature="e#306#400#0" />
-            <element signature="e#325#397#0" />
-            <element signature="e#336#381#0" />
-            <element signature="e#420#429#0" />
-            <element signature="e#436#445#0" />
-            <element signature="e#487#532#0" />
-            <element signature="e#611#646#0" />
-            <element signature="e#671#765#0" />
-            <element signature="e#690#762#0" />
-            <element signature="e#701#746#0" />
-            <element signature="e#1097#1103#0" />
-            <element signature="e#1126#1147#0" />
-            <element signature="e#1178#1191#0" />
-            <element signature="e#1302#1336#0" />
-            <element signature="e#1360#1454#0" />
-            <element signature="e#1379#1451#0" />
-            <element signature="e#1390#1435#0" />
-            <element signature="e#1472#1495#0" />
-            <element signature="e#1591#1625#0" />
-            <element signature="e#1649#1743#0" />
-            <element signature="e#1668#1740#0" />
-            <element signature="e#1679#1724#0" />
-            <element signature="e#1761#1784#0" />
-            <element signature="e#1873#1907#0" />
-            <element signature="e#1931#2025#0" />
-            <element signature="e#1950#2022#0" />
-            <element signature="e#1961#2006#0" />
-            <element signature="e#2101#2108#0" />
-            <element signature="e#2165#2195#0" />
-            <element signature="e#2363#2382#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/norm_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#12#44#0" expanded="true" />
-            <element signature="n#!!block;n#TestNorm#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkNorm#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/array.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-192">
-          <caret line="164" column="35" selection-start-line="164" selection-start-column="35" selection-end-line="164" selection-end-column="35" />
-          <folding>
-            <element signature="e#12#83#0" expanded="true" />
-            <element signature="n#!!block;n#Zeros#0" expanded="true" />
-            <element signature="n#!!block;n#Ones#0" expanded="true" />
-            <element signature="n#!!block;n#Zeroslike#0" expanded="true" />
-            <element signature="n#!!block;n#View#0" expanded="true" />
-            <element signature="n#!!block;n#Arange#0" expanded="true" />
-            <element signature="n#!!block;n#Reshape#0" expanded="true" />
-            <element signature="n#!!block;n#computeEnd#0" expanded="true" />
-            <element signature="n#!!block;n#computeStrides#0" expanded="true" />
-            <element signature="n#!!block;n#computeSize#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/sum_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!block;n#BenchmarkSum#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/sum.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="28" column="35" lean-forward="true" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
-          <folding>
-            <element signature="n#!!block;n#isum#0" expanded="true" />
-            <element signature="n#!!block;n#usum#0" expanded="true" />
-            <element signature="n#!!block;n#Sum#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/var_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding>
-            <element signature="n#!!block;n#BenchmarkName#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/var.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="762">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
-          <folding>
-            <element signature="n#!!block;n#ivar#0" expanded="true" />
-            <element signature="n#!!block;n#uvar#0" expanded="true" />
-            <element signature="n#!!block;n#var2d#0" expanded="true" />
-            <element signature="n#!!block;n#Std#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/dist.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-254">
-          <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#idist#0" expanded="true" />
-            <element signature="n#!!block;n#udist#0" expanded="true" />
-            <element signature="n#!!block;n#Dist#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/dist_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding>
-            <element signature="e#12#40#0" expanded="true" />
-            <element signature="n#!!block;n#TestDist#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/functions.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding>
-            <element signature="e#12#30#0" expanded="true" />
-            <element signature="n#!!block;n#Apply#0" expanded="true" />
-            <element signature="n#!!block;n#Shift#0" expanded="true" />
-            <element signature="n#!!block;n#Mean#0" expanded="true" />
-            <element signature="n#!!block;n#Llh#0" expanded="true" />
-            <element signature="n#!!block;n#Exp#0" expanded="true" />
-            <element signature="n#!!block;n#Sq#0" expanded="true" />
-            <element signature="n#!!block;n#Add#0" expanded="true" />
-            <element signature="n#!!block;n#Sub#0" expanded="true" />
-            <element signature="n#!!block;n#Norm#0" expanded="true" />
-            <element signature="e#6119#6319#0" expanded="true" />
-            <element signature="e#6553#6741#0" expanded="true" />
-            <element signature="e#6884#7512#0" expanded="true" />
-            <element signature="e#7212#7425#0" expanded="true" />
-            <element signature="e#7637#7811#0" expanded="true" />
-            <element signature="e#7894#7960#0" expanded="true" />
-            <element signature="e#7958#7960#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/copy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="n#!!block;n#icopy#0" expanded="true" />
-            <element signature="n#!!block;n#ucopy#0" expanded="true" />
-            <element signature="n#!!block;n#copy2d#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/copy_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#BenchmarkCopy#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/dot.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#dot#0" expanded="true" />
-            <element signature="n#!!block;n#incdot#1" expanded="true" />
-            <element signature="n#!!block;n#dot2d#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/fill.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="n#!!block;n#ifill#0" expanded="true" />
-            <element signature="n#!!block;n#ufill#0" expanded="true" />
-            <element signature="n#!!block;n#fill2d#0" expanded="true" />
-            <element signature="n#!!block;n#Fill#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/fill_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="n#!!block;n#TestFill#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/scale.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="n#!!block;n#uscale#0" expanded="true" />
-            <element signature="n#!!block;n#scale2d#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/scale_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
-          <folding>
-            <element signature="n#!!block;n#TestScale#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/dot_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="10" selection-start-column="10" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!block;n#BenchmarkDot#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/axpy_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="n#!!block;n#TestAxpy#0" expanded="true" />
-            <element signature="n#!!block;n#BenchmarkAxpy#0" expanded="true" />
+            <element signature="n#!!block;n#createsub2indmap#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nd/array_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1824">
-          <caret line="209" selection-start-line="209" selection-end-line="209" />
+        <state relative-caret-position="170">
+          <caret line="230" column="18" lean-forward="true" selection-start-line="230" selection-start-column="18" selection-end-line="230" selection-end-column="18" />
           <folding>
-            <element signature="e#96#137#0" />
-            <element signature="e#451#460#0" />
-            <element signature="e#521#542#0" />
-            <element signature="e#564#573#0" />
-            <element signature="e#582#591#0" />
-            <element signature="e#657#758#0" />
-            <element signature="e#683#743#0" />
-            <element signature="e#694#739#0" />
-            <element signature="e#815#827#0" />
-            <element signature="e#838#1075#0" />
-            <element signature="e#898#915#0" />
-            <element signature="e#1098#1110#0" />
-            <element signature="e#1119#1128#0" />
-            <element signature="e#1151#1169#0" />
-            <element signature="e#1249#1288#0" />
-            <element signature="e#1313#1407#0" />
-            <element signature="e#1332#1404#0" />
-            <element signature="e#1343#1388#0" />
-            <element signature="e#1463#1472#0" />
-            <element signature="e#1483#1625#0" />
-            <element signature="e#1536#1553#0" />
-            <element signature="e#1669#1678#0" />
-            <element signature="e#1685#1694#0" />
-            <element signature="e#1713#1731#0" />
-            <element signature="e#1801#1842#0" />
-            <element signature="e#1867#1961#0" />
-            <element signature="e#1886#1958#0" />
-            <element signature="e#1897#1942#0" />
-            <element signature="e#2013#2022#0" />
-            <element signature="e#2072#2429#0" />
-            <element signature="e#2444#2549#0" />
-            <element signature="e#2565#2593#0" />
-            <element signature="e#2620#2725#0" />
-            <element signature="e#2661#2722#0" />
-            <element signature="e#2672#2718#0" />
-            <element signature="e#2786#2798#0" />
-            <element signature="e#2809#3046#0" />
-            <element signature="e#2869#2886#0" />
-            <element signature="e#3069#3081#0" />
-            <element signature="e#3090#3102#0" />
-            <element signature="e#3125#3143#0" />
-            <element signature="e#3225#3264#0" />
-            <element signature="e#3289#3383#0" />
-            <element signature="e#3308#3380#0" />
-            <element signature="e#3319#3364#0" />
-            <element signature="e#3458#3492#0" />
-            <element signature="e#3555#3664#0" />
-            <element signature="e#3577#3649#0" />
-            <element signature="e#3588#3633#0" />
-            <element signature="e#3726#3732#0" />
-            <element signature="e#3743#3761#0" />
-            <element signature="e#3769#3775#0" />
-            <element signature="e#3794#3800#0" />
-            <element signature="e#3811#3829#0" />
-            <element signature="e#3864#3933#0" />
-            <element signature="e#3874#3919#0" />
-            <element signature="e#4111#4149#0" />
-            <element signature="e#4246#4257#0" />
-            <element signature="e#4277#4286#0" />
-            <element signature="e#4371#4437#0" />
-            <element signature="e#4413#4434#0" />
-            <element signature="e#4555#4564#0" />
-            <element signature="e#4580#4590#0" />
-            <element signature="e#4646#4675#0" />
-            <element signature="e#4870#4894#0" />
-            <element signature="e#4972#4978#0" />
-            <element signature="e#5014#5020#0" />
-            <element signature="e#5058#5064#0" />
-            <element signature="e#5355#5400#0" />
-            <element signature="e#5499#5505#0" />
-            <element signature="e#5541#5547#0" />
-            <element signature="e#5585#5591#0" />
-            <element signature="e#5882#5927#0" />
-            <element signature="e#6027#6036#0" />
-            <element signature="e#6092#6101#0" />
-            <element signature="e#6108#6114#0" />
-            <element signature="e#6133#6177#0" />
-            <element signature="e#6258#6293#0" />
-            <element signature="e#6318#6414#0" />
-            <element signature="e#6337#6411#0" />
-            <element signature="e#6348#6395#0" />
-            <element signature="e#6109#6297#0" />
-            <element signature="e#6148#6258#0" />
-            <element signature="e#6533#6560#0" />
-            <element signature="e#7054#7076#0" />
-            <element signature="e#7404#7420#0" />
-            <element signature="e#7562#7575#0" />
+            <element signature="e#226#849#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/functions_test.go">
+    <entry file="file://$PROJECT_DIR$/nd/print.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        <state relative-caret-position="242">
+          <caret line="46" column="39" lean-forward="true" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
           <folding>
-            <element signature="e#12#64#0" expanded="true" />
-            <element signature="e#2452#2458#0" />
-            <element signature="e#2690#2759#0" />
-            <element signature="e#2700#2745#0" />
-            <element signature="e#3535#3540#0" />
-            <element signature="e#3549#3560#0" />
-            <element signature="e#3699#3701#0" />
-            <element signature="e#3709#3790#0" />
-            <element signature="e#3618#3624#0" />
-            <element signature="e#3635#3699#0" />
-            <element signature="e#3797#3902#0" />
-            <element signature="e#3808#3889#0" />
-            <element signature="e#4128#4133#0" />
-            <element signature="e#4144#4162#0" />
-            <element signature="e#4500#4505#0" />
-            <element signature="e#4466#4473#0" />
-            <element signature="e#4598#4605#0" />
-            <element signature="e#4620#4629#0" />
-            <element signature="e#4614#4667#0" />
-            <element signature="e#5178#5183#0" />
-            <element signature="e#5195#5358#0" />
-            <element signature="e#5174#5181#0" />
-            <element signature="e#5395#5402#0" />
-            <element signature="e#5499#5557#0" />
-            <element signature="e#4745#4751#0" />
-            <element signature="e#4762#4892#0" />
-            <element signature="e#4933#4939#0" />
-            <element signature="e#4950#5080#0" />
-            <element signature="e#4796#4803#0" />
-            <element signature="e#4836#4843#0" />
-            <element signature="e#5219#5226#0" />
-            <element signature="e#5229#5286#0" />
-            <element signature="e#2876#2887#0" />
-            <element signature="e#2930#2952#0" />
-            <element signature="e#4148#4167#0" />
-            <element signature="e#4210#4236#0" />
+            <element signature="n#!!block;n#print#0" expanded="true" />
+            <element signature="n#!!block;n#uprint#0" expanded="true" />
+            <element signature="n#!!block;n#print2d#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nd/blas/axpy.go">
+    <entry file="file://$PROJECT_DIR$/minmax_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        <state relative-caret-position="172">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding>
-            <element signature="n#!!block;n#ixpy#0" expanded="true" />
-            <element signature="n#!!block;n#uaxpy#0" expanded="true" />
-            <element signature="n#!!block;n#uxpy#0" expanded="true" />
-            <element signature="n#!!block;n#axpy2d#0" expanded="true" />
-            <element signature="n#!!block;n#Axpy#0" expanded="true" />
+            <element signature="e#15#68#0" expanded="true" />
+            <element signature="n#!!block;n#TestMin#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/iter_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="141" column="1" selection-start-line="141" selection-start-column="1" selection-end-line="141" selection-end-column="1" />
+          <folding>
+            <element signature="e#12#53#0" expanded="true" />
+            <element signature="n#!!block;n#TestIterator_Get#0" expanded="true" />
+            <element signature="n#!!block;n#TestNdarray_Take#0" expanded="true" />
+            <element signature="n#!!block;n#TestIterator_FromToStep#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkIterator_Upk#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkIter#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkIterator_At#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/norm.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#15#65#0" expanded="true" />
+            <element signature="n#!!block;n#Norm#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fill.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="n#!!block;n#Fill#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dot.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#15#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/copy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/iter/iter.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="9" column="80" lean-forward="true" selection-start-line="9" selection-start-column="80" selection-end-line="9" selection-end-column="80" />
+          <folding>
+            <element signature="n#!!block;n#Data#0" expanded="true" />
+            <element signature="n#!!block;n#Ind#0" expanded="true" />
+            <element signature="n#!!block;n#Len#0" expanded="true" />
+            <element signature="n#!!block;n#New#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nd/iter/iter_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/copy_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="53" column="34" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+          <folding>
+            <element signature="n#!!block;n#TestCopy#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dot_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="55" column="52" lean-forward="true" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
+          <folding>
+            <element signature="n#!!block;n#TestDot#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/norm_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#TestNorm#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scale_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="n#!!block;n#TestScale#0" expanded="true" />
+            <element signature="n#!!block;n#TestScaleView#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkScale#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fill_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="n#!!block;n#TestFill#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkFill#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/axpy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1638">
+          <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding>
+            <element signature="e#15#92#0" expanded="true" />
+            <element signature="n#!!block;n#Axpy#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/axpy_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="n#!!block;n#TestAxpy#0" expanded="true" />
+            <element signature="n#!!block;n#TestAxpyView#0" expanded="true" />
+            <element signature="n#!!block;n#BenchmarkAxpy2#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
+          <folding>
+            <element signature="n#!!block;n#Apply#0" expanded="true" />
+            <element signature="n#!!block;n#Shift#0" expanded="true" />
+            <element signature="n#!!block;n#Llh#0" expanded="true" />
+            <element signature="n#!!block;n#Exp#0" expanded="true" />
+            <element signature="n#!!block;n#Sq#0" expanded="true" />
+            <element signature="n#!!block;n#Shuffle#0" expanded="true" />
+            <element signature="n#!!block;n#All#0" expanded="true" />
+            <element signature="n#!!block;n#Any#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1171,6 +900,17 @@
   <component name="masterDetails">
     <states>
       <state key="Copyright.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
         <settings>
           <splitter-proportions>
             <option name="proportions">

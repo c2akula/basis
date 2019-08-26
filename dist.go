@@ -1,6 +1,10 @@
-package nd
+package go_nd
 
-import "math"
+import (
+	"math"
+
+	"github.com/c2akula/go.nd/nd"
+)
 
 func idist(n int, x, y []float64, step int) (s float64) {
 	for i := 0; n != 0; i += step {
@@ -20,7 +24,7 @@ func udist(n int, x, y []float64) (s float64) {
 	return
 }
 
-func dist2d(shape, strides Shape, x, y []float64) (s float64) {
+func dist2d(shape, strides nd.Shape, x, y []float64) (s float64) {
 	n := shape[1]
 	step0, step1 := strides[0], strides[1]
 	if step1 > 1 {
@@ -40,8 +44,8 @@ func dist2d(shape, strides Shape, x, y []float64) (s float64) {
 }
 
 // Dist computes the euclidean distance between two arrays, x and y.
-func Dist(x, y Array) (s float64) {
-	if !isShapeSame(x, y) {
+func Dist(x, y nd.Array) (s float64) {
+	if !nd.IsShapeSame(x, y) {
 		panic("Dist: input arrays must have same shape")
 	}
 
@@ -55,19 +59,19 @@ func Dist(x, y Array) (s float64) {
 		return math.Sqrt(dist2d(ashape, astrides, xd, yd))
 	}
 
-	shape := make(Shape, ndims)
+	shape := make(nd.Shape, ndims)
 	copy(shape, ashape[:ndims-2])
 	for i := ndims - 2; i < ndims; i++ {
 		shape[i] = 1
 	}
 
-	ind := make(Index, ndims-2)
+	ind := make(nd.Index, ndims-2)
 	shape2d := ashape[ndims-2:]
 	strides2d := astrides[ndims-2:]
-	istrides := ComputeStrides(shape)
+	istrides := nd.ComputeStrides(shape)
 
-	for i := 0; i < computeSize(shape); i++ {
-		b := sub2ind(astrides[:ndims-2], ind2sub(istrides[:ndims-2], i, ind))
+	for i := 0; i < nd.ComputeSize(shape); i++ {
+		b := nd.Sub2ind(astrides[:ndims-2], nd.Ind2sub(istrides[:ndims-2], i, ind))
 		s += dist2d(shape2d, strides2d, xd[b:], yd[b:])
 	}
 

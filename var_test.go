@@ -1,9 +1,13 @@
-package nd
+package go_nd
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/c2akula/go.nd/nd"
+)
 
 func TestVar(t *testing.T) {
-	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
+	a := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5})
 	exp := 305.0
 	got := Var(a)
 	if got != exp {
@@ -11,7 +15,7 @@ func TestVar(t *testing.T) {
 		t.Fail()
 	}
 
-	av := a.View(Index{2, 1, 1}, Shape{3, 1})
+	av := a.View(nd.Index{2, 1, 1}, nd.Shape{3, 1})
 	exp = 25.0
 	got = Var(av)
 	if got != exp {
@@ -22,7 +26,7 @@ func TestVar(t *testing.T) {
 
 func BenchmarkVar(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(TestArrayShape)
+	a := nd.Rand(TestArrayShape)
 	v := 0.0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {

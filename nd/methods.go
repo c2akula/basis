@@ -1,52 +1,52 @@
 package nd
 
-func (res *ndarray) Data() []float64 { return res.data }
+func (array *ndarray) Data() []float64 { return array.data }
 
 // Shape returns the dimensions of the go.nd
-func (res *ndarray) Shape() Shape {
-	return res.shape
+func (array *ndarray) Shape() Shape {
+	return array.shape
 }
 
-func (res *ndarray) Strides() Shape { return res.strides }
+func (array *ndarray) Strides() Shape { return array.strides }
 
 // Size returns the no. of elements in the go.nd
-func (res *ndarray) Size() int {
-	return res.size
+func (array *ndarray) Size() int {
+	return array.size
 }
 
 // Ndims returns the rank or dimensionality of the go.nd
-func (res *ndarray) Ndims() int {
-	return res.ndims
+func (array *ndarray) Ndims() int {
+	return array.ndims
 }
 
 // TODO: Read copies the underlying data into dst
-func (res *ndarray) Read(dst []byte) (n int, err error) { return }
+func (array *ndarray) Read(dst []byte) (n int, err error) { return }
 
 // TODO: Write copies src into the underlying data
-func (res *ndarray) Write(src []byte) (n int, err error) { return }
+func (array *ndarray) Write(src []byte) (n int, err error) { return }
 
 // Get returns the element at the coordinate n
-func (res *ndarray) Get(n Index) float64 {
-	return res.data[sub2ind(res.strides, n)]
+func (array *ndarray) Get(n Index) float64 {
+	return array.data[Sub2ind(array.strides, n)]
 }
 
 // Set sets the elment v at the coordinate n
-func (res *ndarray) Set(v float64, n Index) {
-	res.data[sub2ind(res.strides, n)] = v
+func (array *ndarray) Set(v float64, n Index) {
+	array.data[Sub2ind(array.strides, n)] = v
 }
 
 // Take returns an go.nd-iterator for the array
-func (res *ndarray) Take() Iterator {
-	return res.it
+func (array *ndarray) Take() Iterator {
+	return array.it
 }
 
 // TakeAt returns an flat array with the values at the indices
 // specified by i.
-func (res *ndarray) TakeAt(i Index) Array {
+func (array *ndarray) TakeAt(i Index) Array {
 	arr := Zeros(Shape{1, len(i)})
 	it := arr.Take()
 	for _, v := range i {
-		*it.Upk() = res.Get(res.it.At(v))
+		*it.At() = array.data[array.it.Seek(v)]
 		it.Next()
 	}
 	it.Reset()

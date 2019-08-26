@@ -32,7 +32,7 @@ func Zeros(n Shape) Array {
 	// copy the actual shape
 	copy(res.shape, n)
 	res.strides = ComputeStrides(res.shape)
-	res.size = computeSize(res.shape)
+	res.size = ComputeSize(res.shape)
 
 	// initialize the iterator
 	res.it = Iter(res)
@@ -45,7 +45,7 @@ func Zeros(n Shape) Array {
 func Ones(n Shape) Array {
 	res := Zeros(n)
 	for it := res.Take(); !it.Done(); it.Next() {
-		*it.Upk() = 1
+		*it.At() = 1
 	}
 	return res
 }
@@ -92,13 +92,13 @@ func RandBool(n Shape) Array {
 // Eg:
 //  m := array.View(start, shape)
 //  it := Iter(m) // create an iterator to iterate through m
-func (res *ndarray) View(start Index, shape Shape) Array {
+func (array *ndarray) View(start Index, shape Shape) Array {
 	arr := &ndarray{
-		data:    res.data[sub2ind(res.strides, start):],
+		data:    array.data[Sub2ind(array.strides, start):],
 		ndims:   len(shape),
 		shape:   shape,
-		strides: res.strides[res.ndims-len(shape):],
-		size:    computeSize(shape),
+		strides: array.strides[array.ndims-len(shape):],
+		size:    ComputeSize(shape),
 	}
 	return arr
 }
@@ -131,7 +131,7 @@ func Arange(start, stop float64, step ...float64) Array {
 // the same as the original.
 func Reshape(array Array, shape Shape) Array {
 	arr := array.(*ndarray)
-	if arr.size != computeSize(shape) {
+	if arr.size != ComputeSize(shape) {
 		panic("new shape should compute to the same no. of elements as the original")
 	}
 	// we reset the length of the shape and strides slices
@@ -155,14 +155,16 @@ func Reshape(array Array, shape Shape) Array {
 
 // Helpers
 
-func computeEnd(shape Shape, end Index) {
+// ComputeEnd places the index of the last element in end.
+func ComputeEnd(shape Shape, end Index) {
 	_ = end[len(shape)-1]
 	for i, n := range shape {
 		end[i] = n - 1
 	}
 }
 
-func isShapeSame(a, b Array) bool {
+// IsShapeSame checks if the two arrays have the same rank and dimensions.
+func IsShapeSame(a, b Array) bool {
 	if a.Ndims() != b.Ndims() {
 		return false
 	}
@@ -179,16 +181,8 @@ func isShapeSame(a, b Array) bool {
 	return true
 }
 
-func (res *ndarray) computeStrides() {
-	for k := 0; k < res.ndims; k++ {
-		res.strides[k] = 1
-		for l := k + 1; l < res.ndims; l++ {
-			res.strides[k] *= res.shape[l]
-		}
-	}
-}
-
-func computeSize(shape Shape) int {
+// ComputeSize computes the product of the dimensions in shape.
+func ComputeSize(shape Shape) int {
 	size := shape[0]
 	for _, n := range shape[1:] {
 		size *= n
