@@ -23,7 +23,7 @@ func TestSum(t *testing.T) {
 		1, 0, 2,
 	})
 	exp := 96.0
-	got := Sum(a)
+	got := Sum(a.Iter())
 	if exp != got {
 		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 	}
@@ -32,7 +32,7 @@ func TestSum(t *testing.T) {
 		nd.Shape{1, 2, 1, 3},
 	)
 	exp = 9.0
-	got = Sum(b)
+	got = Sum(b.Iter())
 	if exp != got {
 		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 		t.Fail()
@@ -41,11 +41,12 @@ func TestSum(t *testing.T) {
 
 func BenchmarkSum(b *testing.B) {
 	b.ReportAllocs()
-	a := nd.Rand(TestArrayShape)
+	a := nd.Rand(TestArrayShape).Iter()
+	_ = a.Ind()
 	b.ResetTimer()
-	var sum float64
+	var s float64
 	for i := 0; i < b.N; i++ {
-		sum = Sum(a)
+		s = Sum(a)
 	}
-	_ = sum * sum
+	_ = s * s
 }

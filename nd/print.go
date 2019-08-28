@@ -2,6 +2,7 @@ package nd
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -11,7 +12,7 @@ func iprint(n int, x []float64, step int) string {
 	for i := 0; n != 0; i += step {
 		sb.WriteString(fmt.Sprintf(" %8.4f ", x[i]))
 	}
-	sb.WriteString("]\n")
+	sb.WriteByte(']')
 	return sb.String()
 }
 
@@ -21,7 +22,7 @@ func uprint(n int, x []float64) string {
 	for _, v := range x[:n] {
 		sb.WriteString(fmt.Sprintf(" %8.4f ", v))
 	}
-	sb.WriteString("]\n")
+	sb.WriteByte(']')
 	return sb.String()
 }
 
@@ -33,6 +34,7 @@ func print2d(shape, strides Shape, x []float64) string {
 		for i := 0; i < shape[0]; i++ {
 			b := step0 * i
 			sb.WriteString(iprint(n, x[b:], step1))
+			sb.WriteByte('\n')
 		}
 		return sb.String()
 	}
@@ -40,6 +42,7 @@ func print2d(shape, strides Shape, x []float64) string {
 	for i := 0; i < shape[0]; i++ {
 		b := step0 * i
 		sb.WriteString(uprint(n, x[b:]))
+		sb.WriteByte('\n')
 	}
 	return sb.String()
 }
@@ -65,6 +68,14 @@ func (array *ndarray) String() string {
 
 	for i := 0; i < ComputeSize(shape); i++ {
 		b := Sub2ind(array.strides[:ndims-2], Ind2sub(istrides[:ndims-2], i, ind))
+		// array header
+		sb.WriteByte('[')
+		for _, k := range ind {
+			sb.WriteString(strconv.Itoa(k))
+			sb.WriteByte(',')
+		}
+		sb.WriteString(":,:]\n")
+		// print 2d array
 		sb.WriteString(print2d(shape2d, strides2d, array.data[b:]))
 	}
 

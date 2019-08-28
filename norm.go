@@ -3,8 +3,8 @@ package go_nd
 import (
 	"math"
 
-	"github.com/c2akula/go.nd/nd/iter"
+	"github.com/c2akula/go.nd/nd"
 )
 
 // Norm computes the Euclidean norm of the array, x.
-func Norm(x iter.Iterator) (s float64) { return math.Sqrt(Dot(x, x)) }
+func Norm(x nd.Iterator) (s float64) { return math.Sqrt(Dot(x, x)) }

@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/c2akula/go.nd/nd"
-	"github.com/c2akula/go.nd/nd/iter"
 )
 
 func TestAxpy(t *testing.T) {
@@ -13,9 +12,12 @@ func TestAxpy(t *testing.T) {
 	y := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5})
 	exp := nd.Zeroslike(y)
 
-	xit, xd, xi := iter.New(x)
-	yit, yd, yi := iter.New(y)
-	_, ed, ei := iter.New(exp)
+	xit := x.Iter()
+	xd, xi := x.Data(), xit.Ind()
+
+	yit := y.Iter()
+	yd, yi := y.Data(), yit.Ind()
+	ed, ei := exp.Data(), exp.Iter().Ind()
 
 	for i, k := range ei {
 		ed[k] = xd[xi[i]] + yd[yi[i]]
@@ -36,9 +38,11 @@ func TestAxpyView(t *testing.T) {
 	yv := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5}).View(nd.Index{1, 1, 1}, nd.Shape{2, 3})
 	ev := nd.Zeroslike(yv)
 
-	xit, xd, xi := iter.New(xv)
-	yit, yd, yi := iter.New(yv)
-	_, ed, ei := iter.New(ev)
+	xit := xv.Iter()
+	xd, xi := xv.Data(), xit.Ind()
+	yit := yv.Iter()
+	yd, yi := yv.Data(), yit.Ind()
+	ed, ei := ev.Data(), ev.Iter().Ind()
 	for i, k := range ei {
 		ed[k] = xd[xi[i]] + yd[yi[i]]
 	}
@@ -55,13 +59,11 @@ func TestAxpyView(t *testing.T) {
 
 func BenchmarkAxpy(bn *testing.B) {
 	a := rand.Float64()
-	x := nd.Rand(TestArrayShape)
-	y := nd.Rand(TestArrayShape)
-	xit, _, _ := iter.New(x)
-	yit, _, _ := iter.New(y)
+	x := nd.Rand(TestArrayShape).Range()
+	y := nd.Rand(TestArrayShape).Range()
 	bn.ResetTimer()
 	bn.ReportAllocs()
 	for i := 0; i < bn.N; i++ {
-		Axpy(a, xit, yit)
+		Axpy(a, x, y)
 	}
 }

@@ -9,8 +9,8 @@ import (
 
 func TestDist(t *testing.T) {
 	a := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5})
-	x := a.View(nd.Index{0, 0, 0}, nd.Shape{4, 5})
-	y := a.View(nd.Index{2, 0, 0}, nd.Shape{4, 5})
+	x := a.View(nd.Index{0, 0, 0}, nd.Shape{4, 5}).Iter()
+	y := a.View(nd.Index{2, 0, 0}, nd.Shape{4, 5}).Iter()
 	exp := "178.8854"
 	got := strconv.FormatFloat(Dist(x, y), 'f', 4, 64)
 	if exp != got {
@@ -21,10 +21,12 @@ func TestDist(t *testing.T) {
 
 func BenchmarkDist(b *testing.B) {
 	b.ReportAllocs()
-	x := nd.Rand(TestArrayShape)
-	y := nd.Rand(TestArrayShape)
+	x := nd.Rand(TestArrayShape).Iter()
+	y := nd.Rand(TestArrayShape).Iter()
+	s := 0.0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Dist(x, y)
+		s = Dist(x, y)
 	}
+	_ = s * s
 }

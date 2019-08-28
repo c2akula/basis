@@ -1,45 +1,13 @@
 package nd
 
 import (
-	"math/rand"
 	"testing"
 )
 
 // var TestArrayShape = Shape{3, 45, 15}
-var TestArrayShape = Shape{10, 45, 30} // 13,500
+// var TestArrayShape = Shape{10, 45, 30} // 13,500
 // var TestArrayShape = Shape{300, 45} // 13,500
-
-func TestNdarray_String(t *testing.T) {
-	// a := New(Shape{2, 2, 2, 3}, []float64{
-	// 	// t = 0, p = 0
-	// 	1, 2, 3, // r = 0, c = 0:2
-	// 	4, 5, 6, // r = 1, c = 0:2
-	// 	// t = 0, p = 1
-	// 	7, 8, 9, // r = 0, c = 0:2
-	// 	2, 0, 1, // r = 1, c = 0:2
-	//
-	// 	// t = 1, p = 0
-	// 	6, 4, 5,
-	// 	3, 1, 2,
-	// 	// t = 1, p = 1
-	// 	9, 7, 8,
-	// 	1, 0, 2,
-	// })
-	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
-	// _ = a.String()
-	exp := []float64{5, 6, 7, 25, 26, 27}
-	b := a.View(
-		Index{0, 1, 0},
-		Shape{2, 1, 3},
-	)
-	it := Iter(b)
-	for _, v := range exp {
-		if b.Get(it.Cur()) != v {
-			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
-		}
-		it.Next()
-	}
-}
+var TestArrayShape = Shape{100, 100, 100}
 
 func TestNdarray_View(t *testing.T) {
 	a := New(Shape{2, 2, 2, 3}, []float64{
@@ -64,8 +32,9 @@ func TestNdarray_View(t *testing.T) {
 
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))
-	for it := Iter(b); !it.Done(); it.Next() {
-		elm = append(elm, b.Get(it.Cur()))
+	bd, bi := b.Range().Iter()
+	for _, k := range bi {
+		elm = append(elm, bd[k])
 	}
 
 	for i, v := range exp {
@@ -89,10 +58,16 @@ func TestNdarray_Get(t *testing.T) {
 	b := a.View(Index{0, 1, 0}, Shape{2, 1, 3})
 	exp := []float64{4, 5, 6, 2, 0, 1}
 	elm := make([]float64, len(exp))
-	it := Iter(b)
+	ci := []Index{
+		{0, 0, 0},
+		{0, 0, 1},
+		{0, 0, 2},
+		{1, 0, 0},
+		{1, 0, 1},
+		{1, 0, 2},
+	}
 	for i := range exp {
-		elm[i] = b.Get(it.Cur())
-		it.Next()
+		elm[i] = b.Get(ci[i])
 	}
 
 	for i, v := range exp {
@@ -172,9 +147,9 @@ func TestNdarray_Iterator(t *testing.T) {
 
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))
-	it := Iter(b)
-	for ; !it.Done(); it.Next() {
-		elm = append(elm, b.Get(it.Cur()))
+	bd, bi := b.Range().Iter()
+	for _, k := range bi {
+		elm = append(elm, bd[k])
 	}
 
 	for i, v := range exp {
@@ -188,14 +163,13 @@ func TestNdarray_Iterator(t *testing.T) {
 func TestArange(t *testing.T) {
 	got := Arange(0, 11)
 	exp := []float64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	// fmt.Println(got)
-	it := got.Take()
-	for _, v := range exp {
-		if *it.At() != v {
+	it := got.Iter()
+	gd := it.Data()
+	for i, k := range it.Ind() {
+		if exp[i] != gd[k] {
 			t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 			t.Fail()
 		}
-		it.Next()
 	}
 }
 
@@ -206,6 +180,34 @@ func TestReshape(t *testing.T) {
 		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 		t.Fail()
 	}
+}
+
+func TestNdarray_Take(t *testing.T) {
+	a := Reshape(Arange(0, 24), Shape{2, 4, 3})
+	exp := []float64{1, 4, 3, 7}
+	b := a.Take(Index{1, 4, 3, 7})
+	bd, bi := b.Range().Iter()
+	for i, k := range bi {
+		if bd[k] != exp[i] {
+			t.Logf("test 'Take' failed. exp: %v\n, got: %v\n", exp, bd)
+			t.Fail()
+		}
+	}
+
+	av := a.View(Index{0, 1, 1}, Shape{3, 2})
+	b = av.Take(Index{2, 4, 3})
+	exp = []float64{7, 10, 8}
+	bd, bi = b.Range().Iter()
+	for i, k := range bi {
+		if bd[k] != exp[i] {
+			t.Logf("test 'Take' failed. exp: %v\n, got: %v\n", exp, bd)
+			t.Fail()
+		}
+	}
+}
+
+type View interface {
+	Array
 }
 
 // Benchmarks
@@ -224,14 +226,14 @@ func BenchmarkInd2sub(b *testing.B) {
 
 func BenchmarkNdarray_Iterator(b *testing.B) {
 	b.ReportAllocs()
-	a := Rand(Shape{5, 36, 16})
-	m := a.View(Index{0, 0, 0}, TestArrayShape)
-	it := Iter(m)
-	s := 0
+	a := Rand(TestArrayShape)
+	m := a.View(make(Index, a.Ndims()), TestArrayShape)
+	md, mi := m.Range().Iter()
+	s := 0.0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		for it.Reset(); !it.Done(); it.Next() {
-			s = it.Len()
+		for _, k := range mi {
+			s = md[k]
 		}
 	}
 	_ = s * s
@@ -240,8 +242,8 @@ func BenchmarkNdarray_Iterator(b *testing.B) {
 func BenchmarkNdarray_View(b *testing.B) {
 	b.ReportAllocs()
 	a := Rand(TestArrayShape)
-	beg := Index{0, 0, 0}
-	shape := Shape{2, 15, 7}
+	beg := make(Index, a.Ndims())
+	shape := TestArrayShape
 	var m Array
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -252,147 +254,12 @@ func BenchmarkNdarray_View(b *testing.B) {
 
 func BenchmarkNdarray_Get(b *testing.B) {
 	a := Rand(TestArrayShape)
-	it := a.Take()
-	// ind := Index{2, 14, 3}
+	ind := Index{2, 14, 3}
 	v := 0.0
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v = a.Get(it.Cur())
+		v = a.Get(ind)
 	}
 	_ = v * v
 }
-
-// func TestAdd(t *testing.T) {
-// 	a := Reshape(Arange(0, 15), Shape{3, 5})
-// 	b := Reshape(Arange(0, 15), Shape{3, 5})
-// 	exp := Reshape(Arange(0, 15), Shape{3, 5})
-//
-// 	add := func(x, y Iterator) {
-// 		for !y.Done() {
-// 			*y.At() += *x.At()
-// 			x.Next()
-// 			y.Next()
-// 		}
-// 		x.Reset()
-// 		y.Reset()
-// 	}
-// 	add(a.Take(), exp.Take())
-// 	Add(b.Take(), a.Take())
-//
-// 	bit := b.Take()
-// 	for eit := exp.Take(); !eit.Done(); eit.Next() {
-// 		if *bit.At() != *eit.At() {
-// 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
-// 			t.Fail()
-// 		}
-// 		bit.Next()
-// 	}
-// }
-//
-// func TestSub(t *testing.T) {
-// 	a := Reshape(Arange(0, 15), Shape{3, 5})
-// 	b := Reshape(Arange(0, 15), Shape{3, 5})
-// 	exp := Reshape(Arange(0, 15), Shape{3, 5})
-//
-// 	sub := func(x, y Iterator) {
-// 		for !y.Done() {
-// 			*y.At() -= *x.At()
-// 			x.Next()
-// 			y.Next()
-// 		}
-// 		x.Reset()
-// 		y.Reset()
-// 	}
-// 	sub(a.Take(), exp.Take())
-// 	Sub(b.Take(), a.Take())
-//
-// 	bit := b.Take()
-// 	for eit := exp.Take(); !eit.Done(); eit.Next() {
-// 		if *bit.At() != *eit.At() {
-// 			t.Logf("test failed. exp: %v\n, got: %v\n", exp, b)
-// 			t.Fail()
-// 		}
-// 		bit.Next()
-// 	}
-// }
-
-func TestView(t *testing.T) {
-	a := Reshape(Arange(0, 60), Shape{3, 4, 5})
-	b := a.View(Index{0, 1, 1}, Shape{3, 4})
-	exp := []float64{6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19}
-	got := make([]float64, 0, len(exp))
-
-	for it := Iter(b); !it.Done(); it.Next() {
-		got = append(got, *it.At())
-	}
-
-	for i, v := range exp {
-		if got[i] != v {
-			t.Logf("test failed. exp: %v\n, got: %v\n", exp, got)
-			t.Fail()
-		}
-	}
-}
-
-func BenchmarkFunction1(bn *testing.B) {
-	// z = a*x^2 + b*y + c
-	fn := func(a float64, x Iterator, b float64, y Iterator, c float64, z Iterator) {
-		_x, _y := 0.0, 0.0
-		for !z.Done() {
-			_x = *x.At()
-			_y = *y.At()
-			*z.At() += a*_x*_x + b*_y + c
-
-			x.Next()
-			y.Next()
-			z.Next()
-		}
-		x.Reset()
-		y.Reset()
-		z.Reset()
-	}
-
-	a := rand.Float64()
-	b := rand.Float64()
-	c := rand.Float64()
-	x := Rand(TestArrayShape).Take()
-	y := Rand(TestArrayShape).Take()
-	z := Rand(TestArrayShape).Take()
-	bn.ResetTimer()
-	bn.ReportAllocs()
-	for i := 0; i < bn.N; i++ {
-		fn(a, x, b, y, c, z)
-	}
-}
-
-/*func BenchmarkFunction3(bn *testing.B) {
-	a := rand.Float64()
-	b := rand.Float64()
-	c := rand.Float64()
-	x := Rand(TestArrayShape).Take()
-	y := Rand(TestArrayShape).Take()
-	z := Rand(TestArrayShape).Take()
-	bn.ResetTimer()
-	bn.ReportAllocs()
-
-	// z = a*x^2 + b*y + c
-	// Shift(Plus(Scale(Sq(x),a), Scale(y,b)), c)
-	for i := 0; i < bn.N; i++ {
-		z = Shift(Add(Scale(Sq(x), a), Scale(y, b)), c)
-	}
-	_ = z.Len()
-}
-
-func BenchmarkAdd(bn *testing.B) {
-	x := Rand(TestArrayShape).Take()
-	y := Rand(TestArrayShape).Take()
-	bn.ResetTimer()
-	bn.ReportAllocs()
-
-	// y += x
-	for i := 0; i < bn.N; i++ {
-		Add(y, x)
-	}
-}
-*/

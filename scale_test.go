@@ -4,24 +4,24 @@ import (
 	"testing"
 
 	"github.com/c2akula/go.nd/nd"
-	"github.com/c2akula/go.nd/nd/iter"
 )
 
 func TestScale(t *testing.T) {
 	// a := Reshape(Arange(0, 60), Shape{3,4,5})
 	a := nd.Reshape(nd.Arange(0, float64(nd.ComputeSize(TestArrayShape))), TestArrayShape)
-	ait, _, _ := iter.New(a)
+	ait := a.Range()
 	v := 2.0
 
 	exp := nd.Zeroslike(a)
-	eit, ed, ei := iter.New(exp)
+	eit := exp.Range()
+	ed, ei := eit.Iter()
 	Copy(eit, ait)
-	Apply(exp.Take(), func(f float64) float64 {
-		return f * v
-	})
+	for _, k := range ei {
+		ed[k] *= v
+	}
 
 	b := nd.Zeroslike(a)
-	bit, bd, _ := iter.New(b)
+	bit, bd := b.Range(), b.Data()
 	Scale(v, ait, bit) // b <- v*a
 
 	for _, k := range ei {
@@ -34,7 +34,7 @@ func TestScale(t *testing.T) {
 
 func TestScaleView(t *testing.T) {
 	av := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5}).View(nd.Index{1, 0, 1}, nd.Shape{2, 2, 3})
-	ait, _, _ := iter.New(av)
+	ait := av.Range()
 	v := 2.0
 
 	exp := nd.New(nd.Shape{2, 2, 3}, []float64{
@@ -43,10 +43,11 @@ func TestScaleView(t *testing.T) {
 		82, 84, 86,
 		92, 94, 96,
 	})
-	_, ed, ei := iter.New(exp)
+	eit, ed := exp.Range(), exp.Data()
+	ei := eit.Ind()
 
 	b := nd.Zeroslike(av)
-	bit, bd, _ := iter.New(b)
+	bit, bd := b.Range(), b.Data()
 	Scale(v, ait, bit)
 
 	for _, k := range ei {
@@ -59,7 +60,7 @@ func TestScaleView(t *testing.T) {
 
 func BenchmarkScale(b *testing.B) {
 	x := nd.Rand(TestArrayShape)
-	it, _, _ := iter.New(x)
+	it := x.Range()
 	v := 1.1
 	b.ReportAllocs()
 	b.ResetTimer()

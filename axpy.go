@@ -1,12 +1,9 @@
 package go_nd
 
-import (
-	"github.com/c2akula/go.nd/nd/iter"
-)
-
+import "github.com/c2akula/go.nd/nd"
 
 // Axpy performs the operation y += a*x
-func Axpy(a float64, x, y iter.Iterator) iter.Iterator {
+func Axpy(a float64, x, y nd.Iterator) nd.Iterator {
 
 	if x.Len() != y.Len() {
 		panic("input iterators must have same size")

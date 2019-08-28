@@ -1,154 +1,80 @@
 package nd
 
-// Iterator is an object that provides a way to iterate over and access elements of an Array.
+// Iterator provides the ability to access the elements of and iterate over an Array.
 type Iterator interface {
-	// Len returns the depth of the iterator.
+	// Len returns the size of the iterator, or the no. of elements referenced by the iterator.
 	Len() int
 
-	// Next advances the iterator by 1 step.
-	Next()
+	// Ind returns the positions of the elements referenced by the iterator.
+	Ind() Index
 
-	// Data provides access to the array's buffer that the iterator is referencing.
+	// Data returns the data buffer referenced by the iterator.
 	Data() []float64
 
-	// Seek returns the linear index referencing the internal array's buffer at the (n+1)th position of the iterator.
-	Seek(n int) int
+	Iter() ([]float64, Index)
 
-	// Advance advances the iterator by n steps from current position.
-	// It is equivalent to calling Next n times.
-	Advance(n int) Iterator
-
-	// Done checks if the iterator has reached the End.
-	Done() bool
-
-	// Reset resets the internal index to Begin.
-	Reset()
-
-	// I returns the location of the iterator as a linear index referencing the internal array.
-	I() int
-
-	// At provides access to the value at the location of the iterator.
-	At() *float64
-
-	// Indices returns the linear indices that reference into the internal array's elements.
-	Indices() Index
-
-	// Cur returns the iterator's position as an n-dimensional index.
-	Cur() Index
-
-	From(beg int) Iterator
-	To(end int) Iterator
-	WithStep(inc int) Iterator
+	// Shape() Shape
+	// Strides() Shape
+	// Ndims() int
 }
 
-type iterator struct {
-	array         Array // reference to the array being iterated upon
-	strides       Shape // iterator strides
-	beg, end, ind int   // indices to keep track of the iteration
-	inc           int   // increment
-	len           int   // # of iterations to end
-	ndims         int   // rank of the iterator
-	ind2submap    Index // linear index to subscript map
-	sub2indmap    Index // subscript to linear index map
+type iter struct {
+	len int      // depth of the iterator
+	ind Index    // list of indices into the referenced data buffer
+	arr *ndarray // reference to the array's data buffer iterating upon
+	beg int      // range start
+	inc int      // range step
+	str Shape    // view strides computed from its actual shape
+	sub Index    // scratch space for subscript computation using ind2sub
 }
 
-func Iter(array Array) Iterator {
-	it := &iterator{
-		array: array,
-		len:   array.Size(),
-		inc:   1,
+func (it *iter) Data() []float64 { return it.arr.data }
+
+func (it *iter) Ind() Index {
+	if it.ind != nil {
+		return it.ind
+	} else {
+		it.ind = make(Index, 0, it.arr.size)
+		it.sub = make(Index, it.arr.ndims)
+		it.str = ComputeStrides(it.arr.shape)
 	}
-	it.strides = ComputeStrides(it.array.Shape())
-	it.ndims = array.Ndims()
-	it.beg = 0
-	it.end = array.Size() - 1
-	it.ind = it.beg
-	it.createInd2submap()
-	it.createsub2indmap()
-	return it
+
+	if it.arr.isView() {
+		it.computeIndices(true)
+	} else {
+		it.computeIndices(false)
+	}
+
+	return it.ind
 }
 
-func (it *iterator) Next() {
-	it.ind += it.inc
+func (it *iter) Len() int { return it.len }
+
+// func (it *iter) Shape() Shape             { return it.arr.Shape() }
+// func (it *iter) Strides() Shape           { return it.arr.Strides() }
+// func (it *iter) Ndims() int               { return it.arr.Ndims() }
+func (it *iter) Iter() ([]float64, Index) {
+	return it.arr.data, it.Ind()
 }
 
-func (it *iterator) Done() bool {
-	return it.ind > it.end
-}
-
-func (it *iterator) I() int { return it.sub2indmap[it.ind] }
-
-func (it *iterator) Seek(n int) int { return it.sub2indmap[n] }
-
-func (it *iterator) Data() []float64 { return it.array.Data() }
-
-func (it *iterator) Advance(n int) Iterator {
-	it.ind += n
-	return it
-}
-
-func (it *iterator) Len() int { return it.len }
-
-// Reset resets the state of the iterator.
-func (it *iterator) Reset() {
-	it.beg = 0
-	it.ind = 0
-	it.end = it.array.Size() - 1
-	it.inc = 1
-	it.len = it.array.Size()
-}
-
-func (it *iterator) At() *float64 {
-	array := it.array.(*ndarray)
-	return &array.data[it.sub2indmap[it.ind]]
-}
-
-func (it *iterator) Indices() Index { return it.sub2indmap }
-
-func (it *iterator) Cur() Index {
-	b := it.ind * it.ndims
-	return it.ind2submap[b : b+it.ndims]
-}
-
-func (it *iterator) From(beg int) Iterator {
-	it.beg = beg
-	it.ind = beg
-	it.inc = 1
-	it.len = it.end - it.beg + 1
-	return it
-}
-
-func (it *iterator) To(end int) Iterator {
-	it.inc = 1
-	it.end = end
-	it.len = it.end - it.beg + 1
-	return it
-}
-
-func (it *iterator) WithStep(inc int) Iterator {
-	it.inc = inc
-	q := (it.end - it.beg + 1) / it.inc
-	r := (it.end - it.beg + 1) % it.inc
-	it.len = q + r
-	return it
-}
-
-func (it *iterator) createInd2submap() {
-	// it.ind2submap = make([]Index, it.len)
-	it.ind2submap = make(Index, it.len*it.ndims)
-	// subs := make(Index, it.len*it.ndims)
-	for i := range it.ind2submap[:it.len] {
-		// it.ind2submap[i], subs = subs[:it.ndims], subs[it.ndims:]
-		// Ind2sub(it.strides, i, it.ind2submap[i])
-		b := it.ndims * i
-		Ind2sub(it.strides, i, it.ind2submap[b:])
+// NewIter creates an iterator for the specified array.
+func newiter(array *ndarray) *iter {
+	return &iter{
+		arr: array,
+		len: array.size,
+		beg: 0,
+		inc: 1,
 	}
 }
 
-func (it *iterator) createsub2indmap() {
-	it.sub2indmap = make(Index, it.len)
-	ind := make(Index, it.ndims)
-	for i := 0; i < it.len; i++ {
-		it.sub2indmap[i] = Sub2ind(it.array.Strides(), Ind2sub(it.strides, i, ind))
+func (it *iter) computeIndices(forview bool) {
+	if forview {
+		for i := it.beg; i < it.len; i += it.inc {
+			it.ind = append(it.ind, it.arr.sub2ind(Ind2sub(it.str, i, it.sub)))
+		}
+		return
+	}
+	for i := it.beg; i < it.len; i += it.inc {
+		it.ind = append(it.ind, i)
 	}
 }

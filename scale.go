@@ -1,9 +1,11 @@
 package go_nd
 
-import "github.com/c2akula/go.nd/nd/iter"
+import (
+	"github.com/c2akula/go.nd/nd"
+)
 
 // Scale performs the element-wise operation y = a*x.
-func Scale(a float64, x, y iter.Iterator) {
+func Scale(a float64, x, y nd.Iterator) {
 	if x.Len() != y.Len() {
 		panic("input iterators must have same size.")
 	}
@@ -19,7 +21,7 @@ func Scale(a float64, x, y iter.Iterator) {
 	yd := y.Data()
 	xi := x.Ind()
 	yi := y.Ind()
-	for i := 0; i < x.Len(); i++ {
-		yd[yi[i]] = a * xd[xi[i]]
+	for i, k := range xi {
+		yd[yi[i]] = a * xd[k]
 	}
 }

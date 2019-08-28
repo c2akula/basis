@@ -20,7 +20,7 @@ func main() {
 	const N = 1e6
 
 	for i := 0; i < N; i++ {
-		nd.Scale(a.Take(), 2)
+		nd.Scale(a.Iter(), 2)
 	}
 
 	fmt.Println("elapsed: ", time.Since(start)/N)

@@ -1,6 +1,6 @@
 package nd
 
-// Sub2ind converts an array subscript n into a linear index k.
+// Sub2ind converts a cartesian coordinate, ind into a linear index k.
 func Sub2ind(strides Shape, ind Index) (k int) {
 	for i, s := range strides {
 		k += s * ind[i]
@@ -8,6 +8,7 @@ func Sub2ind(strides Shape, ind Index) (k int) {
 	return
 }
 
+// Ind2sub converts a linear index k into cartesian coordinate, ind.
 func Ind2sub(strides Shape, k int, ind Index) Index {
 	for j, s := range strides {
 		l := int(float64(k) * (1.0 / float64(s)))
@@ -17,7 +18,8 @@ func Ind2sub(strides Shape, k int, ind Index) Index {
 	return ind
 }
 
-func (array *ndarray) sub2ind(n Index) int { return Sub2ind(array.strides, n) }
+func (array *ndarray) sub2ind(n Index) int            { return Sub2ind(array.strides, n) }
+func (array *ndarray) ind2sub(k int, sub Index) Index { return Ind2sub(array.strides, k, sub) }
 
 // ComputeStrides computes the offsets along each dimension from shape.
 func ComputeStrides(shape Shape) Shape {

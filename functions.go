@@ -2,10 +2,40 @@ package go_nd
 
 import (
 	"math"
+
+	"github.com/c2akula/go.nd/nd"
+)
+
+const (
+	InvSqrt2Pi = 1.0 / (math.SqrtPi * math.Sqrt2)
+)
+
+// Llh computes the Log-Likelihood of a Normal Distribution with mean, mu and variance, sigma.
+func Llh(x nd.Iterator, mu, sigma float64) (l float64) {
+	is := -0.5 * (1.0 / (sigma * sigma))
+	f := InvSqrt2Pi * (1.0 / math.Sqrt(sigma))
+
+	xd := x.Data()
+	xi := x.Ind()
+
+	for _, k := range xi {
+		sm := xd[k] - mu
+		l += math.Log(f * math.Exp(sm*sm*is))
+	}
+
+	return
+}
+
+/*
+
+import (
+	"math"
 	"math/rand"
 
 	"github.com/c2akula/go.nd/nd"
 )
+
+
 
 // Apply applies a unary function fn to the data referenced by the iterator, it.
 func Apply(it nd.Iterator, fn func(float64) float64) nd.Iterator {
@@ -26,24 +56,6 @@ func Shift(it nd.Iterator, s float64) nd.Iterator {
 	}
 	it.Reset()
 	return it
-}
-
-const (
-	InvSqrt2Pi = 1.0 / (math.SqrtPi * math.Sqrt2)
-)
-
-// Llh computes the Log Likelihood of a Normal Distribution with mean, mu and variance, sigma.
-func Llh(it nd.Iterator, mu, sigma float64) (l float64) {
-	is := -0.5 / (sigma * sigma)
-	f := InvSqrt2Pi / math.Sqrt(sigma)
-	for !it.Done() {
-		s := *it.At()
-		sm := s - mu
-		l += math.Log(f * math.Exp(sm*sm*is))
-		it.Next()
-	}
-	it.Reset()
-	return l
 }
 
 func Exp(it nd.Iterator) nd.Iterator {
@@ -70,9 +82,9 @@ func Sq(x nd.Iterator) nd.Iterator {
 
 // Shuffle pseudo-randomly reorders the elements in the array, in-place.
 func Shuffle(x nd.Array) nd.Array {
-	it := x.Take()
+	it := x.NewIter()
 	if it == nil {
-		it = nd.Iter(x)
+		it = nd.NewIter(x)
 	}
 	xd := x.Data()
 	rand.Shuffle(x.Size(), func(i, j int) {
@@ -127,3 +139,4 @@ func Transform(it nd.Iterator, pred func(float64) bool, fn func(float64) float64
 	it.Reset()
 	return it
 }
+*/

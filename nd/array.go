@@ -16,26 +16,24 @@ func init() {
 }
 
 // New returns an array of dimensions n
-// filled with elements given in v
+// filled with elements given in v.
 func New(n Shape, v []float64) Array {
 	res := Zeros(n).(*ndarray)
 	copy(res.data, v)
 	return res
 }
 
-// Zeros returns an ndarray of type dtype and dimensions n
-func Zeros(n Shape) Array {
+// Zeros returns an ndarray of type dtype and dimensions n.
+func Zeros(shape Shape) Array {
 	res := &ndarray{
-		ndims: len(n),
-		shape: make(Shape, len(n)),
+		ndims:   len(shape),
+		shape:   shape,
+		strides: ComputeStrides(shape),
+		size:    ComputeSize(shape),
 	}
-	// copy the actual shape
-	copy(res.shape, n)
-	res.strides = ComputeStrides(res.shape)
-	res.size = ComputeSize(res.shape)
 
 	// initialize the iterator
-	res.it = Iter(res)
+	res.it = newiter(res)
 	res.data = make([]float64, res.size)
 
 	return res
@@ -44,8 +42,9 @@ func Zeros(n Shape) Array {
 // Ones creates an array of shape n with all 1's.
 func Ones(n Shape) Array {
 	res := Zeros(n)
-	for it := res.Take(); !it.Done(); it.Next() {
-		*it.At() = 1
+	rd := res.Data()
+	for i := range rd {
+		rd[i] = 1
 	}
 	return res
 }
@@ -86,12 +85,7 @@ func RandBool(n Shape) Array {
 // View extracts an array with dimensions given by shape
 // and starting at the coordinate given by start.
 // Note: Changes made to the returned array will be
-// visible in the original. View does not initialize
-// the internal iterator. Meaning, an iterator will have
-// to created to iterate on the View.
-// Eg:
-//  m := array.View(start, shape)
-//  it := Iter(m) // create an iterator to iterate through m
+// visible in the original.
 func (array *ndarray) View(start Index, shape Shape) Array {
 	arr := &ndarray{
 		data:    array.data[Sub2ind(array.strides, start):],
@@ -100,6 +94,7 @@ func (array *ndarray) View(start Index, shape Shape) Array {
 		strides: array.strides[array.ndims-len(shape):],
 		size:    ComputeSize(shape),
 	}
+	arr.it = newiter(arr)
 	return arr
 }
 
@@ -126,36 +121,20 @@ func Arange(start, stop float64, step ...float64) Array {
 	return res
 }
 
-// Reshape changes the dimensions of the array to shape specified.
+// Reshape copies the given array into a new Array with the new shape.
 // The shape should be given such that the no. of elements remains
 // the same as the original.
 func Reshape(array Array, shape Shape) Array {
-	arr := array.(*ndarray)
-	if arr.size != ComputeSize(shape) {
-		panic("new shape should compute to the same no. of elements as the original")
+	if array.Size() != ComputeSize(shape) {
+		panic("Reshape: new shape should compute to the same no. of elements as the original")
 	}
-	// we reset the length of the shape and strides slices
-	arr.shape = arr.shape[:0]
-	arr.strides = arr.strides[:0]
-	// then reallocate them
-	arr.shape = append(arr.shape, shape...)
-	arr.strides = append(arr.strides, shape...)
 
-	// compute strides for new shape
-	for k := range shape {
-		arr.strides[k] = 1
-		for _, n := range shape[k+1:] {
-			arr.strides[k] *= n
-		}
-	}
-	arr.ndims = len(arr.shape)
-	arr.it = Iter(arr)
-	return arr
+	return New(shape, array.Data())
 }
 
 // Helpers
 
-// ComputeEnd places the index of the last element in end.
+// ComputeEnd places the cartesian coordinate index of the last element in end.
 func ComputeEnd(shape Shape, end Index) {
 	_ = end[len(shape)-1]
 	for i, n := range shape {

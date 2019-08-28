@@ -2,25 +2,38 @@ package go_nd
 
 import (
 	"math/rand"
+	"strconv"
 	"testing"
 
 	"github.com/c2akula/go.nd/nd"
 )
 
-/*
 func TestLlh(t *testing.T) {
-	a := Reshape(Arange(1, 15), Shape{2, 7})
-	mu := Mean(a.Take())
-	s := Var(a.Take())
+	a := nd.Reshape(nd.Arange(1, 15), nd.Shape{2, 7})
+	mu := Mean(a.Iter())
+	s := Var(a.Iter())
 	// fmt.Println("a: ", a)
 	exp := strconv.FormatFloat(-33.2720, 'f', 4, 64)
-	got := strconv.FormatFloat(Llh(a.Take(), mu, s), 'f', 4, 64)
+	got := strconv.FormatFloat(Llh(a.Iter(), mu, s), 'f', 4, 64)
 	if exp != got {
 		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 		t.Fail()
 	}
 }
-*/
+
+func BenchmarkLlh(b *testing.B) {
+	x := nd.Rand(TestArrayShape).Iter()
+	x.Ind()
+	mu := rand.Float64()
+	sigma := rand.Float64()
+	l := 0.0
+	for i := 0; i < b.N; i++ {
+		l = Llh(x, mu, sigma)
+	}
+	_ = l * l
+}
+
+/*
 
 func TestAllAny(t *testing.T) {
 	a := nd.New(nd.Shape{3, 2}, []float64{
@@ -30,7 +43,7 @@ func TestAllAny(t *testing.T) {
 	})
 
 	exp := nd.Index{1, 2, 3}
-	got := All(a.Take(), func(f float64) bool {
+	got := All(a.NewIter(), func(f float64) bool {
 		return f != 0
 	})
 	for i, v := range exp {
@@ -46,7 +59,7 @@ func TestAllAny(t *testing.T) {
 		0.9861, 0.4012, 0.6704, 0.1580, 0.4448,
 	})
 	expAny := 1
-	_, gotAny := Any(a.Take(), func(f float64) bool {
+	_, gotAny := Any(a.NewIter(), func(f float64) bool {
 		return f > 0.5
 	})
 	if expAny != gotAny {
@@ -67,7 +80,7 @@ func TestTransform(t *testing.T) {
 		0.9861, 2.4012, 0.6704, 2.1580, 2.4448,
 	})
 
-	Transform(a.Take(), func(f float64) bool {
+	Transform(a.NewIter(), func(f float64) bool {
 		return f < 0.5
 	}, func(f float64) float64 {
 		return f + 2
@@ -101,6 +114,7 @@ func BenchmarkApply(b *testing.B) {
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Apply(a.Take(), fn)
+		Apply(a.NewIter(), fn)
 	}
 }
+*/

@@ -15,10 +15,7 @@ func TestMax(t *testing.T) {
 		6, 11, 0,
 	})
 	expMax, expK := 14.0, 6
-	k := Max(a)
-	it := a.Take()
-	ad := a.Data()
-	v := ad[it.Seek(k)]
+	v, k := Max(a.Iter())
 	if expMax != v || expK != k {
 		t.Logf("test failed. exp=[max: %v, k: %v], got=[max: %v, k: %v]\n", expMax, expK, v, k)
 		t.Fail()
@@ -34,10 +31,7 @@ func TestMin(t *testing.T) {
 		6, 11, 0,
 	})
 	expMin, expK := 0.0, 14
-	k := Min(a)
-	it := a.Take()
-	ad := a.Data()
-	v := ad[it.Seek(k)]
+	v, k := Min(a.Iter())
 	if expMin != v || expK != k {
 		t.Logf("test failed. exp=[min: %v, k: %v], got=[min: %v, k: %v]\n", expMin, expK, v, k)
 		t.Fail()
