@@ -7,4 +7,4 @@ import (
 )
 
 // Norm computes the Euclidean norm of the array, x.
-func Norm(x nd.Iterator) (s float64) { return math.Sqrt(Dot(x, x)) }
+func Norm(x nd.Array) (s float64) { return math.Sqrt(Dot(x, x)) }

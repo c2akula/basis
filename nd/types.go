@@ -30,7 +30,7 @@ type (
 		// Set writes the value f at the specified cartesian index.
 		Set(f float64, index Index)
 		// View extracts a sub-Array of the specified shape, starting at the cartesian Index, start.
-		View(start Index, shape Shape) Array
+		View(start Index, shape Shape) View
 
 		// Fancy Indexing
 		Take(index Index, res ...Array) Array
@@ -44,6 +44,10 @@ type (
 
 		// Read/Write
 		io.ReadWriter
+	}
+
+	View interface {
+		Array
 	}
 
 	ndarray struct {

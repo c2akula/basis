@@ -7,7 +7,8 @@ import (
 // var TestArrayShape = Shape{3, 45, 15}
 // var TestArrayShape = Shape{10, 45, 30} // 13,500
 // var TestArrayShape = Shape{300, 45} // 13,500
-var TestArrayShape = Shape{100, 100, 100}
+// var TestArrayShape = Shape{100, 100, 100}
+var TestArrayShape = Shape{10, 10, 10}
 
 func TestNdarray_View(t *testing.T) {
 	a := New(Shape{2, 2, 2, 3}, []float64{
@@ -204,10 +205,6 @@ func TestNdarray_Take(t *testing.T) {
 			t.Fail()
 		}
 	}
-}
-
-type View interface {
-	Array
 }
 
 // Benchmarks

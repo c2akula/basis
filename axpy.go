@@ -17,9 +17,9 @@ func Axpy(a float64, x, y nd.Iterator) nd.Iterator {
 		case 0:
 			return x
 		case 1:
-			Scale(2, x, x)
+			// Scale(2, x, x)
 		case -1:
-			Fill(x, 0)
+			// Fill(x, 0)
 		default:
 			for _, k := range xi {
 				v := xd[k]

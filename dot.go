@@ -4,9 +4,7 @@ import (
 	"github.com/c2akula/go.nd/nd"
 )
 
-// Dot computes the inner product of elements referenced by the iterators, x and y.
-// Note: x and y must have the same shape.
-func Dot(x, y nd.Iterator) (s float64) {
+func dot(x, y nd.Iterator) (s float64) {
 	if x.Len() != y.Len() {
 		panic("iterators must have same length")
 	}
@@ -60,30 +58,34 @@ func dot2d(shape, strides nd.Shape, x, y []float64) (s float64) {
 	return
 }
 
-func dot(x, y nd.Array) (s float64) {
+// Dot computes the inner product of the arrays, x and y.
+// Note: x and y must have the same shape.
+func Dot(x, y nd.Array) (s float64) {
 	if !nd.IsShapeSame(x, y) {
 		panic("arrays must have same shape")
+	}
+
+	if x.Size() < _nel {
+		return dot(x.Range(), y.Range())
 	}
 
 	ndims := x.Ndims()
 	xshp, xstr := x.Shape(), x.Strides()
 	xd := x.Data()
 	yd := y.Data()
+
 	if ndims < 3 {
 		return dot2d(xshp, xstr, xd, yd)
 	}
 
-	shp := make(nd.Shape, ndims)
-	copy(shp, xshp[:ndims-2])
-	for k := ndims - 2; k < ndims; k++ {
-		shp[k] = 1
-	}
 	shp2d := xshp[ndims-2:]
 	str2d := xstr[ndims-2:]
-	istr := nd.ComputeStrides(shp)
-	ind := make(nd.Index, ndims-2)
-	for k := 0; k < nd.ComputeSize(shp); k++ {
-		b := nd.Sub2ind(xstr[:ndims-2], nd.Ind2sub(istr[:ndims-2], k, ind))
+	shpnd := xshp[:ndims-2]
+	strnd := xstr[:ndims-2]
+
+	step := nd.ComputeSize(strnd)
+	for k := 0; k < nd.ComputeSize(shpnd); k++ {
+		b := k * step
 		s += dot2d(shp2d, str2d, xd[b:], yd[b:])
 	}
 	return

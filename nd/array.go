@@ -86,7 +86,7 @@ func RandBool(n Shape) Array {
 // and starting at the coordinate given by start.
 // Note: Changes made to the returned array will be
 // visible in the original.
-func (array *ndarray) View(start Index, shape Shape) Array {
+func (array *ndarray) View(start Index, shape Shape) View {
 	arr := &ndarray{
 		data:    array.data[Sub2ind(array.strides, start):],
 		ndims:   len(shape),

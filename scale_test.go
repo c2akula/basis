@@ -21,8 +21,8 @@ func TestScale(t *testing.T) {
 	}
 
 	b := nd.Zeroslike(a)
-	bit, bd := b.Range(), b.Data()
-	Scale(v, ait, bit) // b <- v*a
+	bd := b.Data()
+	Scale(v, a, b) // b <- v*a
 
 	for _, k := range ei {
 		if ed[k] != bd[k] {
@@ -32,9 +32,8 @@ func TestScale(t *testing.T) {
 	}
 }
 
-func TestScaleView(t *testing.T) {
+func TestScaleView2(t *testing.T) {
 	av := nd.Reshape(nd.Arange(0, 60), nd.Shape{3, 4, 5}).View(nd.Index{1, 0, 1}, nd.Shape{2, 2, 3})
-	ait := av.Range()
 	v := 2.0
 
 	exp := nd.New(nd.Shape{2, 2, 3}, []float64{
@@ -47,8 +46,8 @@ func TestScaleView(t *testing.T) {
 	ei := eit.Ind()
 
 	b := nd.Zeroslike(av)
-	bit, bd := b.Range(), b.Data()
-	Scale(v, ait, bit)
+	bd := b.Data()
+	Scale(v, av, b)
 
 	for _, k := range ei {
 		if ed[k] != bd[k] {
@@ -60,11 +59,11 @@ func TestScaleView(t *testing.T) {
 
 func BenchmarkScale(b *testing.B) {
 	x := nd.Rand(TestArrayShape)
-	it := x.Range()
+	y := nd.Zeroslike(x)
 	v := 1.1
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Scale(v, it, it)
+		Scale(v, x, y)
 	}
 }
