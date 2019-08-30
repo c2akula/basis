@@ -82,8 +82,7 @@ func Dot(x, y nd.Array) (s float64) {
 	str2d := xstr[ndims-2:]
 	shpnd := xshp[:ndims-2]
 	strnd := xstr[:ndims-2]
-
-	step := nd.ComputeSize(strnd)
+	step := strnd[ndims-3]
 	for k := 0; k < nd.ComputeSize(shpnd); k++ {
 		b := k * step
 		s += dot2d(shp2d, str2d, xd[b:], yd[b:])

@@ -58,7 +58,7 @@ func Fill(a float64, x nd.Array) nd.Array {
 	str2d := xstr[ndims-2:]
 	shpnd := xshp[:ndims-2]
 	strnd := xstr[:ndims-2]
-	step := nd.ComputeSize(strnd)
+	step := strnd[ndims-3]
 	for k := 0; k < nd.ComputeSize(shpnd); k++ {
 		fill2d(shp2d, str2d, a, xd[k*step:])
 	}
