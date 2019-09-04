@@ -319,7 +319,7 @@ func TestIter2d(t *testing.T) {
 			}
 
 			if x.done() && y.done() {
-				return
+				break
 			}
 		}
 		x.reset()
@@ -381,15 +381,21 @@ func BenchmarkIter2d(b *testing.B) {
 		y.reset()
 		return
 	}
-
+	// _ = dot(xit, yit)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		// it = fill(it, a)
+		// xit = fill(xit, a)
 		a = dot(xit, yit)
 	}
-	// _ = it.arr[0] * it.arr[0]
+	// _ = xit.arr[0] * xit.arr[0]
 	_ = a * a
+}
+
+type nditer struct {
+	*ndarray
+	shp, str Shape
+	sub      Index
 }
 
 func TestFoo(t *testing.T) {
@@ -398,26 +404,37 @@ func TestFoo(t *testing.T) {
 	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
 	fmt.Println("x: ", x)
 	b = Index{1, 0, 2, 1}
-	xv := x.View(b, Shape{2, 2, 3}).(*ndarray)
-	// xv := x.View(b, shp).(*ndarray)
+	xv := x.View(b, Shape{2, 2, 2, 3}).(*ndarray)
 	fmt.Println("xv: ", xv)
 
-	// y := transpose(xv)
-	// fmt.Println("y: ", y)
 	it2d := func(shp, str Shape, x []float64) {
 		stp0, stp1 := str[0], str[1]
 		if stp1 > 1 {
-			for k := 0; k < shp[1]; k++ {
-				b := k * stp1
-				fmt.Printf("k: %v, b: %v\n", k, b)
-				fmt.Printf("data[b:%d]: %v\n", b, x[b:b+shp[0]])
+			if stp1 > stp0 {
+				for k := 0; k < shp[0]; k++ {
+					b := k * stp0
+					for j := 0; j < shp[1]; j++ {
+						l := j * stp1
+						fmt.Printf("k: %v, j: %v\n", k, j)
+						fmt.Printf("data[b:%d]: %v\n", b+l, x[b+l:][:shp[1]-1])
+					}
+				}
+			} else {
+				for k := 0; k < shp[0]; k++ {
+					b := k * stp1
+					for j := 0; j < shp[1]; j++ {
+						l := j * stp0
+						fmt.Printf("k: %v, j: %v\n", k, j)
+						fmt.Printf("data[b:%d]: %v\n", b+l, x[b+l:][:shp[1]-1])
+					}
+				}
 			}
 			return
 		}
 		for k := 0; k < shp[0]; k++ {
 			b := k * stp0
 			fmt.Printf("k: %v, b: %v\n", k, b)
-			fmt.Printf("data[b:%d]: %v\n", b, x[b:b+shp[1]])
+			fmt.Printf("data[b:%d]: %v\n", b, x[b:][:shp[1]])
 		}
 	}
 
@@ -431,39 +448,31 @@ func TestFoo(t *testing.T) {
 		nd := xv.ndims
 		shp := xv.shape
 		str := xv.strides
-		shpnd := shp[:xv.ndims-2]
-		// strnd := xv.strides[:xv.ndims-2]
-		shp2d := shp[xv.ndims-2:]
-		// str2d := xv.strides[xv.ndims-2:]
-		// step := strnd[xv.ndims-3]
-		// fmt.Println("xv.data: ", xv.data)
-		// fmt.Printf("shpnd: %v, strnd: %v, shp2d: %v, str2d: %v\n", shpnd, strnd, shp2d, str2d)
 
-		step0 := str[nd-3]
-		step1 := str[nd-2]
-		step2 := str[nd-1]
+		shape := make(Shape, nd)
+		shpnd := shp[:nd-2]
+		copy(shape, shpnd)
+		for i := nd - 2; i < nd; i++ {
+			shape[i] = 1
+		}
 
+		shp2d := shp[nd-2:]
+		str2d := str[nd-2:]
+		strnd := str[:nd-2]
+
+		istr := ComputeStrides(shpnd)
+		ind := make(Index, nd-2)
 		for n := 0; n < ComputeSize(shpnd); n++ {
-			b := n * step0
-			// it2d(shp2d, str2d, xv.data[b:b+ComputeSize(shp2d)])
-			if step2 != 1 {
-				for k := 0; k < shp2d[1]; k++ {
-					l := b + k*step2
-					fmt.Printf("nd: data[b:%d]=%v\n", b, xv.data[l:l+shp2d[0]])
-				}
-			} else {
-				for k := 0; k < shp2d[0]; k++ {
-					l := b + k*step1
-					fmt.Printf("nd: data[b:%d]=%v\n", b, xv.data[l:l+shp2d[1]])
-				}
-			}
+			Ind2sub(istr, n, ind)
+			j := Sub2ind(strnd, ind)
+			it2d(shp2d, str2d, xv.data[j:])
 		}
 	}
 
 	// iterate(x)
 	// iterate(xv)
-	y := permute(xv, []int{0, 2, 1})
-	fmt.Println("y: ", y)
+	y := permute(xv, []int{2, 3, 1, 0})
+	fmt.Println("y: ", y, y.shape)
 	iterate(y)
 	// desired usage ->
 	// for it := newiternd(xv); !it.done(); {
