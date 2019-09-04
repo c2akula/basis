@@ -1,11 +1,11 @@
-package go_nd
+package basis
 
 import (
 	"fmt"
 	"math/rand"
 	"testing"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func TestFill2(t *testing.T) {
@@ -86,10 +86,13 @@ var A = rand.Float64()
 
 func BenchmarkFill(b *testing.B) {
 	b.ReportAllocs()
-	x := nd.Rand(TestArrayShape)
+	// x := nd.Rand(TestArrayShape)
+	x := nd.Rand(nd.Shape{1e3, 1e3})
+	// xv := x.View(nd.Index{33, 33, 33}, nd.Shape{33, 33, 33})
 	a := A
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
+		// Fill(a, xv)
 		Fill(a, x)
 	}
 }

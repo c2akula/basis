@@ -1,6 +1,6 @@
-package go_nd
+package basis
 
-import "github.com/c2akula/go.nd/nd"
+import "github.com/c2akula/basis/nd"
 
 // Sum computes the sum of the elements referenced by the iterator, x.
 func Sum(x nd.Iterator) (s float64) {

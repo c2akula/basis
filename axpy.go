@@ -1,6 +1,6 @@
-package go_nd
+package basis
 
-import "github.com/c2akula/go.nd/nd"
+import "github.com/c2akula/basis/nd"
 
 // Axpy performs the operation y += a*x
 func Axpy(a float64, x, y nd.Iterator) nd.Iterator {

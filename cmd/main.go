@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func sub2ind(strides []int, n ...int) (k int) {

@@ -1,9 +1,9 @@
-package go_nd
+package basis
 
 import (
 	"testing"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func TestSum(t *testing.T) {

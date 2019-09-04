@@ -1,9 +1,9 @@
-package go_nd
+package basis
 
 import (
 	"math"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func Dist(x, y nd.Iterator) (s float64) {

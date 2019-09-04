@@ -33,11 +33,11 @@ func (it *iter) Data() []float64 { return it.arr.data }
 func (it *iter) Ind() Index {
 	if it.ind != nil {
 		return it.ind
-	} else {
-		it.ind = make(Index, 0, it.arr.size)
-		it.sub = make(Index, it.arr.ndims)
-		it.str = ComputeStrides(it.arr.shape)
 	}
+
+	it.ind = make(Index, 0, it.arr.size)
+	it.sub = make(Index, it.arr.ndims)
+	it.str = ComputeStrides(it.arr.shape)
 
 	if it.arr.isView() {
 		it.computeIndices(true)

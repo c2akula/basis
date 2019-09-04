@@ -1,4 +1,4 @@
-package go_nd
+package basis
 
 // _nel specifies a limit on the no. of elements, below which
 // we'll use the Array's Iterator object to iterate over the

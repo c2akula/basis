@@ -1,7 +1,7 @@
-package go_nd
+package basis
 
 import (
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func fill(a float64, x nd.Iterator) {
@@ -39,6 +39,7 @@ func fill2d(shp, str nd.Shape, a float64, x []float64) {
 	}
 }
 
+// Fill writes the scalar a into the Array x.
 func Fill(a float64, x nd.Array) nd.Array {
 	ndims := x.Ndims()
 	xshp, xstr := x.Shape(), x.Strides()

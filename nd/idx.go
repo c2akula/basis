@@ -32,3 +32,16 @@ func ComputeStrides(shape Shape) Shape {
 	}
 	return strides
 }
+
+func computestrides(shp, str Shape) Shape {
+	if len(shp) != len(str) {
+		panic("len(shp) != len(str)")
+	}
+	for k := range shp {
+		str[k] = 1
+		for _, n := range shp[k+1:] {
+			str[k] *= n
+		}
+	}
+	return str
+}

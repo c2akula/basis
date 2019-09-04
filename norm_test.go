@@ -1,10 +1,10 @@
-package go_nd
+package basis
 
 import (
 	"strconv"
 	"testing"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func TestNorm(t *testing.T) {

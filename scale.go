@@ -1,7 +1,7 @@
-package go_nd
+package basis
 
 import (
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func scale(a float64, x, y nd.Iterator) {

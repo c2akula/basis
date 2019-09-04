@@ -1,14 +1,17 @@
 package nd
 
 import (
+	"fmt"
 	"testing"
 )
 
 // var TestArrayShape = Shape{3, 45, 15}
+
 // var TestArrayShape = Shape{10, 45, 30} // 13,500
 // var TestArrayShape = Shape{300, 45} // 13,500
-// var TestArrayShape = Shape{100, 100, 100}
-var TestArrayShape = Shape{10, 10, 10}
+var TestArrayShape = Shape{100, 100, 100}
+
+// var TestArrayShape = Shape{10, 10, 10}
 
 func TestNdarray_View(t *testing.T) {
 	a := New(Shape{2, 2, 2, 3}, []float64{
@@ -30,6 +33,7 @@ func TestNdarray_View(t *testing.T) {
 		Index{1, 0, 1, 0},
 		Shape{2, 1, 3},
 	)
+	fmt.Println("b: ", b)
 
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))

@@ -1,6 +1,6 @@
-package go_nd
+package basis
 
-import "github.com/c2akula/go.nd/nd"
+import "github.com/c2akula/basis/nd"
 
 // var TestArrayShape = nd.Shape{100, 100, 100}
 // var TestArrayShape = nd.Shape{1, 1, 10}
@@ -8,7 +8,10 @@ import "github.com/c2akula/go.nd/nd"
 // var TestArrayShape = nd.Shape{60, 10, 10}
 // var TestArrayShape = nd.Shape{10, 10, 100}
 // var TestArrayShape = nd.Shape{10, 100, 100}
-var TestArrayShape = nd.Shape{100, 100, 100}
+
+// var TestArrayShape = nd.Shape{100, 100, 100}
+var TestArrayShape = nd.Shape{1e3, 1e3}
+
 // var TestArrayShape = nd.Shape{100, 100, 1000}
 // var TestArrayShape = nd.Shape{100, 1000, 1000}
 // var TestArrayShape = nd.Shape{10, 45, 30}

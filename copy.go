@@ -1,6 +1,6 @@
-package go_nd
+package basis
 
-import "github.com/c2akula/go.nd/nd"
+import "github.com/c2akula/basis/nd"
 
 // Copy copies min(dst.Len(), src.Len()) no. of elements from src into dst.
 // Note: If dst and src are the same, then dst is returned unmodified.

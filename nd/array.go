@@ -88,12 +88,15 @@ func RandBool(n Shape) Array {
 // visible in the original.
 func (array *ndarray) View(start Index, shape Shape) View {
 	arr := &ndarray{
-		data:    array.data[Sub2ind(array.strides, start):],
-		ndims:   len(shape),
-		shape:   shape,
-		strides: array.strides[array.ndims-len(shape):],
-		size:    ComputeSize(shape),
+		data:  array.data[Sub2ind(array.strides, start):],
+		ndims: len(shape),
+		// strides: array.strides[array.ndims-len(shape):],
+		size: ComputeSize(shape),
 	}
+	arr.shape = make(Shape, arr.ndims)
+	copy(arr.shape, shape)
+	arr.strides = make(Shape, arr.ndims)
+	copy(arr.strides, array.strides[array.ndims-len(shape):])
 	arr.it = newiter(arr)
 	return arr
 }

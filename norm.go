@@ -1,9 +1,9 @@
-package go_nd
+package basis
 
 import (
 	"math"
 
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 // Norm computes the Euclidean norm of the array, x.

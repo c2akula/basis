@@ -1,6 +1,6 @@
-package go_nd
+package basis
 
-import "github.com/c2akula/go.nd/nd"
+import "github.com/c2akula/basis/nd"
 
 // Min returns the value and location of the smallest element in the elements referenced by iterator, x.
 func Min(x nd.Iterator) (m float64, k int) {

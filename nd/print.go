@@ -2,7 +2,6 @@ package nd
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -11,6 +10,7 @@ func iprint(n int, x []float64, step int) string {
 	sb.WriteByte('[')
 	for i := 0; n != 0; i += step {
 		sb.WriteString(fmt.Sprintf(" %8.4f ", x[i]))
+		n--
 	}
 	sb.WriteByte(']')
 	return sb.String()
@@ -33,6 +33,7 @@ func print2d(shape, strides Shape, x []float64) string {
 	if step1 > 1 {
 		for i := 0; i < shape[0]; i++ {
 			b := step0 * i
+			// fmt.Printf("n: %d, b: %d, x[b=%d:]: %v, shape: %v, strides: %v\n", n, b, b, x[b:], shape, strides)
 			sb.WriteString(iprint(n, x[b:], step1))
 			sb.WriteByte('\n')
 		}
@@ -48,35 +49,32 @@ func print2d(shape, strides Shape, x []float64) string {
 }
 
 func (array *ndarray) String() string {
-	var sb strings.Builder
-
-	if array.ndims < 3 {
-		return print2d(array.shape, array.strides, array.data)
-	}
-
 	ndims := array.ndims
-	shape := make(Shape, ndims)
-	copy(shape, array.shape[:ndims-2])
-	for i := ndims - 2; i < ndims; i++ {
-		shape[i] = 1
+
+	if ndims < 3 {
+		var sb strings.Builder
+		sb.WriteByte('\n')
+		sb.WriteString(print2d(array.shape, array.strides, array.data))
+		return sb.String()
 	}
 
-	ind := make(Index, ndims-2)
-	shape2d := array.shape[ndims-2:]
-	strides2d := array.strides[ndims-2:]
-	istrides := ComputeStrides(shape)
+	shp2d := array.shape[ndims-2:]
+	str2d := array.strides[ndims-2:]
+	shpnd := array.shape[:ndims-2]
+	strnd := array.strides[:ndims-2]
+	step := strnd[ndims-3]
 
-	for i := 0; i < ComputeSize(shape); i++ {
-		b := Sub2ind(array.strides[:ndims-2], Ind2sub(istrides[:ndims-2], i, ind))
-		// array header
+	isub := make(Index, ndims-2)
+	istr := ComputeStrides(shpnd)
+	var sb strings.Builder
+	sb.WriteByte('\n')
+	for k := 0; k < ComputeSize(shpnd); k++ {
 		sb.WriteByte('[')
-		for _, k := range ind {
-			sb.WriteString(strconv.Itoa(k))
-			sb.WriteByte(',')
+		for _, k := range Ind2sub(istr, k, isub) {
+			sb.WriteString(fmt.Sprintf("%d,", k))
 		}
 		sb.WriteString(":,:]\n")
-		// print 2d array
-		sb.WriteString(print2d(shape2d, strides2d, array.data[b:]))
+		sb.WriteString(print2d(shp2d, str2d, array.data[k*step:]))
 	}
 
 	return sb.String()

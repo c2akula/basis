@@ -1,7 +1,7 @@
-package go_nd
+package basis
 
 import (
-	"github.com/c2akula/go.nd/nd"
+	"github.com/c2akula/basis/nd"
 )
 
 func dot(x, y nd.Iterator) (s float64) {
