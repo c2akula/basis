@@ -9,8 +9,9 @@ import "github.com/c2akula/basis/nd"
 // var TestArrayShape = nd.Shape{10, 10, 100}
 // var TestArrayShape = nd.Shape{10, 100, 100}
 
-// var TestArrayShape = nd.Shape{100, 100, 100}
-var TestArrayShape = nd.Shape{1e3, 1e3}
+var TestArrayShape = nd.Shape{100, 100, 100}
+
+// var TestArrayShape = nd.Shape{1e3, 1e3}
 
 // var TestArrayShape = nd.Shape{100, 100, 1000}
 // var TestArrayShape = nd.Shape{100, 1000, 1000}

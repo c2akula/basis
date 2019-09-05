@@ -86,8 +86,8 @@ var A = rand.Float64()
 
 func BenchmarkFill(b *testing.B) {
 	b.ReportAllocs()
-	// x := nd.Rand(TestArrayShape)
-	x := nd.Rand(nd.Shape{1e3, 1e3})
+	x := nd.Rand(TestArrayShape)
+	// x := nd.Rand(nd.Shape{1e3, 1e3})
 	// xv := x.View(nd.Index{33, 33, 33}, nd.Shape{33, 33, 33})
 	a := A
 	b.ResetTimer()

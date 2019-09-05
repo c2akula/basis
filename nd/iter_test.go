@@ -165,9 +165,9 @@ func permute(array *ndarray, order []int) *ndarray {
 			a[j] = x
 	*/
 
+	shp := res.shape
+	str := res.strides
 	for k := 0; k < res.ndims; k++ {
-		shp := res.shape
-		str := res.strides
 		xshp := shp[k]
 		xstr := str[k]
 		j := k
@@ -184,7 +184,7 @@ func permute(array *ndarray, order []int) *ndarray {
 		shp[j] = xshp
 		str[j] = xstr
 	}
-	fmt.Printf("res.shp: %v, res.str: %v\n", res.shape, res.strides)
+	// fmt.Printf("res.shp: %v, res.str: %v\n", res.shape, res.strides)
 	return res
 }
 
@@ -393,9 +393,332 @@ func BenchmarkIter2d(b *testing.B) {
 }
 
 type nditer struct {
-	*ndarray
 	shp, str Shape
+	istr     []float64 // store the inverse of strides
 	sub      Index
+	k, b     int // indices
+	len      int
+	arr      *ndarray
+	shp2d    [2]int
+	str2d    [2]int
+	isplain  bool // 2d array's str[1] == 1
+}
+
+func newnditer(array *ndarray) *nditer {
+	nd := array.ndims
+	shp := array.shape
+	shpnd := array.shape[:nd-1]
+	shp2d := array.shape[nd-2:]
+	str2d := array.strides[nd-2:]
+
+	it := &nditer{
+		arr:     array,
+		shp:     make(Shape, nd),     // shp
+		istr:    make([]float64, nd), // istr
+		sub:     make(Index, nd),     // sub
+		len:     ComputeSize(shpnd),
+		isplain: !(str2d[1] > 1),
+	}
+
+	copy(it.shp, shp)
+	for i := nd - 1; i < nd; i++ {
+		it.shp[i] = 1
+	}
+	copy(it.shp2d[:], shp2d)
+
+	// store the inverse of the strides for faster ind2sub calculation
+	it.str = ComputeStrides(it.shp)
+	for i, s := range it.str {
+		it.istr[i] = 1 / float64(s)
+	}
+	copy(it.str2d[:], str2d)
+	return it
+}
+
+func (it *nditer) ind(k int) (s int) {
+	for i, n := range it.istr {
+		j := int(float64(k) * n)
+		s += j * it.arr.strides[i]
+		k -= j * it.str[i]
+		it.sub[i] = j
+	}
+	return
+}
+
+func (it *nditer) Done() bool {
+	return it.k == it.len
+}
+
+func (it *nditer) Cursor() int { return it.b }
+
+func (it *nditer) Reset() { it.k = 0 }
+
+func (it *nditer) Inc() int { return it.str2d[1] }
+
+func (it *nditer) Next() ([]float64, int) {
+	it.b = it.ind(it.k)
+	x := it.arr.data[it.b:]
+	it.k++
+	return x, it.shp2d[1]
+}
+
+func (it *nditer) ZipNext(y *nditer) ([]float64, []float64, int) {
+	it.b = it.ind(it.k)
+	xv := it.arr.data[it.b:]
+	yv := y.arr.data[it.b:]
+	it.k++
+	return xv, yv, it.shp2d[1]
+}
+
+func (it *nditer) Map(fn func(float64) float64) *nditer {
+	if !it.isplain {
+		for inc := it.Inc(); !it.Done(); {
+			x, n := it.Next()
+			for i := range x[:n] {
+				i *= inc
+				x[i] = fn(x[i])
+			}
+		}
+	} else {
+		for !it.Done() {
+			x, n := it.Next()
+			for i, v := range x[:n] {
+				x[i] = fn(v)
+			}
+		}
+	}
+	it.Reset()
+	return it
+}
+
+func (it *nditer) Fold(init float64, fn func(float64) float64) (s float64) {
+	s = init
+	if !it.isplain {
+		for inc := it.Inc(); !it.Done(); {
+			x, n := it.Next()
+			for i := range x[:n] {
+				i *= inc
+				s += fn(x[i])
+			}
+		}
+		it.Reset()
+		return
+	}
+
+	for !it.Done() {
+		x, n := it.Next()
+		for _, v := range x[:n] {
+			s += fn(v)
+		}
+	}
+	it.Reset()
+	return
+}
+
+func TestNditer(t *testing.T) {
+	shp := Shape{2, 3, 4, 5}
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	fmt.Println("x: ", x, x.strides)
+
+	xit := newnditer(x)
+	for k, inc := 0, xit.Inc(); !xit.Done(); {
+		v, n := xit.Next()
+		for i := range v[:n] {
+			i *= inc
+			if float64(k) != v[i] {
+				t.Logf("test failed. got: %v, exp: %v\n", v[i], k)
+				t.Fail()
+			}
+			k++
+		}
+	}
+	xit.Reset()
+
+	y := permute(x, []int{0, 1, 3, 2})
+	fmt.Println("y: ", y)
+	exp := Reshape(Arange(0, float64(x.size)), x.shape).(*ndarray)
+	ep := permute(exp, []int{0, 1, 3, 2})
+	fmt.Println("ep: ", ep)
+
+	yit := newnditer(y)
+	eit := newnditer(ep)
+	for k, inc := 0, yit.Inc(); !yit.Done(); {
+		yv, ev, n := yit.ZipNext(eit)
+		for i := range yv[:n] {
+			i *= inc
+			if ev[i] != yv[i] {
+				t.Logf("test failed. got: %v, exp: %v\n", yv[i], ev[i])
+				t.Fail()
+			}
+			k++
+		}
+	}
+	yit.Reset()
+
+	yv := y.View(Index{1, 0, 1, 1}, Shape{1, 2, 4, 3}).(*ndarray)
+	fmt.Println("yv: ", yv)
+	ep = y.View(Index{1, 0, 1, 1}, yv.shape).(*ndarray)
+	fmt.Println("ep: ", ep)
+	yit = newnditer(yv)
+	eit = newnditer(ep)
+	for k, inc := 0, yit.Inc(); !yit.Done(); {
+		yv, ev, n := yit.ZipNext(eit)
+		for i := range yv[:n] {
+			i *= inc
+			if ev[i] != yv[i] {
+				t.Logf("test failed. got: %v, exp: %v\n", yv[i], ev[i])
+				t.Fail()
+			}
+			k++
+		}
+	}
+	yit.Reset()
+
+	yvt := permute(yv, []int{2, 1, 0, 3})
+	fmt.Println("yvt: ", yvt)
+	ep = permute(yv, []int{2, 1, 0, 3})
+	fmt.Println("ep: ", ep)
+	yit = newnditer(yvt)
+	eit = newnditer(ep)
+	for k, inc := 0, yit.Inc(); !yit.Done(); {
+		yv, ev, n := yit.ZipNext(eit)
+		for i := range yv[:n] {
+			i *= inc
+			if ev[i] != yv[i] {
+				t.Logf("test failed. got: %v, exp: %v\n", yv[i], ev[i])
+				t.Fail()
+			}
+			k++
+		}
+	}
+	yit.Reset()
+
+	s := yit.Fold(40, func(f float64) float64 {
+		return f * 2
+	})
+
+	if s != 4e3 {
+		t.Logf("test failed. got: %v, exp: %v\n", s, 4e3)
+		t.Fail()
+	}
+
+	nv := make([]float64, ComputeSize(shp))
+	for i, k := 0, len(nv)-1; k >= 0; k, i = k-1, i+1 {
+		nv[i] = float64(k)
+	}
+	n := New(shp, nv).(*ndarray)
+	m := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	mit := newnditer(m)
+	nit := newnditer(n)
+	got := dot(mit, nit)
+	if exp := 280840.0; got != exp {
+		t.Logf("test failed. got: %v, exp: %v\n", got, exp)
+		t.Fail()
+	}
+}
+
+func ExampleNditer() {
+	shp := Shape{3, 4, 5}
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	it := newnditer(x)
+	// it is an iterator into the array x.
+	// It has four methods of interest - Done, Inc, Next and Reset.
+	// Inc() returns the step we have to use to access individual
+	// elements in the slice returned by Next.
+	// Next returns a slice containing the row at each iteration
+	// of the outer loop.
+	// After we are Done(), we call Reset(), to put the iterator
+	// back to its default state.
+	for inc := it.Inc(); !it.Done(); {
+		x, n := it.Next()
+		for i := range x[:n] {
+			i *= inc
+			fmt.Println(x[i])
+		}
+	}
+	it.Reset()
+}
+
+func dot(x, y *nditer) (s float64) {
+	if !IsShapeSame(x.arr, y.arr) {
+		panic("iterators must have same shape")
+	}
+
+	if x == y {
+		if !x.isplain {
+			for inc := x.Inc(); !x.Done(); {
+				v, n := x.Next()
+				for i := range v[:n] {
+					i *= inc
+					s += v[i] * v[i]
+				}
+			}
+		} else {
+			for !x.Done() {
+				v, n := x.Next()
+				for _, e := range v[:n] {
+					s += e * e
+				}
+			}
+		}
+		x.Reset()
+		return
+	}
+
+	inc := x.Inc()
+	if !x.isplain {
+		for !x.Done() {
+			xv, yv, n := x.ZipNext(y)
+			for i := range xv[:n] {
+				i *= inc
+				s += xv[i] * yv[i]
+			}
+		}
+	} else {
+		for !x.Done() {
+			xv, yv, n := x.ZipNext(y)
+			for i, v := range xv[:n] {
+				s += yv[i] * v
+			}
+		}
+	}
+	x.Reset()
+	y.Reset()
+	return
+}
+
+func BenchmarkNditer(b *testing.B) {
+	b.ReportAllocs()
+	x := Rand(TestArrayShape).(*ndarray)
+	y := Rand(TestArrayShape).(*ndarray)
+	xit := newnditer(x)
+	yit := newnditer(y)
+	// inc := xit.Inc()
+	a := rand.Float64()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		// for xit.Reset(); !xit.Done(); {
+		// 	v, n := xit.Next()
+		// 	for i := range v[:n] {
+		// 		i *= inc
+		// 		v[i] = a
+		// 	}
+		// }
+		a = dot(xit, yit)
+	}
+	_ = a * a
+}
+
+func BenchmarkNditerInd(b *testing.B) {
+	b.ReportAllocs()
+	x := Rand(TestArrayShape).(*ndarray)
+	xit := newnditer(x)
+	j := 0
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		j = xit.ind(3)
+	}
+	_ = j * j
 }
 
 func TestFoo(t *testing.T) {

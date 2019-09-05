@@ -9,7 +9,8 @@ import (
 
 // var TestArrayShape = Shape{10, 45, 30} // 13,500
 // var TestArrayShape = Shape{300, 45} // 13,500
-var TestArrayShape = Shape{100, 100, 100}
+// var TestArrayShape = Shape{100, 100, 100}
+// var TestArrayShape = Shape{1e3, 1e3}
 
 // var TestArrayShape = Shape{10, 10, 10}
 
