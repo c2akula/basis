@@ -134,17 +134,17 @@ type nditer struct {
 
 func newnditer(array *ndarray) *nditer {
 	nd := array.ndims
-	shp := array.shape
-	shpnd := array.shape[:nd-1]
-	shp2d := array.shape[nd-2:]
-	str2d := array.strides[nd-2:]
+	shp, str := array.shape, array.strides
+	shpnd := shp[:nd-1]
+	shp2d := shp[nd-2:]
+	str2d := str[nd-2:]
 
 	it := &nditer{
 		arr:     array,
 		istr:    make([]float64, nd),
 		sub:     make(Index, nd), // holds the subscript version of the current position
 		len:     ComputeSize(shpnd),
-		isplain: !(str2d[1] > 1),
+		isplain: !(str2d[1] != 1),
 	}
 	copy(it.shp2d[:], shp2d)
 	copy(it.str2d[:], str2d)
@@ -156,6 +156,7 @@ func newnditer(array *ndarray) *nditer {
 		ishp[i] = 1
 	}
 	it.str = ComputeStrides(ishp)
+	// it.str = array.strides
 	for i, s := range it.str {
 		it.istr[i] = 1 / float64(s)
 	}
@@ -170,7 +171,11 @@ func (it *nditer) ind(k int) (s int) {
 		k -= j * it.str[i]
 		it.sub[i] = j
 	}
-	fmt.Println("it.sub: ", it.sub)
+	// for _, n := range it.str {
+	// 	s += k * n
+	// }
+	// fmt.Println("s: ", s)
+	// fmt.Println("it.sub: ", it.sub)
 	return
 }
 
@@ -188,6 +193,7 @@ func (it *nditer) Next() ([]float64, int) {
 	it.b = it.ind(it.k)
 	x := it.arr.data[it.b:]
 	it.k++
+	fmt.Println("next: ", x)
 	return x, it.shp2d[1]
 }
 
@@ -247,13 +253,14 @@ func (it *nditer) Fold(init float64, fn func(float64) float64) (s float64) {
 func TestNditer(t *testing.T) {
 	shp := Shape{2, 3, 4, 5}
 	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
-	fmt.Println("x: ", x, x.strides)
+	fmt.Println("x: ", x)
 
 	xit := newnditer(x)
 	for k, inc := 0, xit.Inc(); !xit.Done(); {
 		v, n := xit.Next()
 		for i := range v[:n] {
 			i *= inc
+			fmt.Println("i: ", i, n)
 			if float64(k) != v[i] {
 				t.Logf("test failed. got: %v, exp: %v\n", v[i], k)
 				t.Fail()
@@ -321,12 +328,6 @@ func TestNditer(t *testing.T) {
 		}
 	}
 	yit.Reset()
-
-	yshp := Shape{1, 1, 6, 4}
-	// copy(yshp[2:], Shape{ComputeSize(yvt.shape[:yvt.ndims-1]), yvt.shape[yvt.ndims-1]})
-	yvt = reshape(yvt, yshp)
-	// yvt.strides = Shape{60, 1, 20, 5}
-	fmt.Println("yvt*: ", yvt)
 
 	/* 	s := yit.Fold(40, func(f float64) float64 {
 	   		return f * 2

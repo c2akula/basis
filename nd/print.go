@@ -30,7 +30,7 @@ func print2d(shape, strides Shape, x []float64) string {
 	var sb strings.Builder
 	n := shape[1]
 	step0, step1 := strides[0], strides[1]
-	if step1 > 1 {
+	if step1 != 1 {
 		for i := 0; i < shape[0]; i++ {
 			b := step0 * i
 			sb.WriteString(iprint(n, x[b:], step1))
