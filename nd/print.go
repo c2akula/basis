@@ -52,7 +52,7 @@ func (array *ndarray) String() string {
 
 	if ndims < 3 {
 		var sb strings.Builder
-		sb.WriteByte('\n')
+		sb.WriteString(fmt.Sprintf("shp: %v, str: %v\n", array.shape, array.strides))
 		sb.WriteString(print2d(array.shape, array.strides, array.data))
 		return sb.String()
 	}

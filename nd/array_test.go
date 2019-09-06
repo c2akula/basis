@@ -9,10 +9,40 @@ import (
 
 // var TestArrayShape = Shape{10, 45, 30} // 13,500
 // var TestArrayShape = Shape{300, 45} // 13,500
-// var TestArrayShape = Shape{100, 100, 100}
+var TestArrayShape = Shape{100, 100, 100}
+
 // var TestArrayShape = Shape{1e3, 1e3}
 
 // var TestArrayShape = Shape{10, 10, 10}
+
+func reshape(array *ndarray, shp Shape) *ndarray {
+	if ComputeSize(shp) != array.size {
+		panic("new shape should compute to the same size as the original")
+	}
+
+	if array.isView() {
+		res := Zeros(shp).(*ndarray)
+		return Copy(res, array)
+	}
+
+	// array.View(make(Index, array.ndims), array.shape).(*ndarray)
+	array.ndims = len(shp)
+	array.shape = array.shape[:0]
+	array.shape = array.shape[:array.ndims]
+	copy(array.shape, shp)
+	// array.strides = array.strides[:0]
+	// array.strides = array.strides[:array.ndims]
+	// computestrides(shp, array.strides[:array.ndims])
+	return array
+}
+
+func TestNdarrayReshape(t *testing.T) {
+	shp := Shape{2, 3, 4, 5}
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	fmt.Println("x: ", x)
+	reshape(x, Shape{24, 5})
+	fmt.Println("x*: ", x)
+}
 
 func TestNdarray_View(t *testing.T) {
 	a := New(Shape{2, 2, 2, 3}, []float64{
