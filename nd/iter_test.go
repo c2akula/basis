@@ -2,7 +2,6 @@ package nd
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
 )
 
@@ -48,8 +47,8 @@ func TestIter_Iter(t *testing.T) {
 	}
 }
 
-func permute(array *ndarray, order []int) *ndarray {
-	res := array.View(make(Index, array.ndims), array.shape).(*ndarray)
+func permute(array *Ndarray, order []int) *Ndarray {
+	// res := array.View(make(Index, array.ndims), array.shape)
 
 	if order == nil {
 		order = make([]int, array.ndims)
@@ -74,9 +73,9 @@ func permute(array *ndarray, order []int) *ndarray {
 			a[j] = x
 	*/
 
-	shp := res.shape
-	str := res.strides
-	for k := 0; k < res.ndims; k++ {
+	shp := array.shape
+	str := array.strides
+	for k := 0; k < array.ndims; k++ {
 		xshp := shp[k]
 		xstr := str[k]
 		j := k
@@ -93,10 +92,11 @@ func permute(array *ndarray, order []int) *ndarray {
 		shp[j] = xshp
 		str[j] = xstr
 	}
-	return res
+	// return res
+	return array
 }
 
-func transpose(array *ndarray) *ndarray {
+func transpose(array *Ndarray) *Ndarray {
 	if array.ndims > 2 {
 		panic("transpose only defined on 2D Arrays")
 	}
@@ -105,7 +105,7 @@ func transpose(array *ndarray) *ndarray {
 
 func TestTranspose(t *testing.T) {
 	shp := Shape{3, 4, 5}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp)
 	// fmt.Println("x: ", x)
 	// xt := permute(x, nil)
 	// fmt.Println("xt: ", xt)
@@ -113,26 +113,26 @@ func TestTranspose(t *testing.T) {
 	xt := permute(x, []int{2, 1, 0})
 	fmt.Println("xt: ", xt)
 
-	xv := x.View(Index{1, 0, 1}, Shape{2, 2, 3}).(*ndarray)
+	xv := x.View(Index{1, 0, 1}, Shape{2, 2, 3})
 	fmt.Println("xv: ", xv)
 	xvt := permute(xv, []int{0, 2, 1})
 	y := xvt.String()
 	fmt.Println("y: ", y)
 }
 
-type nditer struct {
+/* type nditer struct {
 	shp, str Shape
 	istr     []float64 // store the inverse of strides
 	sub      Index
 	k, b     int // indices
 	len      int
-	arr      *ndarray
+	arr      *Ndarray
 	shp2d    [2]int
 	str2d    [2]int
 	isplain  bool // 2d array's str[1] == 1
 }
 
-func newnditer(array *ndarray) *nditer {
+func newnditer(array *Ndarray) *nditer {
 	nd := array.ndims
 	shp, str := array.shape, array.strides
 	shpnd := shp[:nd-1]
@@ -160,23 +160,8 @@ func newnditer(array *ndarray) *nditer {
 	for i, s := range it.str {
 		it.istr[i] = 1 / float64(s)
 	}
-	fmt.Printf("it.str: %v, it.istr: %v\n", it.str, it.istr)
+	// fmt.Printf("it.str: %v, it.istr: %v\n", it.str, it.istr)
 	return it
-}
-
-func (it *nditer) ind(k int) (s int) {
-	for i, n := range it.istr[:it.arr.ndims-1] {
-		j := int(float64(k) * n)
-		s += j * it.arr.strides[i]
-		k -= j * it.str[i]
-		it.sub[i] = j
-	}
-	// for _, n := range it.str {
-	// 	s += k * n
-	// }
-	// fmt.Println("s: ", s)
-	// fmt.Println("it.sub: ", it.sub)
-	return
 }
 
 func (it *nditer) Done() bool {
@@ -190,15 +175,39 @@ func (it *nditer) Reset() { it.k = 0 }
 func (it *nditer) Inc() int { return it.str2d[1] }
 
 func (it *nditer) Next() ([]float64, int) {
-	it.b = it.ind(it.k)
+	it.b = it.ind(float64(it.k), it.k)
 	x := it.arr.data[it.b:]
 	it.k++
 	fmt.Println("next: ", x)
 	return x, it.shp2d[1]
 }
 
+func (it *nditer) ind(kf float64, k int) (s int) {
+	for i, n := range it.istr[:it.arr.ndims-1] {
+		j := int(kf * n)
+		s += j * it.arr.strides[i]
+		k -= j * it.str[i]
+		it.sub[i] = j
+		kf = float64(k)
+	}
+
+	// for i, n := range it.istr[:it.arr.ndims-1] {
+	// 	j := int(float64(k) * n)
+	// 	s += j * it.arr.strides[i]
+	// 	k -= j * it.str[i]
+	// 	it.sub[i] = j
+	// }
+
+	// for _, n := range it.str {
+	// 	s += k * n
+	// }
+	// fmt.Println("s: ", s)
+	// fmt.Println("it.sub: ", it.sub)
+	return
+}
+
 func (it *nditer) ZipNext(y *nditer) ([]float64, []float64, int) {
-	it.b = it.ind(it.k)
+	it.b = it.ind(float64(it.k), it.k)
 	xv := it.arr.data[it.b:]
 	yv := y.arr.data[it.b:]
 	it.k++
@@ -252,7 +261,7 @@ func (it *nditer) Fold(init float64, fn func(float64) float64) (s float64) {
 
 func TestNditer(t *testing.T) {
 	shp := Shape{2, 3, 4, 5}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp)
 	fmt.Println("x: ", x)
 
 	xit := newnditer(x)
@@ -272,7 +281,7 @@ func TestNditer(t *testing.T) {
 
 	y := permute(x, []int{0, 1, 3, 2})
 	fmt.Println("y: ", y)
-	exp := Reshape(Arange(0, float64(x.size)), x.shape).(*ndarray)
+	exp := Reshape(Arange(0, float64(x.size)), x.shape)
 	ep := permute(exp, []int{0, 1, 3, 2})
 	fmt.Println("ep: ", ep)
 
@@ -291,9 +300,9 @@ func TestNditer(t *testing.T) {
 	}
 	yit.Reset()
 
-	yv := y.View(Index{1, 0, 1, 1}, Shape{1, 2, 4, 3}).(*ndarray)
+	yv := y.View(Index{1, 0, 1, 1}, Shape{1, 2, 4, 3})
 	fmt.Println("yv: ", yv)
-	ep = y.View(Index{1, 0, 1, 1}, yv.shape).(*ndarray)
+	ep = y.View(Index{1, 0, 1, 1}, yv.shape)
 	fmt.Println("ep: ", ep)
 	yit = newnditer(yv)
 	eit = newnditer(ep)
@@ -329,7 +338,7 @@ func TestNditer(t *testing.T) {
 	}
 	yit.Reset()
 
-	/* 	s := yit.Fold(40, func(f float64) float64 {
+	s := yit.Fold(40, func(f float64) float64 {
 	   		return f * 2
 	   	})
 
@@ -342,8 +351,8 @@ func TestNditer(t *testing.T) {
 	   	for i, k := 0, len(nv)-1; k >= 0; k, i = k-1, i+1 {
 	   		nv[i] = float64(k)
 	   	}
-	   	n := New(shp, nv).(*ndarray)
-	   	m := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	   	n := New(shp, nv)
+	   	m := Reshape(Arange(0, float64(ComputeSize(shp))), shp)
 	   	mit := newnditer(m)
 	   	nit := newnditer(n)
 	   	got := dot(mit, nit)
@@ -351,12 +360,12 @@ func TestNditer(t *testing.T) {
 	   		t.Logf("test failed. got: %v, exp: %v\n", got, exp)
 	   		t.Fail()
 	   	}
-	*/
+	}
 }
 
 func ExampleNditer() {
 	shp := Shape{3, 4, 5}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp)
 	it := newnditer(x)
 	// it is an iterator into the array x.
 	// It has four methods of interest - Done, Inc, Next and Reset.
@@ -426,8 +435,8 @@ func dot(x, y *nditer) (s float64) {
 
 func BenchmarkNditer(b *testing.B) {
 	b.ReportAllocs()
-	x := Rand(TestArrayShape).(*ndarray)
-	y := Rand(TestArrayShape).(*ndarray)
+	x := Rand(TestArrayShape)
+	y := Rand(TestArrayShape)
 	xit := newnditer(x)
 	yit := newnditer(y)
 	// inc := xit.Inc()
@@ -448,16 +457,16 @@ func BenchmarkNditer(b *testing.B) {
 
 func BenchmarkNditerInd(b *testing.B) {
 	b.ReportAllocs()
-	x := Rand(TestArrayShape).(*ndarray)
+	x := Rand(TestArrayShape)
 	xit := newnditer(x)
 	j := 0
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		j = xit.ind(3)
+		j = xit.ind(3.0, 3)
 	}
 	_ = j * j
 }
-
+*/
 /*
 type cntr struct {
 	step0, step1, step2 int
@@ -469,7 +478,7 @@ type cntr struct {
 	data                []float64
 }
 
-func newcntr(array *ndarray) *cntr {
+func newcntr(array *Ndarray) *cntr {
 	n := array.ndims
 	str := array.strides
 	shpnd := array.shape[:n-2]
@@ -522,10 +531,10 @@ func (c *cntr) sub(k int) (s int) {
 func TestCntr(t *testing.T) {
 	b := Index{0, 0, 0, 0}
 	shp := Shape{3, 2, 5, 2}
-	x := Reshape(Arange(0, 60), shp).(*ndarray)
+	x := Reshape(Arange(0, 60), shp)
 	fmt.Println("x: ", x)
 	b = Index{1, 0, 2, 1}
-	xv := x.View(b, Shape{2, 3, 1}).(*ndarray)
+	xv := x.View(b, Shape{2, 3, 1})
 	fmt.Println("xv: ", xv)
 
 	exp := []float64{25, 27, 29, 35, 37, 39}
@@ -557,8 +566,8 @@ func fill(x *cntr, a float64) {
 
 func BenchmarkCntr(b *testing.B) {
 	b.ReportAllocs()
-	x := Rand(TestArrayShape).(*ndarray)
-	xv := x.View(Index{33, 33, 33}, Shape{33, 33, 33}).(*ndarray)
+	x := Rand(TestArrayShape)
+	xv := x.View(Index{33, 33, 33}, Shape{33, 33, 33})
 	c := newcntr(xv)
 	// v := 0.0
 	v := rand.Float64()

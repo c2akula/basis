@@ -18,8 +18,8 @@ func Ind2sub(strides Shape, k int, ind Index) Index {
 	return ind
 }
 
-func (array *ndarray) sub2ind(n Index) int            { return Sub2ind(array.strides, n) }
-func (array *ndarray) ind2sub(k int, sub Index) Index { return Ind2sub(array.strides, k, sub) }
+func (array *Ndarray) sub2ind(n Index) int            { return Sub2ind(array.strides, n) }
+func (array *Ndarray) ind2sub(k int, sub Index) Index { return Ind2sub(array.strides, k, sub) }
 
 // ComputeStrides computes the offsets along each dimension from shape.
 func ComputeStrides(shape Shape) Shape {

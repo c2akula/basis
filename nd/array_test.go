@@ -15,28 +15,14 @@ var TestArrayShape = Shape{100, 100, 100}
 
 // var TestArrayShape = Shape{10, 10, 10}
 
-func reshape(array *ndarray, shp Shape) *ndarray {
-	if ComputeSize(shp) != array.size {
-		panic("new shape should compute to the same size as the original")
+func testIsSliceIntSame(a, b []int) bool {
+	for i, v := range a {
+		if b[i] != v {
+			return false
+		}
 	}
-
-	if array.isView() {
-		res := Zeros(shp).(*ndarray)
-		return Copy(res, array)
-	}
-
-	// array.View(make(Index, array.ndims), array.shape).(*ndarray)
-	array.ndims = len(shp)
-	array.shape = array.shape[:0]
-	array.shape = array.shape[:array.ndims]
-	copy(array.shape, shp)
-	// array.strides = array.strides[:0]
-	// array.strides = array.strides[:array.ndims]
-	// computestrides(shp, array.strides[:array.ndims])
-	return array
+	return true
 }
-
-const ErrBroadcast = "broadcasting failed, dimensions are not compatible"
 
 func isbroadcastable(n int, a, b Shape) bool {
 	nda := len(a)
@@ -140,88 +126,70 @@ func broadcastStrides(shp, bshp Shape) Shape {
 }
 
 func TestBroadcastStrides(t *testing.T) {
-	shp := Shape{2, 4, 3, 5}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
-	fmt.Println("x: ", x)
-	shp = Shape{1, 3, 5}
-	y := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
-	fmt.Println("y: ", y)
-	bs, err := broadcastShape(x.shape, y.shape)
-	if err != nil {
-		panic(err)
+	strides := []struct {
+		shp, bshp, bstr Shape
+	}{
+		{Shape{256, 256, 3}, Shape{256, 256, 3}, Shape{768, 3, 1}},
+		{Shape{7, 1, 5}, Shape{8, 7, 6, 5}, Shape{0, 5, 0, 1}},
+		{Shape{1}, Shape{5, 4}, Shape{0, 0}},
+		{Shape{4, 1}, Shape{4, 8}, Shape{1, 0}},
+		{Shape{5, 4}, Shape{5, 4}, Shape{4, 1}},
+		{Shape{15, 1, 5}, Shape{15, 3, 5}, Shape{5, 0, 1}},
+		{Shape{3, 1}, Shape{15, 3, 5}, Shape{0, 1, 0}},
 	}
-	bstr := broadcastStrides(y.shape, bs)
-	fmt.Println("bstr: ", bstr)
+
+	for i, str := range strides {
+		bstr := broadcaststr(str.shp, ComputeStrides(str.shp), str.bshp)
+		if !testIsSliceIntSame(bstr, str.bstr) {
+			t.Logf("test 'BroadcastStrides'=(%d) failed. got: %v, exp: %v\n", i, bstr, str.bstr)
+			t.Fail()
+		}
+	}
 }
 
-func TestBroadcasting(t *testing.T) {
-	shp := Shape{4, 3}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
-	fmt.Println("x: ", x)
-	y := Arange(0, 3).(*ndarray)
-	fmt.Println("y: ", y)
-
-	// TODO: broadcast strides
+func TestBroadcast(t *testing.T) {
 	shapes := []struct {
+		nmin             int
+		isb              bool
 		xshp, yshp, rshp Shape
-		err              error
 	}{
-		{Shape{256, 256, 3}, Shape{3}, Shape{256, 256, 3}, nil},
-		{Shape{8, 1, 6, 1}, Shape{7, 1, 5}, Shape{8, 7, 6, 5}, nil},
-		{Shape{7, 1, 5}, Shape{8, 1, 6, 1}, Shape{8, 7, 6, 5}, nil},
-		{Shape{5, 4}, Shape{1}, Shape{5, 4}, nil},
-		{Shape{1}, Shape{5, 4}, Shape{5, 4}, nil},
-		{Shape{5, 4}, Shape{5, 4}, Shape{5, 4}, nil},
-		{Shape{15, 3, 5}, Shape{15, 1, 5}, Shape{15, 3, 5}, nil},
-		{Shape{4, 3, 5}, Shape{4, 1, 3}, nil, fmt.Errorf("%v", ErrBroadcast)},
-		{Shape{15, 3, 5}, Shape{15, 3, 5}, Shape{15, 3, 5}, nil},
-		{Shape{15, 3, 5}, Shape{3, 1}, Shape{15, 3, 5}, nil},
-		{Shape{3, 1}, Shape{15, 3, 5}, Shape{15, 3, 5}, nil},
-		{Shape{3}, Shape{4}, nil, fmt.Errorf("%v", ErrBroadcast)},
-		{Shape{4}, Shape{3}, nil, fmt.Errorf("%v", ErrBroadcast)},
-		{Shape{2, 1}, Shape{8, 4, 3}, nil, fmt.Errorf("%v", ErrBroadcast)},
-		{Shape{8, 4, 3}, Shape{2, 1}, nil, fmt.Errorf("%v", ErrBroadcast)},
+		{1, true, Shape{256, 256, 3}, Shape{3}, Shape{256, 256, 3}},
+		{3, true, Shape{8, 1, 6, 1}, Shape{7, 1, 5}, Shape{8, 7, 6, 5}},
+		{3, true, Shape{7, 1, 5}, Shape{8, 1, 6, 1}, Shape{8, 7, 6, 5}},
+		{1, true, Shape{5, 4}, Shape{1}, Shape{5, 4}},
+		{1, true, Shape{1}, Shape{5, 4}, Shape{5, 4}},
+		{1, true, Shape{8}, Shape{4, 1}, Shape{4, 8}},
+		{2, true, Shape{5, 4}, Shape{5, 4}, Shape{5, 4}},
+		{3, true, Shape{15, 3, 5}, Shape{15, 1, 5}, Shape{15, 3, 5}},
+		{3, false, Shape{4, 3, 5}, Shape{4, 1, 3}, nil},
+		{3, true, Shape{15, 3, 5}, Shape{15, 3, 5}, Shape{15, 3, 5}},
+		{2, true, Shape{15, 3, 5}, Shape{3, 1}, Shape{15, 3, 5}},
+		{2, true, Shape{3, 1}, Shape{15, 3, 5}, Shape{15, 3, 5}},
+		{1, false, Shape{3}, Shape{4}, nil},
+		{1, false, Shape{4}, Shape{3}, nil},
+		{2, false, Shape{2, 1}, Shape{8, 4, 3}, nil},
+		{2, false, Shape{8, 4, 3}, Shape{2, 1}, nil},
 	}
 
 	for i, shp := range shapes {
-		bs, err := broadcastShape(shp.xshp, shp.yshp)
-		if err != nil && shp.err != nil {
-			if err.Error() != shp.err.Error() {
+		bs := make(Shape, len(shp.rshp))
+		szx, szy := ComputeSize(shp.xshp), ComputeSize(shp.yshp)
+		if isb := isbroadcastable(shp.nmin, shp.xshp, shp.yshp); (isb == shp.isb) && shp.isb {
+			broadcastshp(shp.xshp, szx, shp.yshp, szy, bs)
+			if !testIsSliceIntSame(bs, shp.rshp) {
 				t.Logf("test 'broadcast'=(%d) failed. got: %v, exp: %v\n", i, bs, shp.rshp)
 				t.Fail()
 			}
-		}
-		fmt.Printf("i:%d = bs: %v\n", i, bs)
-	}
-
-	A := Reshape(Arange(0, 6), Shape{2, 3}).(*ndarray)
-	B := New(Shape{2, 1}, []float64{1, 2}).(*ndarray)
-	fmt.Println("A: ", A)
-	bs, err := broadcastShape(A.shape, B.shape)
-	if err != nil {
-		panic(err)
-	}
-	B.shape = bs
-	B.strides = Shape{1, 0}
-	fmt.Println("B: ", B)
-	bit := newnditer(B)
-
-	for inc := bit.Inc(); !bit.Done(); {
-		v, n := bit.Next()
-		for k := 0; k < n; k++ {
-			j := k * inc
-			fmt.Println("v: ", v[j], "inc: ", inc)
+			fmt.Printf("i:%d = bs: %v\n", i, bs)
 		}
 	}
-
-	fmt.Println(ComputeStrides(Shape{4, 3, 5}))
 }
 
 func TestNdarrayReshape(t *testing.T) {
 	shp := Shape{2, 3, 4, 5}
-	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp).(*ndarray)
+	x := Reshape(Arange(0, float64(ComputeSize(shp))), shp)
 	fmt.Println("x: ", x)
-	reshape(x, Shape{24, 5})
+	x.Reshape(Shape{24, 5})
 	fmt.Println("x*: ", x)
 }
 
@@ -332,7 +300,7 @@ func TestSub2ind(t *testing.T) {
 
 	exp := []int{7, 8, 9, 12, 13, 14, 17, 18, 19, 27, 28, 29, 32, 33, 34, 37, 38, 39, 47, 48, 49, 52, 53, 54, 57, 58, 59}
 
-	a := &ndarray{ndims: 3, strides: strides}
+	a := &Ndarray{ndims: 3, strides: strides}
 
 	for i, ind := range sub {
 		if v := Sub2ind(a.strides, ind); exp[i] != v {

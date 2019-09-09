@@ -1,31 +1,36 @@
 package nd
 
-func (array *ndarray) Data() []float64 { return array.data }
+const (
+	ErrShape     = "incompatible shapes"
+	ErrBroadcast = "could not broadcast shapes to a single shape"
+)
 
-func (array *ndarray) Shape() Shape { return array.shape }
+func (array *Ndarray) Data() []float64 { return array.data }
 
-func (array *ndarray) Strides() Shape { return array.strides }
+func (array *Ndarray) Shape() Shape { return array.shape }
 
-func (array *ndarray) Size() int { return array.size }
+func (array *Ndarray) Strides() Shape { return array.strides }
 
-func (array *ndarray) Ndims() int { return array.ndims }
+func (array *Ndarray) Size() int { return array.size }
+
+func (array *Ndarray) Ndims() int { return array.ndims }
 
 // TODO: Read copies the underlying data into dst
-func (array *ndarray) Read(dst []byte) (n int, err error) { return }
+func (array *Ndarray) Read(dst []byte) (n int, err error) { return }
 
 // TODO: Write copies src into the underlying data
-func (array *ndarray) Write(src []byte) (n int, err error) { return }
+func (array *Ndarray) Write(src []byte) (n int, err error) { return }
 
-func (array *ndarray) At(n Index) *float64 { return &array.data[Sub2ind(array.strides, n)] }
+func (array *Ndarray) At(n Index) *float64 { return &array.data[Sub2ind(array.strides, n)] }
 
-func (array *ndarray) Get(n Index) float64 { return array.data[Sub2ind(array.strides, n)] }
+func (array *Ndarray) Get(n Index) float64 { return array.data[Sub2ind(array.strides, n)] }
 
-func (array *ndarray) Set(v float64, n Index) { array.data[Sub2ind(array.strides, n)] = v }
+func (array *Ndarray) Set(v float64, n Index) { array.data[Sub2ind(array.strides, n)] = v }
 
 // Iter returns an nd-iterator for the array
-func (array *ndarray) Iter() Iterator { return array.it }
+func (array *Ndarray) Iter() Iterator { return array.it }
 
-func (array *ndarray) Take(ind Index, res ...Array) Array {
+func (array *Ndarray) Take(ind Index, res ...Array) Array {
 	var out Array
 	if len(res) < 1 {
 		out = Zeros(Shape{1, len(ind)})
@@ -45,7 +50,7 @@ func (array *ndarray) Take(ind Index, res ...Array) Array {
 	return out
 }
 
-func (array *ndarray) Range(rng ...int) Iterator {
+func (array *Ndarray) Range(rng ...int) Iterator {
 	it := array.it
 
 	switch len(rng) {
@@ -69,7 +74,7 @@ func (array *ndarray) Range(rng ...int) Iterator {
 	return it
 }
 
-func (array *ndarray) isView() bool {
+func (array *Ndarray) isView() bool {
 	for k := range array.shape {
 		str := 1
 		for _, s := range array.shape[k+1:] {
@@ -112,7 +117,7 @@ func _copy(shp, str Shape, dst, src []float64) {
 	}
 }
 
-func Copy(dst, src *ndarray) *ndarray {
+func Copy(dst, src *Ndarray) *Ndarray {
 	if !IsShapeSame(dst, src) {
 		panic("dst and src must have same shape")
 	}
@@ -142,12 +147,12 @@ func Copy(dst, src *ndarray) *ndarray {
 	return dst
 }
 
-func (array *ndarray) Clone() *ndarray {
-	res := Zeroslike(array).(*ndarray)
+func (array *Ndarray) Clone() *Ndarray {
+	res := Zeroslike(array)
 	return res
 }
 
-func (array *ndarray) ind(istr []float64, str Shape, k int) (s int) {
+func (array *Ndarray) ind(istr []float64, str Shape, k int) (s int) {
 	for i, n := range istr {
 		j := int(float64(k) * n)
 		s += j * array.strides[i]

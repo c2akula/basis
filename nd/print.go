@@ -47,7 +47,7 @@ func print2d(shape, strides Shape, x []float64) string {
 	return sb.String()
 }
 
-func (array *ndarray) String() string {
+func (array *Ndarray) String() string {
 	ndims := array.ndims
 
 	if ndims < 3 {

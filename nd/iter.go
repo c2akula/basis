@@ -21,7 +21,7 @@ type Iterator interface {
 type iter struct {
 	len int      // depth of the iterator
 	ind Index    // list of indices into the referenced data buffer
-	arr *ndarray // reference to the array's data buffer iterating upon
+	arr *Ndarray // reference to the array's data buffer iterating upon
 	beg int      // range start
 	inc int      // range step
 	str Shape    // view strides computed from its actual shape
@@ -58,7 +58,7 @@ func (it *iter) Iter() ([]float64, Index) {
 }
 
 // NewIter creates an iterator for the specified array.
-func newiter(array *ndarray) *iter {
+func newiter(array *Ndarray) *iter {
 	return &iter{
 		arr: array,
 		len: array.size,
