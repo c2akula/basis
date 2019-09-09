@@ -101,53 +101,36 @@ func (array *Ndarray) View(start Index, shape Shape) *Ndarray {
 }
 
 // Reshape changes array's shape to the new shape, shp.
-func (array *Ndarray) Reshape(shp Shape) *Ndarray {
-	if ComputeSize(shp) != array.size {
+func (array *Ndarray) Reshape(newshp Shape) *Ndarray {
+	newsz := ComputeSize(newshp)
+	if newsz != array.size {
 		panic("new shape should compute to the same size as the original")
 	}
 
 	if array.isView() {
-		res := Zeros(shp)
-		rit := NewNditer(res)
-		ait := NewNditer(array)
-		for k := 0; k < rit.sz; k++ {
-			rv, rn := rit.At(k)
-			av, _ := ait.At(k)
-			for i, j := 0, 0; rn != 0; i, j = i+rit.rs, j+ait.rs {
-				rv[i] = av[j]
-				rn--
+		yd := make([]float64, 0, newsz)
+		xit := newiterator(array)
+		for xv, ok := xit.init(); ok; xv, ok = xit.next() {
+			for j := 0; j < xit.dn[0]; j++ {
+				yd = append(yd, xv[j*xit.ds[0]])
 			}
 		}
-		// for inc := rit.Stride(); rit.Next(); {
-		// 	rv, n := rit.Get()
-		// 	fmt.Println("rv: ", rv, n, rit.b, rit.k)
-		// 	av, n := ait.Get()
-		// 	k := 0
-		// 	for j := 0; n != 0; j += inc {
-		// 		_ = rv[j]
-		// 		_ = av[k]
-		// 		n--
-		// 		k += ait.Stride()
-		// 	}
-		// }
-		// rit.Reset()
-		// ait.Reset()
-		return res
+		return New(newshp, yd)
 	}
 
-	res := array.View(make(Index, array.ndims), array.shape)
-	res.ndims = len(shp)
-	if d := res.ndims - cap(res.shape); d > 0 {
-		res.shape = append(res.shape, make(Shape, d)...)
-		res.strides = append(res.strides, make(Shape, d)...)
+	y := array.View(make(Index, array.ndims), array.shape)
+	y.ndims = len(newshp)
+	if d := y.ndims - cap(y.shape); d > 0 {
+		y.shape = append(y.shape, make(Shape, d)...)
+		y.strides = append(y.strides, make(Shape, d)...)
 	} else {
-		res.shape = res.shape[:res.ndims]
-		res.strides = res.strides[:res.ndims]
+		y.shape = y.shape[:y.ndims]
+		y.strides = y.strides[:y.ndims]
 	}
 
-	copy(res.shape, shp)
-	computestrides(res.shape, res.strides)
-	return res
+	copy(y.shape, newshp)
+	computestrides(y.shape, y.strides)
+	return y
 }
 
 // Permute reorders the dimensions of the array in the specified
