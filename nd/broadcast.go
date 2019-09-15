@@ -42,12 +42,13 @@ func Broadcast(x, y *Ndarray) error {
 func broadcastshp(x Shape, szx int, y Shape, szy int, b Shape) {
 	ndx, ndy := len(x), len(y)
 	ndb := 0
+	if szx > szy {
+		ndb = ndx
+	} else {
+		ndb = ndy
+	}
+
 	if b == nil {
-		if szx > szy {
-			ndb = ndx
-		} else {
-			ndb = ndy
-		}
 		b = make(Shape, ndb)
 	}
 

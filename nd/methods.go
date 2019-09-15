@@ -28,51 +28,7 @@ func (array *Ndarray) Get(n Index) float64 { return array.data[Sub2ind(array.str
 func (array *Ndarray) Set(v float64, n Index) { array.data[Sub2ind(array.strides, n)] = v }
 
 // Iter returns an nd-iterator for the array
-func (array *Ndarray) Iter() Iterator { return array.it }
-
-func (array *Ndarray) Take(ind Index, res ...Array) Array {
-	var out Array
-	if len(res) < 1 {
-		out = Zeros(Shape{1, len(ind)})
-	} else {
-		if len(ind) > res[0].Size() {
-			panic("Take: provided Array is not big enough")
-		}
-		out = res[0]
-	}
-
-	ad, ai := array.Range().Iter()
-	od := out.Data()
-	for k, l := range ind {
-		od[k] = ad[ai[l]]
-	}
-
-	return out
-}
-
-func (array *Ndarray) Range(rng ...int) Iterator {
-	it := array.it
-
-	switch len(rng) {
-	case 0:
-		it.beg = 0
-		it.len = array.size
-		it.inc = 1
-	case 1:
-		it.beg = rng[0]
-		it.len = array.size - it.beg + 1
-		it.inc = 1
-	case 2:
-		it.beg = rng[0]
-		it.len = rng[1] - it.beg + 1
-		it.inc = 1
-	default:
-		it.beg = rng[0]
-		it.inc = rng[2]
-		it.len = (rng[1] - it.beg) / it.inc
-	}
-	return it
-}
+func (array *Ndarray) Iter() *Iter { return NewIter(array) }
 
 func (array *Ndarray) isView() bool {
 	for k := range array.shape {

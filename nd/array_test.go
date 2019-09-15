@@ -217,9 +217,13 @@ func TestNdarray_View(t *testing.T) {
 
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))
-	bd, bi := b.Range().Iter()
-	for _, k := range bi {
-		elm = append(elm, bd[k])
+
+	for it := b.Iter(); it.Next(); {
+		n, bd, str := it.Get()
+		for j := 0; n != 0; j += str {
+			elm = append(elm, bd[j])
+			n--
+		}
 	}
 
 	for i, v := range exp {
@@ -332,11 +336,13 @@ func TestNdarray_Iterator(t *testing.T) {
 
 	exp := []float64{3, 1, 2, 1, 0, 2}
 	elm := make([]float64, 0, len(exp))
-	bd, bi := b.Range().Iter()
-	for _, k := range bi {
-		elm = append(elm, bd[k])
+	for bit := b.Iter(); bit.Next(); {
+		n, bd, str := bit.Get()
+		for j := 0; n != 0; j += str {
+			elm = append(elm, bd[j])
+			n--
+		}
 	}
-
 	for i, v := range exp {
 		if elm[i] != v {
 			t.Logf("test failed. exp: %v, got: %v\n", exp, elm)
@@ -348,12 +354,13 @@ func TestNdarray_Iterator(t *testing.T) {
 func TestArange(t *testing.T) {
 	got := Arange(0, 11)
 	exp := []float64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	it := got.Iter()
-	gd := it.Data()
-	for i, k := range it.Ind() {
-		if exp[i] != gd[k] {
-			t.Logf("test failed. exp: %v, got: %v\n", exp, got)
-			t.Fail()
+	for it := got.Iter(); it.Next(); {
+		n, gd, _ := it.Get()
+		for j, gv := range gd[:n] {
+			if gv != exp[j] {
+				t.Logf("test failed. exp: %v, got: %v\n", exp, got)
+				t.Fail()
+			}
 		}
 	}
 }
@@ -364,30 +371,6 @@ func TestReshape(t *testing.T) {
 	if got.String() != exp.String() {
 		t.Logf("test failed. exp: %v, got: %v\n", exp, got)
 		t.Fail()
-	}
-}
-
-func TestNdarray_Take(t *testing.T) {
-	a := Reshape(Arange(0, 24), Shape{2, 4, 3})
-	exp := []float64{1, 4, 3, 7}
-	b := a.Take(Index{1, 4, 3, 7})
-	bd, bi := b.Range().Iter()
-	for i, k := range bi {
-		if bd[k] != exp[i] {
-			t.Logf("test 'Take' failed. exp: %v\n, got: %v\n", exp, bd)
-			t.Fail()
-		}
-	}
-
-	av := a.View(Index{0, 1, 1}, Shape{3, 2})
-	b = av.Take(Index{2, 4, 3})
-	exp = []float64{7, 10, 8}
-	bd, bi = b.Range().Iter()
-	for i, k := range bi {
-		if bd[k] != exp[i] {
-			t.Logf("test 'Take' failed. exp: %v\n, got: %v\n", exp, bd)
-			t.Fail()
-		}
 	}
 }
 
@@ -403,21 +386,6 @@ func BenchmarkInd2sub(b *testing.B) {
 		Ind2sub(strides, 1999, ind)
 	}
 	_ = ind[0]
-}
-
-func BenchmarkNdarray_Iterator(b *testing.B) {
-	b.ReportAllocs()
-	a := Rand(TestArrayShape)
-	m := a.View(make(Index, a.Ndims()), TestArrayShape)
-	md, mi := m.Range().Iter()
-	s := 0.0
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		for _, k := range mi {
-			s = md[k]
-		}
-	}
-	_ = s * s
 }
 
 func BenchmarkNdarray_View(b *testing.B) {

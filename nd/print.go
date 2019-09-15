@@ -5,45 +5,74 @@ import (
 	"strings"
 )
 
-func (x *Ndarray) String() string {
+func istr(n int, x []float64, str int, sb *strings.Builder) {
+	sb.WriteByte('[')
+	for j := 0; n != 0; j += str {
+		sb.WriteString(fmt.Sprintf(" %8.4f ", x[j]))
+	}
+	sb.WriteString("]\n")
+}
+
+func ustr(n int, x []float64, sb *strings.Builder) {
+	sb.WriteByte('[')
+	for _, v := range x[:n] {
+		sb.WriteString(fmt.Sprintf(" %8.4f ", v))
+	}
+	sb.WriteString("]\n")
+}
+
+func tostr(shp, str Shape, x []float64, sb *strings.Builder) {
+	rn, cn := shp[0], shp[1]
+	rs, cs := str[0], str[1]
+	if cs != 1 {
+		for i := 0; i < rn; i++ {
+			b := i * rs
+			istr(cn, x[b:], cs, sb)
+		}
+		return
+	}
+
+	for i := 0; i < rn; i++ {
+		b := i * rs
+		ustr(cn, x[b:], sb)
+	}
+}
+
+func ndStr(x *Ndarray) string {
 	var sb strings.Builder
 
 	if x.ndims < 3 {
-		it := newiterator(x)
-		fmt.Println("print: iscontiguous: ", it.iscontiguous)
 		sb.WriteByte('\n')
 		sb.WriteString(fmt.Sprintf("shp: %v, str: %v\n", x.shape, x.strides))
-		for xv, ok := it.init(); ok; xv, ok = it.next() {
-			sb.WriteByte('[')
-			for j := 0; j < it.dn[0]; j++ {
-				sb.WriteString(fmt.Sprintf(" %8.4f ", xv[j*it.ds[0]]))
-			}
-			sb.WriteString("]\n")
-		}
+		tostr(x.shape, x.strides, x.data, &sb)
 		return sb.String()
 	}
 
-	it := newiterator(x, 2)
-	fmt.Println("print: iscontiguous: ", it.iscontiguous)
+	ishp := make(Shape, x.ndims)
+	copy(ishp, x.shape)
+	for i := x.ndims - 2; i < x.ndims; i++ {
+		ishp[i] = 1
+	}
+	istr := ComputeStrides(ishp)
+	sub := make(Index, x.ndims)
 
 	sb.WriteByte('\n')
 	sb.WriteString(fmt.Sprintf("shp: %v, str: %v\n", x.shape, x.strides))
-	for v, ok := it.init(); ok; v, ok = it.next() {
+	for k := 0; k < ComputeSize(x.shape[:x.ndims-2]); k++ {
+		Ind2sub(istr, k, sub)
 		// print header
 		sb.WriteByte('[')
-		for _, i := range it.sub {
+		for _, i := range sub[:x.ndims-2] {
 			sb.WriteString(fmt.Sprintf("%d,", i))
 		}
 		sb.WriteString(":,:]\n")
-
-		for i := 0; i < it.dn[0]; i++ {
-			k := i * it.ds[0]
-			sb.WriteByte('[')
-			for j := 0; j < it.dn[1]; j++ {
-				sb.WriteString(fmt.Sprintf(" %8.4f ", v[k+j*it.ds[1]]))
-			}
-			sb.WriteString("]\n")
-		}
+		b := Sub2ind(x.strides, sub)
+		tostr(x.shape[x.ndims-2:], x.strides[x.ndims-2:], x.data[b:], &sb)
 	}
+
 	return sb.String()
+}
+
+func (x *Ndarray) String() string {
+	return ndStr(x)
 }

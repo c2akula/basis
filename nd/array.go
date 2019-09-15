@@ -32,10 +32,7 @@ func Zeros(shape Shape) *Ndarray {
 		size:    ComputeSize(shape),
 	}
 
-	// initialize the iterator
-	res.it = newiter(res)
 	res.data = make([]float64, res.size)
-
 	return res
 }
 
@@ -96,7 +93,6 @@ func (array *Ndarray) View(start Index, shape Shape) *Ndarray {
 	copy(arr.shape, shape)
 	arr.strides = make(Shape, arr.ndims)
 	copy(arr.strides, array.strides[array.ndims-arr.ndims:])
-	arr.it = newiter(arr)
 	return arr
 }
 
@@ -109,10 +105,12 @@ func (array *Ndarray) Reshape(newshp Shape) *Ndarray {
 
 	if array.isView() {
 		yd := make([]float64, 0, newsz)
-		xit := newiterator(array)
-		for xv, ok := xit.init(); ok; xv, ok = xit.next() {
-			for j := 0; j < xit.dn[0]; j++ {
-				yd = append(yd, xv[j*xit.ds[0]])
+		xit := NewIter(array)
+		for xit.Next() {
+			n, xv, str := xit.Get()
+			for j := 0; n != 0; j += str {
+				yd = append(yd, xv[j])
+				n--
 			}
 		}
 		return New(newshp, yd)

@@ -32,11 +32,7 @@ type (
 		// View extracts a sub-Array of the specified shape, starting at the cartesian Index, start.
 		View(start Index, shape Shape) *Ndarray
 
-		// Fancy Indexing
-		Take(index Index, res ...Array) Array
-
 		// Iterator
-		Range(...int) Iterator
 		Iterable
 
 		// String
@@ -56,10 +52,9 @@ type (
 		ndims   int       // # of dimensions
 		strides Shape     // strides * dsize
 		shape   Shape     // dimension sizes
-		it      *iter     // iterator
 	}
 
 	Iterable interface {
-		Iter() Iterator
+		Iter() *Iter
 	}
 )
