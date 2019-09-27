@@ -234,6 +234,19 @@ func TestNdarray_View(t *testing.T) {
 	}
 }
 
+func TestInd2sub(t *testing.T) {
+	shp := Shape{3, 4, 5}
+	x := Arange(0, float64(ComputeSize(shp))).Reshape(shp)
+	ind := make(Index, x.ndims)
+	stri := make([]float64, x.ndims)
+	for j, n := range x.strides {
+		stri[j] = 1 / float64(n)
+	}
+	for k := 0; k < x.size; k++ {
+		fmt.Println("ind: ", Ind2sub(x.strides, k, ind), "sub: ", ind2ind(x.strides, stri, k))
+	}
+}
+
 func TestNdarray_Get(t *testing.T) {
 	a := New(Shape{2, 2, 3}, []float64{
 		// p = 0
@@ -402,13 +415,20 @@ func BenchmarkNdarray_View(b *testing.B) {
 }
 
 func BenchmarkNdarray_Get(b *testing.B) {
-	a := Rand(TestArrayShape)
-	ind := Index{2, 14, 3}
+	a := Rand(Shape{10, 10, 10, 1e2, 10})
+	ind := Index{5, 5, 5, 34, 5}
+	k := Sub2ind(a.strides, ind)
+	stri := make([]float64, a.ndims)
+	for j, n := range a.strides {
+		stri[j] = 1 / float64(n)
+	}
 	v := 0.0
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		v = a.Get(ind)
+		// v = a.Get(ind)
+		// _ = Sub2ind(a.strides, ind)
+		_ = ind2ind(a.strides, stri, k)
 	}
 	_ = v * v
 }

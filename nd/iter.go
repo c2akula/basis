@@ -190,6 +190,8 @@ func (it *Iter) Sub2ind(sub []int) (s int) {
 	return
 }
 
+// ZipIter is an iterator that provides the ability to iterate over two
+// arrays simultaneously.
 type ZipIter struct {
 	x, y         []float64 // referenced array data
 	xstr, ystr   []int     // array strides
@@ -197,14 +199,14 @@ type ZipIter struct {
 	xistr, yistr []int     // iterator strides
 	xstri, ystri []float64 // inverse iterator strides
 	k, size      int       // track iterations
-	xv, yv       vec       // tmp struct to package rows from Get
+	xv, yv       Vec       // tmp struct to package rows from Get
 	rn           int       // length of the rows returned by Get
 	xrs, yrs     int       // stride of the rows returned by Get
 	xb, yb       int       // linear index to the start of the rows
 	xic, yic     bool      // is contiguous?
 }
 
-//
+// Zip creates an iterator to iterate over x and y simultaneously.
 func Zip(x, y *Ndarray) *ZipIter {
 	if !IsShapeSame(x, y) {
 		if err := Broadcast(x, y); err != nil {
@@ -249,23 +251,27 @@ func Zip(x, y *Ndarray) *ZipIter {
 		it.ystri[i] = 1 / float64(n)
 	}
 
-	it.xv = vec{data: it.x, size: xshp[ndims-1], step: xstr[ndims-1]}
-	it.yv = vec{data: it.y, size: yshp[ndims-1], step: ystr[ndims-1]}
+	it.xv = Vec{Data: it.x, Size: xshp[ndims-1], Step: xstr[ndims-1]}
+	it.yv = Vec{Data: it.y, Size: yshp[ndims-1], Step: ystr[ndims-1]}
 	return it
 }
 
+//
 func (it *ZipIter) Next() bool {
 	it.xb, it.yb = it.ind(it.k)
 	return it.k < it.size
 }
 
-func (it *ZipIter) Get() (xv, yv vec) {
+// Get returns two Vec objects, each containing a slice of elements,
+// no. of valid elements and the stride required to access the elements.
+func (it *ZipIter) Get() (xv, yv Vec) {
 	it.k++
-	it.xv.data = it.x[it.xb:]
-	it.yv.data = it.y[it.yb:]
+	it.xv.Data = it.x[it.xb:]
+	it.yv.Data = it.y[it.yb:]
 	return it.xv, it.yv
 }
 
+// Reset sets the iterator to its initial state.
 func (it *ZipIter) Reset() { it.k = 0 }
 
 func (it *ZipIter) ind(k int) (xs, ys int) {
@@ -297,10 +303,12 @@ func (it *ZipIter) ind(k int) (xs, ys int) {
 	return
 }
 
-type vec struct {
-	data []float64
-	size int
-	step int
+// Vec is a wrapper object for providing access to the data returned by the iterator's Get
+// method.
+type Vec struct {
+	Data []float64
+	Size int
+	Step int
 }
 
 func ind(xstr, istr []int, stri []float64, k int) (s int) {

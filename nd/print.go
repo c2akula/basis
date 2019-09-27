@@ -9,6 +9,7 @@ func istr(n int, x []float64, str int, sb *strings.Builder) {
 	sb.WriteByte('[')
 	for j := 0; n != 0; j += str {
 		sb.WriteString(fmt.Sprintf(" %8.4f ", x[j]))
+		n--
 	}
 	sb.WriteString("]\n")
 }

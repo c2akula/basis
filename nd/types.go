@@ -47,11 +47,12 @@ type (
 	}
 
 	Ndarray struct {
-		data    []float64 // shape * dsize
-		size    int       // # of elements
-		ndims   int       // # of dimensions
-		strides Shape     // strides * dsize
-		shape   Shape     // dimension sizes
+		data     []float64 // shape * dsize
+		size     int       // # of elements
+		ndims    int       // # of dimensions
+		strides  Shape     // strides * dsize
+		shape    Shape     // dimension sizes
+		beg, end Index
 	}
 
 	Iterable interface {

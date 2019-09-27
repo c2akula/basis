@@ -2,6 +2,7 @@ package nd
 
 // Sub2ind converts a cartesian coordinate, ind into a linear index k.
 func Sub2ind(strides Shape, ind Index) (k int) {
+	_ = ind[len(strides)-1]
 	for i, s := range strides {
 		k += s * ind[i]
 	}
@@ -12,7 +13,7 @@ func Sub2ind(strides Shape, ind Index) (k int) {
 func Ind2sub(strides Shape, k int, ind Index) Index {
 	for j, s := range strides {
 		l := int(float64(k) * (1.0 / float64(s)))
-		k -= s * l
+		k -= s * l // k %= s
 		ind[j] = l
 	}
 	return ind
@@ -44,4 +45,21 @@ func computestrides(shp, str Shape) Shape {
 		}
 	}
 	return str
+}
+
+func zipsubtoind(xsub, ysub Index, xstr, ystr Shape) (xs, ys int) {
+	for i, xn := range xstr {
+		xs += xsub[i] * xn
+		ys += ysub[i] * ystr[i]
+	}
+	return
+}
+
+func ind2ind(istr Shape, stri []float64, k int) (s int) {
+	for j, n := range stri {
+		ln := int(float64(k)*n) * istr[j]
+		k -= ln
+		s += ln
+	}
+	return
 }

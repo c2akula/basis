@@ -41,7 +41,7 @@ func TestInd(t *testing.T) {
 func BenchmarkInd(b *testing.B) {
 	b.Run("new ind", func(b *testing.B) {
 		b.ReportAllocs()
-		x := Rand(Shape{10, 10, 10, 10, 1e2})
+		x := Rand(Shape{10, 10, 10, 1e2, 10})
 		it := NewIter(x)
 		s := 0
 		b.ResetTimer()
@@ -55,7 +55,7 @@ func BenchmarkInd(b *testing.B) {
 
 	b.Run("new ind->sub->ind", func(b *testing.B) {
 		b.ReportAllocs()
-		x := Rand(Shape{10, 10, 10, 10, 1e2})
+		x := Rand(Shape{10, 10, 10, 1e2, 10})
 		it := NewIter(x)
 		s := 0
 		b.ResetTimer()
@@ -69,8 +69,8 @@ func BenchmarkInd(b *testing.B) {
 
 	b.Run("zipind", func(b *testing.B) {
 		b.ReportAllocs()
-		x := Rand(Shape{10, 10, 10, 10, 1e2})
-		y := Rand(Shape{10, 10, 10, 10, 1e2})
+		x := Rand(Shape{10, 10, 10, 1e2, 10})
+		y := Rand(Shape{10, 10, 10, 1e2, 10})
 		xit := NewIter(x)
 		yit := NewIter(y)
 		xs, ys := 0, 0
@@ -85,7 +85,7 @@ func BenchmarkInd(b *testing.B) {
 
 	b.Run("old ind", func(b *testing.B) {
 		b.ReportAllocs()
-		x := Rand(Shape{10, 10, 10, 10, 1e2})
+		x := Rand(Shape{10, 10, 10, 1e2, 10})
 		it := NewIter(x)
 		ind := func(it *Iter, k int) (s int) {
 			for i, n := range it.stri {
@@ -108,7 +108,7 @@ func BenchmarkInd(b *testing.B) {
 
 func BenchmarkIterator(b *testing.B) {
 	b.ReportAllocs()
-	x := Rand(Shape{1e2, 1e2, 1e2})
+	x := Rand(Shape{10, 10, 10, 1e2, 10})
 	it := NewIter(x)
 	// a := raFloat64()
 	// s := 0.0
@@ -203,8 +203,8 @@ func TestZip(t *testing.T) {
 		it.xic = false
 		it.yic = false
 		xv, yv := it.Get()
-		for j, x := range xv.data[:xv.size] {
-			s += x * yv.data[j]
+		for j, x := range xv.Data[:xv.Size] {
+			s += x * yv.Data[j]
 		}
 	}
 	fmt.Println("s: ", s)
@@ -258,10 +258,157 @@ func BenchmarkZip(b *testing.B) {
 			s := 0.0
 			for it.Reset(); it.Next(); {
 				xv, yv := it.Get()
-				for j, x := range xv.data[:xv.size] {
-					s += x * yv.data[j]
+				for j, x := range xv.Data[:xv.Size] {
+					s += x * yv.Data[j]
 				}
 			}
 		}
 	})
+}
+
+func (array *Ndarray) iter() {
+	fmt.Println("iter: str = ", array.strides, "shp: ", array.shape)
+}
+
+func TestNdarray_Iter(t *testing.T) {
+	shp := Shape{3, 4, 5, 6}
+	x := Arange(0, float64(ComputeSize(shp))).Reshape(shp) // [3,4,5,6] => [120,30,6,1]
+	fmt.Println("x: ", x)
+	xv := x.View(Index{0, 0, 2, 2}, Shape{3, 4, 2, 3})
+	// xp := x.Permute([]int{1, 0, 3, 2})
+	// xp := x
+	xp := xv
+	fmt.Println("xp: ", xp)
+	xp.iter()
+	istr := ComputeStrides(xp.shape)
+	fmt.Println("xp.cs: ", istr)
+
+	for it := xp.Iter(); it.Next(); {
+		n, v, str := it.Get()
+		fmt.Println(it.pind(it.k), n, v, str)
+	}
+
+	// the following indexing scheme works quite well for non-View cases
+	// find dimension with smallest stride
+	// min := func(x []int) (k, v int) {
+	// 	v = x[k]
+	// 	for i, e := range x[1:] {
+	// 		if e < v {
+	// 			v = e
+	// 			k = i + 1
+	// 		}
+	// 	}
+	// 	return
+	// }
+
+	// k, v := min(xp.strides)
+	// fmt.Println("k, v: ", k, v)
+	// for b := 0; b < xp.size; b += xp.shape[k] {
+	// 	fmt.Println(xp.data[b : b+xp.shape[k]])
+	// }
+}
+
+func Min(x []int) (k, v int) {
+	v = x[k]
+	for j, e := range x[1:] {
+		if e < v {
+			v = e
+			k = j + 1
+		}
+	}
+	return
+}
+
+// fast working version
+// func findInd(e, k Index, str Shape) (n int) {
+// 	str = str[:len(k)]
+// 	e = e[:len(k)]
+// 	nd := len(str) - 1
+
+// 	for ; nd >= 0; nd-- {
+// 		if k[nd] < e[nd] {
+// 			k[nd]++
+// 			for i, s := range str {
+// 				n += s * k[i]
+// 			}
+// 			break
+// 		}
+// 		// reset dimension and do carry
+// 		k[nd] = 0
+// 	}
+// 	return
+// }
+
+func findInd(e, k Index, str Shape) (n int) {
+	str = str[:len(k)]
+	e = e[:len(k)]
+	j := len(str) - 1
+	for j >= 0 {
+		if k[j] < e[j] {
+			k[j]++
+			for i, s := range str {
+				n += s * k[i]
+			}
+			break
+		}
+		k[j] = 0
+		j--
+	}
+	return
+}
+
+func findIndPlain(size int, i Index, shp, str Shape) (b, n int) {
+	k, s := Min(str) // dimension with the smallest stride
+	n = shp[k]
+	for b := 0; b < size; b += n {
+		fmt.Println(b, b+n, s)
+	}
+	return
+}
+
+func TestFindInd(t *testing.T) {
+	shp := Shape{3, 4, 5, 6}
+	x := Arange(0, float64(ComputeSize(shp))).Reshape(shp) // [3,4,5,6] => [120,30,6,1]
+	fmt.Println("x: ", x)
+	// xv := x.View(Index{0, 0, 2, 2}, Shape{3, 4, 2, 3})
+	xp := x.Permute([]int{1, 0, 3, 2})
+	// xp := x
+	// xp := xv
+	fmt.Println("xp: ", xp)
+	fmt.Println(ComputeStrides(Shape{10, 10, 10, 100, 10}))
+	// beg := make(Index, xp.ndims)
+	end := make(Index, xp.ndims)
+	ComputeEnd(xp.shape, end)
+	fmt.Println("end: ", end)
+	ind := make(Index, xp.ndims)
+	j := 0
+	for k := 0; k < ComputeSize(xp.shape[:xp.ndims-1]); k++ {
+		// for k := 0; k < ComputeSize(xp.shape[:xp.ndims]); k++ {
+		// fmt.Println(ind, j, xp.data[j:])
+		// fmt.Println(ind, j, xp.data[j])
+		fmt.Println(ind, j)
+		// fmt.Println(j)
+		// j = findInd(beg[:xp.ndims], end[:xp.ndims], ind[:xp.ndims], xp.strides[:xp.ndims])
+		j = findInd(end[:xp.ndims-1], ind[:xp.ndims-1], xp.strides[:xp.ndims-1])
+		_ = j
+	}
+}
+
+func BenchmarkFindInd(b *testing.B) {
+	b.ReportAllocs()
+	x := Rand(Shape{10, 10, 10, 1e2, 10})
+	// beg := make(Index, x.ndims)
+	end := make(Index, x.ndims)
+	ComputeEnd(x.shape, end)
+	ind := make(Index, x.ndims)
+	// n := ComputeSize(x.shape[:x.ndims-1])
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+
+		// for k := 0; k < n; k++ {
+		_ = ind
+		_ = findInd(end[:x.ndims-1], ind[:x.ndims-1], x.strides[:x.ndims-1])
+		// }
+
+	}
 }

@@ -33,6 +33,9 @@ func Zeros(shape Shape) *Ndarray {
 	}
 
 	res.data = make([]float64, res.size)
+	res.beg = make(Index, res.ndims)
+	res.end = make(Index, res.ndims)
+	ComputeEnd(res.shape, res.end)
 	return res
 }
 
