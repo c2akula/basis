@@ -1,8 +1,0 @@
-<component name="CopyrightManager">
-  <settings>
-    <LanguageOptions name="Go">
-      <option name="separateBefore" value="true" />
-      <option name="separateAfter" value="true" />
-    </LanguageOptions>
-  </settings>
-</component>
